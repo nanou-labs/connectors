@@ -1,0 +1,24 @@
+{
+  "blurb": "Bijpraten over je kanalen en DM's.",
+  "can": [
+    "Wat je in je kanalen hebt gemist",
+    "Vind die thread of dat besluit terug",
+    "Antwoorden en reacties pas na jouw tik"
+  ],
+  "upload": {
+    "label": "Gebruikerstoken",
+    "help": [
+      "Maak op api.slack.com/apps een nieuwe app vanaf nul in je workspace.",
+      "Voeg onder OAuth & Permissions deze user token scopes toe: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Installeer hem daarna (misschien moet de admin van je workspace hem goedkeuren).",
+      "Kopieer de User OAuth Token (begint met xoxp-) en plak hem hier."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "je Slack-accounts",
+    "next": "Slack-accounts die je hierna koppelt",
+    "first": "Als je je Slack-accounts koppelt"
+  }
+}

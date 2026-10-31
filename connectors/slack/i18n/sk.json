@@ -1,0 +1,24 @@
+{
+  "blurb": "Dobehni, čo sa dialo v kanáloch a súkromných správach.",
+  "can": [
+    "Čo ti v kanáloch ušlo",
+    "Nájdi to vlákno alebo rozhodnutie",
+    "Odpovede a reakcie až po tvojom ťuknutí"
+  ],
+  "upload": {
+    "label": "Používateľský token",
+    "help": [
+      "Na api.slack.com/apps vytvor od začiatku aplikáciu vo svojom workspace.",
+      "V OAuth & Permissions pridaj tieto scopy používateľského tokenu: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Potom ju nainštaluj (admin tvojho workspace ju možno bude musieť schváliť).",
+      "Skopíruj User OAuth Token (začína xoxp-) a vlož ho sem."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "tvojimi účtami Slack",
+    "next": "Účty Slack, ktoré pripojíš neskôr",
+    "first": "Keď pripojíš svoje účty Slack"
+  }
+}

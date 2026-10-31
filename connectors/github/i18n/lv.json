@@ -1,0 +1,13 @@
+{
+  "blurb": "Problēmas, pull request un kods.",
+  "can": [
+    "Pārskatīt problēmas, pull request un neizdevušās būvēšanas",
+    "Pārskatīt izmaiņas un sagatavot komentāru",
+    "Atver, komentē, apvieno vai nosūta izmaiņas tikai pēc tava pieskāriena"
+  ],
+  "sharing": {
+    "yours": "taviem GitHub kontiem",
+    "next": "GitHub konti, ko pievienosi turpmāk",
+    "first": "Kad pievienosi savus GitHub kontus"
+  }
+}

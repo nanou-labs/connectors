@@ -1,0 +1,24 @@
+{
+  "blurb": "Ujemi, kaj se je dogajalo v kanalih in zasebnih sporočilih.",
+  "can": [
+    "Kaj si zamudil v svojih kanalih",
+    "Najdi tisto nit ali odločitev",
+    "Odgovori in odzivi šele po tvojem dotiku"
+  ],
+  "upload": {
+    "label": "Uporabniški žeton",
+    "help": [
+      "Na api.slack.com/apps ustvari novo aplikacijo v svojem delovnem prostoru.",
+      "V OAuth & Permissions dodaj te obsege uporabniškega žetona: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Nato jo namesti (skrbnik delovnega prostora jo bo morda moral odobriti).",
+      "Kopiraj User OAuth Token (začne se z xoxp-) in ga prilepi sem."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "tvojih računih Slack",
+    "next": "Računi Slack, ki jih povežeš naslednje",
+    "first": "Ko povežeš svoje račune Slack"
+  }
+}

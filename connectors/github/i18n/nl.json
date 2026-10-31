@@ -1,0 +1,13 @@
+{
+  "blurb": "Issues, pull requests en code.",
+  "can": [
+    "Issues, pull requests en mislukte builds bijhouden",
+    "Een diff reviewen en de opmerking opstellen",
+    "Opent, reageert, merget of pusht pas na jouw tik"
+  ],
+  "sharing": {
+    "yours": "je GitHub-accounts",
+    "next": "GitHub-accounts die je hierna koppelt",
+    "first": "Als je je GitHub-accounts koppelt"
+  }
+}

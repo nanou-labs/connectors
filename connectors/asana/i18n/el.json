@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Personal access token"
+  },
+  "sharing": {
+    "yours": "τους λογαριασμούς σου Asana",
+    "next": "Λογαριασμοί Asana που θα συνδέσεις στη συνέχεια",
+    "first": "Όταν συνδέσεις τους λογαριασμούς σου Asana"
   }
 }

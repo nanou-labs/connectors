@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Osobni pristupni token"
+  },
+  "sharing": {
+    "yours": "tvoji Asana računi",
+    "next": "Asana računi koje povežeš sljedeće",
+    "first": "Kad povežeš svoje Asana račune"
   }
 }

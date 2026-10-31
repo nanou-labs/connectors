@@ -1,0 +1,13 @@
+{
+  "blurb": "Issue, pull request e codice.",
+  "can": [
+    "Mettersi in pari con issue, pull request e build fallite",
+    "Rivedere un diff e preparare il commento",
+    "Apre, commenta, fa merge o push solo dopo il tuo tocco"
+  ],
+  "sharing": {
+    "yours": "i tuoi account GitHub",
+    "next": "Gli account GitHub che collegherai dopo",
+    "first": "Quando colleghi i tuoi account GitHub"
+  }
+}

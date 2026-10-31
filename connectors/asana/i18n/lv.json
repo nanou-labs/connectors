@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Personiskās piekļuves tokens"
+  },
+  "sharing": {
+    "yours": "taviem Asana kontiem",
+    "next": "Asana konti, ko pievienosi turpmāk",
+    "first": "Kad pievienosi savus Asana kontus"
   }
 }

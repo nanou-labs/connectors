@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Isiklik juurdepääsutoken"
+  },
+  "sharing": {
+    "yours": "sinu Asana kontod",
+    "next": "Asana kontod, mille järgmisena ühendad",
+    "first": "Kui ühendad oma Asana kontod"
   }
 }

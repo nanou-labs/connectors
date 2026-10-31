@@ -1,0 +1,41 @@
+{
+  "id": "github",
+  "name": "GitHub",
+  "category": "work",
+  "order": 60,
+  "plan": "solo",
+  "color": "#181717",
+  "mark": "Gh",
+  "logo": "logo.svg",
+  "tool": {
+    "bin": "gh",
+    "source": "github",
+    "runs": "entry",
+    "policy": "src/policy.mjs"
+  },
+  "entry": "src/gh.mjs",
+  "binaries": [
+    {
+      "name": "gh-cli",
+      "url": "https://github.com/cli/cli/releases/download/v2.102.0/gh_2.102.0_linux_amd64.tar.gz",
+      "sha256": "bb766f710eef8ede859c18578c72c327597cd4c8a85b06001b1f3843c6019386",
+      "path": "gh_2.102.0_linux_amd64/bin/gh"
+    }
+  ],
+  "auth": {
+    "kind": "device",
+    "codeUrl": "https://github.com/login/device/code",
+    "tokenUrl": "https://github.com/login/oauth/access_token",
+    "verifyUrl": "https://github.com/login/device",
+    "userUrl": "https://api.github.com/user"
+  },
+  "accounts": {
+    "kind": "github",
+    "dir": ".config/family-github",
+    "files": ["*.json#owner"],
+    "account": "login",
+    "label": "GitHub"
+  },
+  "network": ["github.com", "api.github.com", "uploads.github.com", "codeload.github.com", "objects.githubusercontent.com"],
+  "data": "Issues, pull requests, code and CI runs the person's GitHub account can see, read on request; every write waits for an approval card. Kept in the family's enclave."
+}

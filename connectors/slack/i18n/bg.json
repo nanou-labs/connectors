@@ -1,0 +1,24 @@
+{
+  "blurb": "Навакса с каналите и личните съобщения.",
+  "can": [
+    "Какво си пропуснал в каналите си",
+    "Намери онази нишка или решение",
+    "Отговори и реакции само след твоето докосване"
+  ],
+  "upload": {
+    "label": "Потребителски токен",
+    "help": [
+      "В api.slack.com/apps създай ново приложение от нулата в работното си пространство.",
+      "В OAuth & Permissions добави тези обхвати на потребителския токен: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. После го инсталирай (може администраторът на пространството да трябва да го одобри).",
+      "Копирай User OAuth Token (започва с xoxp-) и го постави тук."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "твоите Slack акаунти",
+    "next": "Slack акаунти, които свържеш занапред",
+    "first": "Когато свържеш своите Slack акаунти"
+  }
+}

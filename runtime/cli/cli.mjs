@@ -61,6 +61,13 @@ function parse(argv, bool) {
   return { words, flags };
 }
 
+/** Write JSON atomically, owner-only. @param {string} file @param {unknown} value */
+function save(file, value) {
+  mkdirSync(dirname(file), { recursive: true, mode: 0o700 });
+  writeFileSync(`${file}.tmp`, `${JSON.stringify(value, null, 2)}\n`, { mode: 0o600 });
+  renameSync(`${file}.tmp`, file);
+}
+
 /** The connector's manifest and module. @param {string} id */
 async function load(id) {
   if (!/^[a-z][a-z0-9-]{1,23}$/.test(id ?? "")) fail("usage: cli.mjs <connector id> [command] [--flags]");
@@ -141,6 +148,11 @@ async function main() {
   };
 
   const rest = words.slice(command.split(" ").length);
+  /** @param {string} name */
+  const statePath = (name) => {
+    if (!/^[a-z0-9-]{1,40}$/.test(name)) fail(`state name "${name}" must be a short lowercase word`);
+    return join(dirname(path(owner())), `${id}-state`, `${owner()}-${name}.json`);
+  };
   const ctx = {
     words: rest,
     flags,
@@ -156,10 +168,26 @@ async function main() {
     },
     /** Replace the saved secret (a refreshed token, a remembered workspace), atomically, owner-only. @param {unknown} value */
     saveSecret(value) {
-      const file = path(owner());
-      mkdirSync(dirname(file), { recursive: true, mode: 0o700 });
-      writeFileSync(`${file}.tmp`, `${JSON.stringify(value, null, 2)}\n`, { mode: 0o600 });
-      renameSync(`${file}.tmp`, file);
+      save(path(owner()), value);
+    },
+    /**
+     * The account's own state next to its secret (a cache, a cursor):
+     * <secret's folder>/<id>-state/<owner>-<name>.json.
+     */
+    state: {
+      /** @param {string} name @param {any} fallback */
+      get(name, fallback) {
+        const file = statePath(name);
+        try {
+          return existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : fallback;
+        } catch {
+          return fallback;
+        }
+      },
+      /** @param {string} name @param {unknown} value */
+      set(name, value) {
+        save(statePath(name), value);
+      },
     },
     fail,
   };

@@ -32,6 +32,7 @@ skills/<name>/SKILL.md              generated: each runtime's skill with its con
   "logo": "logo.svg",          // the mark, drawn on `color` (see Logo)
   "tool": {
     "bin": "crypto",           // a shared runtime (runtime/crypto), or the connector's own command = its id (runtime/cli)
+    // "runs": "entry", "policy": "src/policy.mjs"   its own program with a policy module instead of commands (see Policy)
     "source": "kraken",        // its --source value for this connector
     "commands": {              // every command it uses, with its effect
       "balances": "read", "transactions": "read", "accounts": "public", "prices": "public"
@@ -46,6 +47,7 @@ skills/<name>/SKILL.md              generated: each runtime's skill with its con
     "refused": "What the person reads when the check fails (English for now)."
   },
   "accounts": { "kind": "crypto", "dir": ".config/family-crypto", "files": ["kraken-{owner}.json"], "label": "Kraken" },
+  "binaries": [ ],             // programs it needs, each { name, url, sha256, path }: fetched into bin/<name>, checksum checked
   "network": ["api.kraken.com", "api.coinbase.com"],      // every host the tool reaches for it
   "data": "What it reads and where it is kept."
 }
@@ -66,6 +68,16 @@ A tool named by any manifest runs **only** the commands manifests declare,
 strictest effect wins when two connectors share a command, and when the index
 can't be read those tools are refused outright (fail closed). The tool itself
 must still only read: the guard is the second wall.
+
+### Policy
+
+A connector that runs its own program (`"runs": "entry"`) and can't list its
+commands, like GitHub's `gh`, brings `tool.policy`: a module whose default
+export is `{ kind(args), card(args) }`. `kind` says whether a call reads,
+writes (an approval card) or never runs; `card` words that card. The
+program enforces the same module itself (read-only unless approved). nanou's
+gateway runs the policy in its own process, so it is for Official connectors
+only, reviewed line by line, and built in at each pin bump.
 
 ### Cards
 
@@ -106,6 +118,7 @@ pull request.
 | `api_key` | one input per field (secret ones masked), each checked against its `pattern` | checks the patterns again, saves the fields as one JSON file at `install.file`, runs `install.check`, puts the old file back if it fails |
 | `key_file` | a file picker (`accept`); the file must be JSON with `jsonKeys` | the same checks, saves the file as is, runs the check |
 | `file_import` | a file picker (`accept`) | checks the first line holds every `header` word, runs `install.import` with `{file}` |
+| `device` | a code to type on the service's own site (OAuth device sign-in) | nanou's host runs the flow with the app's client id (`codeUrl`, `tokenUrl`, `verifyUrl`, `userUrl`, each on a `network` host) and writes the tokens; GitHub only for now |
 
 Everything the person pastes or uploads is sealed in their browser to their
 family's server, so nanou.ai only ever relays ciphertext. `oauth2` is not
@@ -113,18 +126,33 @@ generic yet: Coinbase's sign-in (`auth.signIn: true`) is still built into nanou.
 
 ### Accounts
 
-`files` are matched in `dir`: `name-{owner}.ext`, or `folder/*.json#field`
-where the owner is that JSON field. The guard's sharing (Settings → Sharing in the app)
-shows one line per person and kind, "Crypto: Coinbase, Kraken", and a `read`
-command with `--owner` or without it is checked against those people. A
-connector without `accounts` (public wallets) reads nothing private, so
-`--source wallet` isn't limited.
+Every connector that reads someone's account declares `accounts`, and each
+person then chooses in Settings → Sharing what the family may have nanou do
+with it: Only me (the default), Can read, or Read & act (approve its changes
+themselves). A connector whose commands only read stops at Can read.
+
+- `kind` is the connector's id (`asana`: one setting per person, worded by
+  `sharing` in its i18n), or `crypto` for a crypto source (one setting per
+  person for all of them, "Crypto: Coinbase, Kraken").
+- `files` are matched in `dir`: `name-{owner}.ext`, or `*.json#field` /
+  `folder/*.json#field` where the owner is that JSON field.
+- `account` (optional, with `#field` files) names the JSON field that names
+  each account, for a service where one person can connect several (GitHub
+  logins): one sharing line per account.
+
+A `read` command is checked against those people (`--owner`, or everyone's
+when it names none), and a change on someone else's account waits for their
+own ✓ unless they chose Read & act. A connector without `accounts` (public
+wallets) reads nothing private, so it isn't limited.
 
 ### i18n
 
 Each locale file is the connector's catalog text on nanou.ai: `blurb`, `can`, `name`
 (only for non-brand names), `upload.label` and `upload.help` (or `howTo` for
-`none`), and `fields.<id>` labels for an API key. Write informally in every
+`none`; nothing for `device`), `fields.<id>` labels for an API key, and
+`sharing.yours` / `sharing.next` / `sharing.first` when its accounts have
+their own sharing kind ("your Asana accounts", "Asana accounts you connect
+next", "When you connect your Asana accounts"). Write informally in every
 language (tu, du, tú…), and never name AI providers or models.
 
 ## What the checks refuse

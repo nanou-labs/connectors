@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Personal access token"
+  },
+  "sharing": {
+    "yours": "your Asana accounts",
+    "next": "Asana accounts you connect next",
+    "first": "When you connect your Asana accounts"
   }
 }

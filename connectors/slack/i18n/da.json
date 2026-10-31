@@ -1,0 +1,24 @@
+{
+  "blurb": "Følg op på kanaler og direkte beskeder.",
+  "can": [
+    "Hvad du gik glip af i dine kanaler",
+    "Find den tråd eller beslutning",
+    "Svar og reaktioner først efter dit tryk"
+  ],
+  "upload": {
+    "label": "Brugertoken",
+    "help": [
+      "Opret en ny app fra bunden i dit workspace på api.slack.com/apps.",
+      "Tilføj disse user token scopes under OAuth & Permissions: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Installer den så (din workspace-admin skal måske godkende den).",
+      "Kopiér User OAuth Token (starter med xoxp-) og indsæt den her."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "dine Slack-konti",
+    "next": "Slack-konti, du forbinder fremover",
+    "first": "Når du forbinder dine Slack-konti"
+  }
+}

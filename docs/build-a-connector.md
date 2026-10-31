@@ -24,7 +24,8 @@ runs inside a **runtime** that nanou owns, and there are two shapes:
 | Shape | Use it for | Runtime | Reference |
 |---|---|---|---|
 | **A source** of something nanou adds up | an exchange, a wallet, an export | [runtime/crypto](../runtime/crypto): your module answers `accounts`, `balances`, `transactions`; the runtime totals and values them. `SKILL.md` is one `## <Name>` section | [Kraken](../connectors/kraken) |
-| **A command of its own** | a service people use directly (tasks, issues, messages) | [runtime/cli](../runtime/cli): your module implements its commands; the runtime parses, picks the account, reads the token and holds every change for an approval card. `SKILL.md` is a whole skill | [Asana](../connectors/asana) |
+| **A command of its own** | a service people use directly (tasks, messages) | [runtime/cli](../runtime/cli): your module implements its commands; the runtime parses, picks the account, reads the token and holds every change for an approval card. `SKILL.md` is a whole skill | [Asana](../connectors/asana), [Slack](../connectors/slack) |
+| **Its own program**, with a policy | an existing CLI far too wide to list (`gh`) | none: `tool.runs: "entry"`; a `tool.policy` module classifies every call (read, write, blocked) and words its card, and nanou's gateway uses the same module. Official connectors only | [GitHub](../connectors/github) |
 
 ## Three levels
 

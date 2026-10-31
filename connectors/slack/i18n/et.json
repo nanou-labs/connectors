@@ -1,0 +1,24 @@
+{
+  "blurb": "Saa järje peale kanalites ja otsesõnumites.",
+  "can": [
+    "Mis sul kanalites kahe silma vahele jäi",
+    "Leia see lõim või otsus üles",
+    "Vastused ja reaktsioonid alles pärast sinu puudutust"
+  ],
+  "upload": {
+    "label": "Kasutajatõend",
+    "help": [
+      "Loo api.slack.com/apps lehel oma tööruumis uus rakendus nullist.",
+      "Lisa OAuth & Permissions all need kasutajatõendi õigused: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Seejärel paigalda see (võib-olla peab tööruumi admin selle heaks kiitma).",
+      "Kopeeri User OAuth Token (algab xoxp-) ja kleebi see siia."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "sinu Slacki kontod",
+    "next": "Slacki kontod, mille järgmisena ühendad",
+    "first": "Kui ühendad oma Slacki kontod"
+  }
+}

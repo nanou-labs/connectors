@@ -1,0 +1,13 @@
+{
+  "blurb": "Issues, Pull Requests und Code.",
+  "can": [
+    "Issues, Pull Requests und fehlgeschlagene Builds nachholen",
+    "Einen Diff prüfen und den Kommentar entwerfen",
+    "Öffnet, kommentiert, merged oder pusht erst nach deinem Tippen"
+  ],
+  "sharing": {
+    "yours": "deinen GitHub-Konten",
+    "next": "GitHub-Konten, die du als Nächstes verbindest",
+    "first": "Wenn du deine GitHub-Konten verbindest"
+  }
+}

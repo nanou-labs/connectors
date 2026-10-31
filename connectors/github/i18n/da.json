@@ -1,0 +1,13 @@
+{
+  "blurb": "Issues, pull requests og kode.",
+  "can": [
+    "Følg med i issues, pull requests og fejlede builds",
+    "Gennemgå en diff, og skriv udkast til kommentaren",
+    "Opretter, kommenterer, merger eller pusher kun efter dit tryk"
+  ],
+  "sharing": {
+    "yours": "dine GitHub-konti",
+    "next": "GitHub-konti, du forbinder fremover",
+    "first": "Når du forbinder dine GitHub-konti"
+  }
+}

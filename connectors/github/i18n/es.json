@@ -1,0 +1,13 @@
+{
+  "blurb": "Issues, pull requests y código.",
+  "can": [
+    "Ponerse al día con issues, pull requests y builds fallidos",
+    "Revisar un diff y preparar el comentario",
+    "Abre, comenta, fusiona o sube cambios solo después de tu toque"
+  ],
+  "sharing": {
+    "yours": "tus cuentas de GitHub",
+    "next": "Las cuentas de GitHub que conectes después",
+    "first": "Cuando conectes tus cuentas de GitHub"
+  }
+}

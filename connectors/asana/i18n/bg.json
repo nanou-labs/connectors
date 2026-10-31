@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Personal access token"
+  },
+  "sharing": {
+    "yours": "твоите Asana акаунти",
+    "next": "Asana акаунти, които свържеш занапред",
+    "first": "Когато свържеш своите Asana акаунти"
   }
 }

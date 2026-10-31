@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Kişisel erişim anahtarı (personal access token)"
+  },
+  "sharing": {
+    "yours": "Asana hesaplarınla",
+    "next": "Bundan sonra bağlayacağın Asana hesapları",
+    "first": "Asana hesaplarını bağladığında"
   }
 }

@@ -1,0 +1,13 @@
+{
+  "blurb": "Issues, pull requests agus cód.",
+  "can": [
+    "Teacht suas le issues, pull requests agus tógálacha a theip",
+    "Diff a athbhreithniú agus an trácht a dhréachtú",
+    "Ní osclaíonn, ní thráchtann, ní chumascann ná ní bhrúnn sé ach tar éis do thapála"
+  ],
+  "sharing": {
+    "yours": "do chuntais GitHub",
+    "next": "Cuntais GitHub a cheanglóidh tú amach anseo",
+    "first": "Nuair a cheanglaíonn tú do chuntais GitHub"
+  }
+}

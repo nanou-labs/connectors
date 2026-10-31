@@ -1,0 +1,13 @@
+{
+  "blurb": "Issue'lar, pull request'ler ve kod.",
+  "can": [
+    "Issue'ları, pull request'leri ve başarısız derlemeleri özetler",
+    "Bir diff'i inceler ve yorum taslağı hazırlar",
+    "Açma, yorum yapma, birleştirme ya da push işlemlerini yalnızca sen dokununca yapar"
+  ],
+  "sharing": {
+    "yours": "GitHub hesaplarınla",
+    "next": "Bundan sonra bağlayacağın GitHub hesapları",
+    "first": "GitHub hesaplarını bağladığında"
+  }
+}

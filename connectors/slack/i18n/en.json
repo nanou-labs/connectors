@@ -1,0 +1,24 @@
+{
+  "blurb": "Catch up on channels and DMs.",
+  "can": [
+    "What you missed in your channels",
+    "Find that thread or decision",
+    "Replies and reactions only after your tap"
+  ],
+  "upload": {
+    "label": "User token",
+    "help": [
+      "At api.slack.com/apps, create an app from scratch in your workspace.",
+      "Under OAuth & Permissions, add these user token scopes: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Then install it (your workspace admin may need to approve it).",
+      "Copy the User OAuth Token (it starts with xoxp-) and paste it here."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "your Slack accounts",
+    "next": "Slack accounts you connect next",
+    "first": "When you connect your Slack accounts"
+  }
+}

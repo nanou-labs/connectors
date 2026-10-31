@@ -1,0 +1,13 @@
+{
+  "blurb": "Issues, pull requests and code.",
+  "can": [
+    "Catch up on issues, pull requests and failed builds",
+    "Review a diff and draft the comment",
+    "Opens, comments, merges or pushes only after your tap"
+  ],
+  "sharing": {
+    "yours": "your GitHub accounts",
+    "next": "GitHub accounts you connect next",
+    "first": "When you connect your GitHub accounts"
+  }
+}

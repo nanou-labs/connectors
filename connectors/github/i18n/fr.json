@@ -1,0 +1,13 @@
+{
+  "blurb": "Issues, pull requests et code.",
+  "can": [
+    "Rattraper les issues, les pull requests et les builds en échec",
+    "Relire un diff et préparer le commentaire",
+    "N'ouvre, ne commente, ne fusionne et ne pousse rien sans ton accord"
+  ],
+  "sharing": {
+    "yours": "tes comptes GitHub",
+    "next": "Les comptes GitHub que tu connecteras ensuite",
+    "first": "Quand tu connectes tes comptes GitHub"
+  }
+}

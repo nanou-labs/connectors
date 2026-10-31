@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Persoonlijk toegangstoken"
+  },
+  "sharing": {
+    "yours": "je Asana-accounts",
+    "next": "Asana-accounts die je hierna koppelt",
+    "first": "Als je je Asana-accounts koppelt"
   }
 }

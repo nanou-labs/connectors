@@ -1,0 +1,13 @@
+{
+  "blurb": "Issue-k, pull requestek és kód.",
+  "can": [
+    "Behozza a lemaradást az issue-kban, pull requestekben és a sikertelen buildekben",
+    "Átnéz egy diffet, és megfogalmazza a hozzászólást",
+    "Megnyitni, hozzászólni, mergelni vagy pusholni csak a koppintásod után fog"
+  ],
+  "sharing": {
+    "yours": "a GitHub-fiókjaid",
+    "next": "A következőként csatlakoztatott GitHub-fiókok",
+    "first": "Amikor csatlakoztatod a GitHub-fiókjaidat"
+  }
+}

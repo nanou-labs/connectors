@@ -1,0 +1,24 @@
+{
+  "blurb": "Μάθε τι έγινε στα κανάλια και στα προσωπικά σου μηνύματα.",
+  "can": [
+    "Τι έχασες στα κανάλια σου",
+    "Βρες εκείνο το νήμα ή την απόφαση",
+    "Απαντήσεις και αντιδράσεις μόνο μετά το δικό σου άγγιγμα"
+  ],
+  "upload": {
+    "label": "Διακριτικό χρήστη",
+    "help": [
+      "Στο api.slack.com/apps, φτιάξε μια νέα εφαρμογή από την αρχή στο workspace σου.",
+      "Στο OAuth & Permissions, πρόσθεσε αυτά τα scopes διακριτικού χρήστη: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Μετά εγκατάστησέ την (ίσως χρειαστεί έγκριση από τον διαχειριστή του workspace).",
+      "Αντίγραψε το User OAuth Token (ξεκινά με xoxp-) και επικόλλησέ το εδώ."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "τους λογαριασμούς σου Slack",
+    "next": "Λογαριασμοί Slack που θα συνδέσεις στη συνέχεια",
+    "first": "Όταν συνδέσεις τους λογαριασμούς σου Slack"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "blurb": "Issues, pull requests ir kodas.",
+  "can": [
+    "Peržiūrėti issues, pull requests ir nepavykusius build'us",
+    "Peržiūrėti diff ir parengti komentarą",
+    "Atidaro, komentuoja, sujungia ar įkelia tik po tavo paspaudimo"
+  ],
+  "sharing": {
+    "yours": "tavo GitHub paskyromis",
+    "next": "GitHub paskyros, kurias prijungsi vėliau",
+    "first": "Kai prijungsi savo GitHub paskyras"
+  }
+}

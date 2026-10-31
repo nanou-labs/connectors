@@ -1,0 +1,13 @@
+{
+  "blurb": "Issues, pull requests och kod.",
+  "can": [
+    "Kom ikapp med issues, pull requests och misslyckade byggen",
+    "Granska en diff och skriv utkast till kommentaren",
+    "Öppnar, kommenterar, mergar eller pushar bara efter ditt tryck"
+  ],
+  "sharing": {
+    "yours": "dina GitHub-konton",
+    "next": "GitHub-konton du ansluter framöver",
+    "first": "När du ansluter dina GitHub-konton"
+  }
+}

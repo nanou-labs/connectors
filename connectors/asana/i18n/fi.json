@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Henkilökohtainen käyttötunnus"
+  },
+  "sharing": {
+    "yours": "Asana-tilisi",
+    "next": "Seuraavaksi yhdistämäsi Asana-tilit",
+    "first": "Kun yhdistät Asana-tilisi"
   }
 }
