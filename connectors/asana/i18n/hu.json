@@ -1,0 +1,18 @@
+{
+  "blurb": "A feladataid, és ami tegnap óta változott.",
+  "can": [
+    "Reggeli lista arról, mi esedékes",
+    "Mit csináltak a kollégák a feladataidon",
+    "Hozzászólások és frissítések a jóváhagyásoddal"
+  ],
+  "upload": {
+    "label": "Personal access token",
+    "help": [
+      "Az Asanában nyisd meg: Settings → Apps → Developer apps.",
+      "Hozz létre egy personal access tokent, és illeszd be ide."
+    ]
+  },
+  "fields": {
+    "token": "Personal access token"
+  }
+}

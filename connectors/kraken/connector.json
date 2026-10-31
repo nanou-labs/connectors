@@ -6,6 +6,7 @@
   "plan": "family",
   "color": "#7132F5",
   "mark": "Kr",
+  "logo": "logo.svg",
   "tool": {
     "bin": "crypto",
     "source": "kraken",

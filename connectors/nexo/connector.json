@@ -6,6 +6,7 @@
   "plan": "family",
   "color": "#0A0D11",
   "mark": "Nx",
+  "logo": "logo.svg",
   "tool": {
     "bin": "crypto",
     "source": "nexo",

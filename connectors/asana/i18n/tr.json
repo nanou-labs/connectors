@@ -1,0 +1,18 @@
+{
+  "blurb": "Görevlerin ve dünden beri değişenler.",
+  "can": [
+    "Sabahları teslim tarihi gelenlerin listesi",
+    "İş arkadaşlarının görevlerinde neler yaptığı",
+    "Onayınla yorumlar ve güncellemeler"
+  ],
+  "upload": {
+    "label": "Kişisel erişim anahtarı (personal access token)",
+    "help": [
+      "Asana'da Ayarlar → Uygulamalar → Geliştirici uygulamaları bölümünü aç.",
+      "Bir kişisel erişim anahtarı oluştur ve buraya yapıştır."
+    ]
+  },
+  "fields": {
+    "token": "Kişisel erişim anahtarı (personal access token)"
+  }
+}

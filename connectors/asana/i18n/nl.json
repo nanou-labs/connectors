@@ -1,0 +1,18 @@
+{
+  "blurb": "Je taken en wat er sinds gisteren is veranderd.",
+  "can": [
+    "Ochtendlijstje van wat er moet gebeuren",
+    "Wat collega's met je taken hebben gedaan",
+    "Opmerkingen en updates met jouw goedkeuring"
+  ],
+  "upload": {
+    "label": "Persoonlijk toegangstoken",
+    "help": [
+      "Open in Asana Settings → Apps → Developer apps.",
+      "Maak een personal access token en plak het hier."
+    ]
+  },
+  "fields": {
+    "token": "Persoonlijk toegangstoken"
+  }
+}

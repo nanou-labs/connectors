@@ -1,0 +1,18 @@
+{
+  "blurb": "Tvoje naloge in kaj se je spremenilo od včeraj.",
+  "can": [
+    "Jutranji seznam tega, kar zapade",
+    "Kaj so sodelavci naredili pri tvojih nalogah",
+    "Komentarji in posodobitve s tvojo odobritvijo"
+  ],
+  "upload": {
+    "label": "Osebni žeton za dostop",
+    "help": [
+      "V Asani odpri Settings → Apps → Developer apps.",
+      "Ustvari osebni žeton za dostop (personal access token) in ga prilepi sem."
+    ]
+  },
+  "fields": {
+    "token": "Osebni žeton za dostop"
+  }
+}

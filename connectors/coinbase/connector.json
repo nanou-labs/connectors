@@ -6,6 +6,7 @@
   "plan": "family",
   "color": "#0052FF",
   "mark": "Cb",
+  "logo": "logo.svg",
   "tool": {
     "bin": "crypto",
     "source": "coinbase",

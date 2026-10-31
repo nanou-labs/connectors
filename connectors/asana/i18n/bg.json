@@ -1,0 +1,18 @@
+{
+  "blurb": "Задачите ти и какво се промени от вчера.",
+  "can": [
+    "Сутрешен списък с това, което предстои",
+    "Какво направиха колегите по задачите ти",
+    "Коментари и обновления с твое одобрение"
+  ],
+  "upload": {
+    "label": "Personal access token",
+    "help": [
+      "В Asana отвори Settings → Apps → Developer apps.",
+      "Създай personal access token и го постави тук."
+    ]
+  },
+  "fields": {
+    "token": "Personal access token"
+  }
+}

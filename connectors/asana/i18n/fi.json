@@ -1,0 +1,18 @@
+{
+  "blurb": "Tehtäväsi ja se, mikä on muuttunut eilisen jälkeen.",
+  "can": [
+    "Aamulista erääntyvistä",
+    "Mitä kollegat tekivät tehtävillesi",
+    "Kommentit ja päivitykset hyväksynnälläsi"
+  ],
+  "upload": {
+    "label": "Henkilökohtainen käyttötunnus",
+    "help": [
+      "Avaa Asanassa Settings → Apps → Developer apps.",
+      "Luo personal access token ja liitä se tähän."
+    ]
+  },
+  "fields": {
+    "token": "Henkilökohtainen käyttötunnus"
+  }
+}

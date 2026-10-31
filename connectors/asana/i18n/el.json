@@ -1,0 +1,18 @@
+{
+  "blurb": "Οι εργασίες σου και τι άλλαξε από χθες.",
+  "can": [
+    "Πρωινή λίστα με όσα λήγουν",
+    "Τι έκαναν οι συνάδελφοι στις εργασίες σου",
+    "Σχόλια και ενημερώσεις με την έγκρισή σου"
+  ],
+  "upload": {
+    "label": "Personal access token",
+    "help": [
+      "Στο Asana, άνοιξε Settings → Apps → Developer apps.",
+      "Δημιούργησε ένα personal access token και επικόλλησέ το εδώ."
+    ]
+  },
+  "fields": {
+    "token": "Personal access token"
+  }
+}

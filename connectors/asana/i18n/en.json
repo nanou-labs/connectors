@@ -1,0 +1,18 @@
+{
+  "blurb": "Your tasks and what changed since yesterday.",
+  "can": [
+    "Morning list of what's due",
+    "What colleagues did on your tasks",
+    "Comments and updates with your approval"
+  ],
+  "upload": {
+    "label": "Personal access token",
+    "help": [
+      "In Asana, open Settings → Apps → Developer apps.",
+      "Create a personal access token and paste it here."
+    ]
+  },
+  "fields": {
+    "token": "Personal access token"
+  }
+}

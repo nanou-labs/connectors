@@ -1,0 +1,18 @@
+{
+  "blurb": "Tvoji zadaci i što se promijenilo od jučer.",
+  "can": [
+    "Jutarnji popis onoga što dospijeva",
+    "Što su kolege napravili na tvojim zadacima",
+    "Komentari i ažuriranja uz tvoje odobrenje"
+  ],
+  "upload": {
+    "label": "Osobni pristupni token",
+    "help": [
+      "U Asani otvori Settings → Apps → Developer apps.",
+      "Izradi osobni pristupni token (personal access token) i zalijepi ga ovdje."
+    ]
+  },
+  "fields": {
+    "token": "Osobni pristupni token"
+  }
+}

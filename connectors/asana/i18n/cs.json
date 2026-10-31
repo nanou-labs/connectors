@@ -1,0 +1,18 @@
+{
+  "blurb": "Tvoje úkoly a co se od včera změnilo.",
+  "can": [
+    "Ranní seznam toho, co je na řadě",
+    "Co kolegové udělali na tvých úkolech",
+    "Komentáře a aktualizace s tvým schválením"
+  ],
+  "upload": {
+    "label": "Osobní přístupový token",
+    "help": [
+      "V Asaně otevři Settings → Apps → Developer apps.",
+      "Vytvoř osobní přístupový token a vlož ho sem."
+    ]
+  },
+  "fields": {
+    "token": "Osobní přístupový token"
+  }
+}

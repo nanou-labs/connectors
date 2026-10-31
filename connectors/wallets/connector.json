@@ -6,6 +6,7 @@
   "plan": "solo",
   "color": "#627EEA",
   "mark": "◆",
+  "logo": "logo.svg",
   "tool": {
     "bin": "crypto",
     "source": "wallet",

@@ -1,0 +1,18 @@
+{
+  "blurb": "Sinu ülesanded ja mis on eilsest muutunud.",
+  "can": [
+    "Hommikune nimekiri tähtaegadest",
+    "Mida kolleegid sinu ülesannetega tegid",
+    "Kommentaarid ja uuendused sinu kinnitusega"
+  ],
+  "upload": {
+    "label": "Isiklik juurdepääsutoken",
+    "help": [
+      "Ava Asanas Settings → Apps → Developer apps.",
+      "Loo isiklik juurdepääsutoken ja kleebi see siia."
+    ]
+  },
+  "fields": {
+    "token": "Isiklik juurdepääsutoken"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "blurb": "Tvoje úlohy a čo sa od včera zmenilo.",
+  "can": [
+    "Ranný zoznam toho, čo treba urobiť",
+    "Čo kolegovia urobili s tvojimi úlohami",
+    "Komentáre a aktualizácie s tvojím schválením"
+  ],
+  "upload": {
+    "label": "Personal access token",
+    "help": [
+      "V Asane otvor Settings → Apps → Developer apps.",
+      "Vytvor personal access token a vlož ho sem."
+    ]
+  },
+  "fields": {
+    "token": "Personal access token"
+  }
+}
