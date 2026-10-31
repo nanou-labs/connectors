@@ -1,0 +1,18 @@
+{
+  "blurb": "Tus tareas y lo que ha cambiado desde ayer.",
+  "can": [
+    "Lista matinal de lo que vence",
+    "Lo que tus compañeros han hecho en tus tareas",
+    "Comentarios y actualizaciones con tu aprobación"
+  ],
+  "upload": {
+    "label": "Token de acceso personal",
+    "help": [
+      "En Asana, abre Configuración → Aplicaciones → Aplicaciones de desarrollador.",
+      "Crea un token de acceso personal y pégalo aquí."
+    ]
+  },
+  "fields": {
+    "token": "Token de acceso personal"
+  }
+}

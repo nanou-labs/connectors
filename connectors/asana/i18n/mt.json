@@ -1,0 +1,18 @@
+{
+  "blurb": "Il-kompiti tiegħek u x'inbidel mill-bieraħ.",
+  "can": [
+    "Lista filgħodu ta' x'għandu jsir",
+    "X'għamlu l-kollegi fuq il-kompiti tiegħek",
+    "Kummenti u aġġornamenti bl-approvazzjoni tiegħek"
+  ],
+  "upload": {
+    "label": "Personal access token",
+    "help": [
+      "F'Asana, iftaħ Settings → Apps → Developer apps.",
+      "Oħloq personal access token u waħħlu hawn."
+    ]
+  },
+  "fields": {
+    "token": "Personal access token"
+  }
+}

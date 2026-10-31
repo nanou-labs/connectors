@@ -1,0 +1,18 @@
+{
+  "blurb": "Tes tâches et ce qui a changé depuis hier.",
+  "can": [
+    "La liste du matin de ce qui arrive à échéance",
+    "Ce que tes collègues ont fait sur tes tâches",
+    "Commentaires et mises à jour avec ton accord"
+  ],
+  "upload": {
+    "label": "Jeton d'accès personnel",
+    "help": [
+      "Dans Asana, ouvre Paramètres → Applications → Applications de développeur.",
+      "Crée un jeton d'accès personnel et colle-le ici."
+    ]
+  },
+  "fields": {
+    "token": "Jeton d'accès personnel"
+  }
+}

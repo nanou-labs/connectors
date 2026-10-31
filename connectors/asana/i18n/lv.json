@@ -1,0 +1,18 @@
+{
+  "blurb": "Tavi uzdevumi un tas, kas mainījies kopš vakardienas.",
+  "can": [
+    "Rīta saraksts ar to, kas jāizdara",
+    "Ko kolēģi darīja tavos uzdevumos",
+    "Komentāri un atjauninājumi ar tavu apstiprinājumu"
+  ],
+  "upload": {
+    "label": "Personiskās piekļuves tokens",
+    "help": [
+      "Asana atver Settings → Apps → Developer apps.",
+      "Izveido personiskās piekļuves tokenu un ielīmē to šeit."
+    ]
+  },
+  "fields": {
+    "token": "Personiskās piekļuves tokens"
+  }
+}

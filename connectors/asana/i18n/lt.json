@@ -1,0 +1,18 @@
+{
+  "blurb": "Tavo užduotys ir kas pasikeitė nuo vakar.",
+  "can": [
+    "Rytinis sąrašas, ką reikia atlikti",
+    "Ką kolegos nuveikė su tavo užduotimis",
+    "Komentarai ir atnaujinimai su tavo patvirtinimu"
+  ],
+  "upload": {
+    "label": "Asmeninis prieigos raktas",
+    "help": [
+      "Asana atidaryk Settings → Apps → Developer apps.",
+      "Sukurk personal access token ir įklijuok jį čia."
+    ]
+  },
+  "fields": {
+    "token": "Asmeninis prieigos raktas"
+  }
+}

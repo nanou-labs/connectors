@@ -18,7 +18,7 @@ export const LOCALES = ["bg", "cs", "da", "de", "el", "en", "es", "et", "fi", "f
 
 /** What a command may do, mildest first. `money` is never allowed: nothing may move money. */
 export const EFFECTS = ["public", "read", "local", "write", "send"];
-const CATEGORIES = { crypto: "Money" };
+const CATEGORIES = { crypto: "Money", work: "Work" };
 const PLANS = ["solo", "family", "plus"];
 const AUTH = ["none", "api_key", "key_file", "file_import"];
 const ID = /^[a-z][a-z0-9-]{1,23}$/;
@@ -27,6 +27,41 @@ const COMMAND = /^[a-z][a-z0-9-]*( [a-z][a-z0-9-]*)?$/;
 const HOST = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)+$/;
 // A file under the family's home: no absolute path, no "..", only the owner placeholder.
 const HOME_FILE = /^(?!\/)(?!.*\.\.)[A-Za-z0-9._/-]*(\{owner\})?[A-Za-z0-9._/-]*$/;
+/** Commands the shared runtimes answer themselves; any other tool.bin is the connector's own command (runtime/cli). */
+const RUNTIME_OWN = { crypto: ["accounts", "balances", "transactions", "prices"] };
+/** Effects that change something: each needs an approval card, described in the manifest's `cards`. */
+const CHANGES = new Set(["write", "send"]);
+const CARD_VERBS = ["Approve", "Post", "Send", "Save"];
+/** What a card shows: the first, second… word after the command ($1), or a flag's value (--text). */
+const CARD_REF = /^(\$[1-9]|--[a-z][a-z0-9-]*)$/;
+/** A logo is plain shapes: these elements and attributes only, no text, links, styles or scripts. */
+const SVG_TAGS = new Set(["svg", "g", "path", "circle", "ellipse", "rect", "polygon"]);
+const SVG_ATTRS = new Set([
+  "xmlns", "viewBox", "d", "fill", "fill-rule", "clip-rule", "opacity", "fill-opacity", "transform",
+  "cx", "cy", "r", "rx", "ry", "x", "y", "width", "height", "points",
+]);
+
+/**
+ * Problems with a logo: a small SVG of plain shapes, safe to show anywhere.
+ * @param {string} svg @returns {string[]}
+ */
+export function logoProblems(svg) {
+  const bad = [];
+  if (svg.length > 8192) bad.push("logo: keep it under 8 KB");
+  if (!/^<svg xmlns="http:\/\/www\.w3\.org\/2000\/svg" viewBox="-?[0-9.]+ -?[0-9.]+ [0-9.]+ [0-9.]+"/.test(svg)) {
+    bad.push('logo: start with <svg xmlns="http://www.w3.org/2000/svg" viewBox="x y w h"> (a square viewBox)');
+  }
+  const [, , w, h] = /viewBox="([^"]+)"/.exec(svg)?.[1].split(" ").map(Number) ?? [];
+  if (w !== h) bad.push("logo: the viewBox must be square");
+  if (/[&]|<!|<\?|url\(|javascript:/i.test(svg)) bad.push("logo: no entities, comments, processing instructions or url()");
+  const rest = svg.replace(/<\/?([A-Za-z]+)((?:\s+[A-Za-z:-]+="[^"<>]*")*)\s*\/?>/g, (_, tag, attrs) => {
+    if (!SVG_TAGS.has(tag)) bad.push(`logo: <${tag}> isn't allowed (only ${[...SVG_TAGS].join(", ")})`);
+    for (const [, name] of attrs.matchAll(/([A-Za-z:-]+)="/g)) if (!SVG_ATTRS.has(name)) bad.push(`logo: attribute ${name} isn't allowed`);
+    return "";
+  });
+  if (rest.trim() !== "") bad.push("logo: only elements, no text between them");
+  return bad;
+}
 
 /**
  * Throws with every problem in one manifest (and its texts), or returns it.
@@ -51,8 +86,12 @@ function validate(m, dir, text, locales) {
     "entry is the connector's module inside its folder (src/source.mjs)",
   );
 
+  need(m.logo === "logo.svg" && existsSync(join(SRC, dir, "logo.svg")), "logo is logo.svg, in the connector's folder");
+  if (m.logo === "logo.svg" && existsSync(join(SRC, dir, "logo.svg"))) bad.push(...logoProblems(readFileSync(join(SRC, dir, "logo.svg"), "utf8")));
+
   const t = m.tool ?? {};
   need(BIN.test(t.bin ?? ""), "tool.bin must be a command name");
+  need(t.bin in RUNTIME_OWN || t.bin === m.id, `tool.bin is a shared runtime (${Object.keys(RUNTIME_OWN).join(", ")}) or the connector's own command, named like its id`);
   need(BIN.test(t.source ?? ""), "tool.source is the tool's --source value for it");
   const commands = Object.entries(t.commands ?? {});
   need(commands.length > 0, "tool.commands lists every command it uses");
@@ -60,6 +99,19 @@ function validate(m, dir, text, locales) {
     need(COMMAND.test(c), `tool.commands: "${c}" must be one or two lowercase words`);
     if (effect === "money") bad.push(`tool.commands: "${c}" moves money; nothing may move money, so this connector can't be installed`);
     else need(EFFECTS.includes(effect), `tool.commands: "${c}" has effect "${effect}", expected ${EFFECTS.join("|")}`);
+  }
+  // Every change gets an approval card, and the manifest says what the card shows.
+  const cards = m.cards ?? {};
+  for (const [c, effect] of commands) if (CHANGES.has(effect)) need(c in cards, `cards.${c}: "${c}" changes something, so describe its approval card`);
+  for (const [c, card] of Object.entries(cards)) {
+    need(CHANGES.has(t.commands?.[c]), `cards.${c}: only commands that write or send have a card`);
+    need(typeof card?.title === "string" && card.title.length > 0 && card.title.length <= 60, `cards.${c}.title: 1-60 characters`);
+    need(card?.verb === undefined || CARD_VERBS.includes(card.verb), `cards.${c}.verb: one of ${CARD_VERBS.join(", ")}`);
+    need(
+      (card?.fields ?? []).every((/** @type {any} */ f) => Array.isArray(f) && f.length === 2 && typeof f[0] === "string" && CARD_REF.test(f[1])),
+      `cards.${c}.fields: [label, "$1" or "--flag"] pairs`,
+    );
+    need((card?.body ?? []).every((/** @type {any} */ r) => CARD_REF.test(r)), `cards.${c}.body: "$1" or "--flag" values, the first one given is shown`);
   }
 
   const a = m.auth ?? {};
@@ -134,14 +186,19 @@ const manifests = readdirSync(SRC, { withFileTypes: true })
   .sort((x, y) => x.m.order - y.m.order || x.m.id.localeCompare(y.m.id));
 
 // The code does what the manifest declares, no more: the runtime's contract (runtime/<bin>/README.md).
-/** Commands the crypto runtime answers itself by calling the source's accounts/balances/transactions. */
-const RUNTIME_OWN = { crypto: ["accounts", "balances", "transactions", "prices"] };
 for (const { m } of manifests) {
   const own = RUNTIME_OWN[m.tool.bin];
-  if (!own) continue;
   const mod = (await import(pathToFileURL(join(SRC, m.id, m.entry)).href)).default ?? {};
   const declared = Object.keys(m.tool.commands);
   const bad = [];
+  if (!own) {
+    // Its own command (runtime/cli): exactly the declared commands, nothing hidden.
+    const implemented = Object.keys(mod.commands ?? {});
+    for (const c of declared) if (typeof mod.commands?.[c] !== "function") bad.push(`declares "${c}" but ${m.entry} doesn't implement it`);
+    for (const c of implemented) if (!declared.includes(c)) bad.push(`${m.entry} implements "${c}", which the manifest doesn't declare`);
+    if (bad.length) throw new Error(`connectors/${m.id}:\n  ${bad.join("\n  ")}`);
+    continue;
+  }
   for (const f of ["accounts", "balances"]) if (typeof mod[f] !== "function") bad.push(`${m.entry} must export ${f}()`);
   if (declared.includes("transactions") !== (typeof mod.transactions === "function")) bad.push("transactions() is implemented exactly when the manifest declares transactions");
   const extra = declared.filter((c) => !own.includes(c));
@@ -193,6 +250,19 @@ for (const bin of existsSync(RUNTIMES) ? readdirSync(RUNTIMES) : []) {
     // After the front matter, which must stay first.
     .replace(/^(---\n[\s\S]*?\n---\n)/, `$1\n<!-- Generated by scripts/check.mjs from runtime/${bin}/SKILL.md and connectors/*/SKILL.md; do not edit. -->\n`);
   outputs[join(ROOT, "skills", name, "SKILL.md")] = skill;
+}
+
+// A connector with its own command brings its whole skill (front matter included).
+for (const { m } of manifests.filter((x) => !(x.m.tool.bin in RUNTIME_OWN))) {
+  const file = join(SRC, m.id, "SKILL.md");
+  if (!existsSync(file)) throw new Error(`connectors/${m.id}: SKILL.md is required (how nanou uses its command)`);
+  const text = readFileSync(file, "utf8");
+  const name = /^---\nname: ([a-z0-9-]+)\n/.exec(text)?.[1];
+  if (!name) throw new Error(`connectors/${m.id}/SKILL.md must start with front matter naming the skill (name: family-${m.id})`);
+  outputs[join(ROOT, "skills", name, "SKILL.md")] = text.replace(
+    /^(---\n[\s\S]*?\n---\n)/,
+    `$1\n<!-- Generated by scripts/check.mjs from connectors/${m.id}/SKILL.md; do not edit. -->\n`,
+  );
 }
 
 const stale = Object.entries(outputs).filter(([f, content]) => (existsSync(f) ? readFileSync(f, "utf8") : "") !== content);

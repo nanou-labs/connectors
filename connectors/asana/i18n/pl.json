@@ -1,0 +1,18 @@
+{
+  "blurb": "Twoje zadania i to, co się zmieniło od wczoraj.",
+  "can": [
+    "Poranna lista tego, co na dziś",
+    "Co współpracownicy zrobili w twoich zadaniach",
+    "Komentarze i aktualizacje po twoim zatwierdzeniu"
+  ],
+  "upload": {
+    "label": "Osobisty token dostępu",
+    "help": [
+      "W Asanie otwórz Settings → Apps → Developer apps.",
+      "Utwórz personal access token i wklej go tutaj."
+    ]
+  },
+  "fields": {
+    "token": "Osobisty token dostępu"
+  }
+}

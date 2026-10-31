@@ -1,0 +1,18 @@
+{
+  "blurb": "Deine Aufgaben und was sich seit gestern geändert hat.",
+  "can": [
+    "Morgens die Liste mit allem, was fällig ist",
+    "Was Kolleg:innen an deinen Aufgaben gemacht haben",
+    "Kommentare und Updates mit deiner Freigabe"
+  ],
+  "upload": {
+    "label": "Persönliches Zugriffstoken",
+    "help": [
+      "Öffne in Asana Einstellungen → Apps → Entwickler-Apps.",
+      "Erstelle ein persönliches Zugriffstoken und füge es hier ein."
+    ]
+  },
+  "fields": {
+    "token": "Persönliches Zugriffstoken"
+  }
+}

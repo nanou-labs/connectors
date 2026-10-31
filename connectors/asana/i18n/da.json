@@ -1,0 +1,18 @@
+{
+  "blurb": "Dine opgaver, og hvad der er ændret siden i går.",
+  "can": [
+    "Morgenliste over det, der skal gøres",
+    "Hvad kolleger har lavet på dine opgaver",
+    "Kommentarer og opdateringer med din godkendelse"
+  ],
+  "upload": {
+    "label": "Personligt adgangstoken",
+    "help": [
+      "Åbn Settings → Apps → Developer apps i Asana.",
+      "Opret et personal access token, og indsæt det her."
+    ]
+  },
+  "fields": {
+    "token": "Personligt adgangstoken"
+  }
+}

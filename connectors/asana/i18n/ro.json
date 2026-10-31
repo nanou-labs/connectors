@@ -1,0 +1,18 @@
+{
+  "blurb": "Sarcinile tale și ce s-a schimbat de ieri.",
+  "can": [
+    "Lista de dimineață cu ce ai de făcut",
+    "Ce au făcut colegii la sarcinile tale",
+    "Comentarii și actualizări cu aprobarea ta"
+  ],
+  "upload": {
+    "label": "Token de acces personal",
+    "help": [
+      "În Asana, deschide Settings → Apps → Developer apps.",
+      "Creează un personal access token și lipește-l aici."
+    ]
+  },
+  "fields": {
+    "token": "Token de acces personal"
+  }
+}

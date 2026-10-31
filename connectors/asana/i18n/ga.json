@@ -1,0 +1,18 @@
+{
+  "blurb": "Do thascanna agus a bhfuil athraithe ó inné.",
+  "can": [
+    "Liosta maidine de na rudaí atá le déanamh",
+    "An méid a rinne comhghleacaithe ar do thascanna",
+    "Tráchtanna agus nuashonruithe le do chead"
+  ],
+  "upload": {
+    "label": "Personal access token",
+    "help": [
+      "In Asana, oscail Settings → Apps → Developer apps.",
+      "Cruthaigh personal access token agus greamaigh anseo é."
+    ]
+  },
+  "fields": {
+    "token": "Personal access token"
+  }
+}

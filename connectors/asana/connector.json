@@ -1,0 +1,54 @@
+{
+  "id": "asana",
+  "name": "Asana",
+  "category": "work",
+  "order": 50,
+  "plan": "family",
+  "color": "#F06A6A",
+  "mark": "As",
+  "logo": "logo.svg",
+  "tool": {
+    "bin": "asana",
+    "source": "asana",
+    "commands": {
+      "me": "read",
+      "tasks": "read",
+      "task": "read",
+      "search": "read",
+      "projects": "read",
+      "inbox": "read",
+      "comment": "send",
+      "create": "write",
+      "update": "write",
+      "complete": "write",
+      "reopen": "write"
+    }
+  },
+  "entry": "src/asana.mjs",
+  "cards": {
+    "comment": { "title": "📋 Asana: comment", "verb": "Post", "fields": [["Task", "$1"]], "body": ["--text"] },
+    "create": {
+      "title": "📋 Asana: create task",
+      "fields": [["Name", "--name"], ["Project", "--project"], ["Assignee", "--assignee"], ["Due", "--due"]],
+      "body": ["--notes"]
+    },
+    "update": {
+      "title": "📋 Asana: update task",
+      "fields": [["Task", "$1"], ["Name", "--name"], ["Assignee", "--assignee"], ["Due", "--due"]],
+      "body": ["--notes"]
+    },
+    "complete": { "title": "📋 Asana: complete task", "fields": [["Task", "$1"]] },
+    "reopen": { "title": "📋 Asana: reopen task", "fields": [["Task", "$1"]] }
+  },
+  "auth": {
+    "kind": "api_key",
+    "fields": [{ "id": "token", "secret": true, "pattern": "^[0-9]+/[0-9A-Za-z/:._-]{8,250}$" }]
+  },
+  "install": {
+    "file": ".config/family-work/asana-{owner}.json",
+    "check": ["asana", "me", "--owner", "{owner}"],
+    "refused": "Asana refused that token. Create a new one and try again."
+  },
+  "network": ["app.asana.com"],
+  "data": "Tasks, projects and comments, read on request with the person's own token; nothing changes without an approval card. Kept in the family's enclave."
+}
