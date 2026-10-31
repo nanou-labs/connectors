@@ -19,6 +19,7 @@
       "wallet remove": "local"
     }
   },
+  "entry": "src/source.mjs",
   "auth": {
     "kind": "none"
   },

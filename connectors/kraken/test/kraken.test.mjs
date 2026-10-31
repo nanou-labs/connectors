@@ -1,9 +1,9 @@
-// Tests for tools/crypto with a Kraken key: signs requests the way Kraken
-// documents (checked against Kraken's own test vector), reads balances and
-// ledger entries, only ever calls read endpoints, and refuses a key that can
-// withdraw. Run with `node --test tests/crypto-kraken.test.mjs`.
+// Kraken source tests, self-contained: a local server answers like Kraken,
+// and a stand-in for nanou's runtime context (ctx) collects notes and turns
+// ctx.fail into a thrown error. Checks the signature against Kraken's
+// published test vector, the read-only endpoints, the withdrawal refusal and
+// paging. Run with `node --test "connectors/kraken/test/*.test.mjs"`.
 import assert from "node:assert/strict";
-import { spawn } from "node:child_process";
 import { createHash, createHmac } from "node:crypto";
 import { mkdtempSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
@@ -11,11 +11,10 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { after, before, beforeEach, test } from "node:test";
 
-const CRYPTO = new URL("../tools/crypto/crypto.mjs", import.meta.url).pathname;
 // A made-up secret (base64), as Kraken's docs use one.
 const SECRET = "kQH5HW/8p1uGOVjbgWA7FunAmGO8lsSUXNsu3eow76sz84Q18fWxnyRzBHCd3pd5nE9qa99HAZtuZuj6F1huXg=="; // gitleaks:allow (Kraken's published example secret)
 
-/** Kraken's documented signature, written independently of the tool. */
+/** Kraken's documented signature, written independently of the source. */
 function sign(path, body, secret) {
   const nonce = new URLSearchParams(body).get("nonce") ?? "";
   const digest = createHash("sha256").update(nonce + body).digest();
@@ -42,7 +41,6 @@ const server = createServer((req, res) => {
       res.writeHead(200, { "content-type": "application/json" });
       res.end(JSON.stringify(json));
     };
-    if (req.url?.startsWith("/v2/exchange-rates")) return send({ data: { rates: { BTC: "0.00001", ETH: "0.0004", EUR: "1" } } });
     const path = String(req.url);
     called.push(path);
     if (req.headers["api-key"] !== "PUBLICKEY" || req.headers["api-sign"] !== sign(path, body, SECRET)) {
@@ -65,10 +63,13 @@ const server = createServer((req, res) => {
     send({ error: ["EGeneral:Unknown method"] });
   });
 });
-let base = "";
+
+/** @type {any} */
+let kraken;
 before(async () => {
   await new Promise((r) => server.listen(0, "127.0.0.1", r));
-  base = `http://127.0.0.1:${/** @type {any} */ (server.address()).port}`;
+  process.env.FAMILY_KRAKEN_API = `http://127.0.0.1:${/** @type {any} */ (server.address()).port}`;
+  kraken = (await import("../src/source.mjs")).default;
 });
 after(() => server.close());
 beforeEach(() => {
@@ -78,46 +79,41 @@ beforeEach(() => {
   endless = false;
 });
 
-/** A crypto dir with Ana's Kraken key. */
-function dir(secret = SECRET) {
-  const d = mkdtempSync(join(tmpdir(), "family-crypto-"));
-  writeFileSync(join(d, "kraken-ana.json"), JSON.stringify({ key: "PUBLICKEY", secret }));
-  return d;
+/** A stand-in for the runtime's context, over a folder holding Ana's key. */
+function ctx(secret = SECRET) {
+  const dir = mkdtempSync(join(tmpdir(), "family-crypto-"));
+  writeFileSync(join(dir, "kraken-ana.json"), JSON.stringify({ key: "PUBLICKEY", secret }));
+  const notes = [];
+  return {
+    dir,
+    notes,
+    note: (m) => notes.push(m),
+    warn: (m) => notes.push(m),
+    fail: (m) => {
+      throw new Error(m);
+    },
+  };
 }
 
-/** Runs the tool; resolves with its exit code and parsed JSON output. */
-function run(d, ...args) {
-  return new Promise((resolve) => {
-    const p = spawn(process.execPath, [CRYPTO, ...args], {
-      env: { ...process.env, FAMILY_CRYPTO_DIR: d, FAMILY_KRAKEN_API: base, FAMILY_COINBASE_API: base },
-    });
-    let out = "";
-    p.stdout.on("data", (c) => (out += c));
-    p.on("close", (code) => resolve({ code, json: JSON.parse(out) }));
-  });
-}
+test("accounts: one per connected key", () => {
+  assert.deepEqual(kraken.accounts(ctx()), [{ owner: "ana" }]);
+});
 
-test("balances: Kraken holdings with readable asset names and a value", async () => {
-  const { code, json } = await run(dir(), "balances", "--source", "kraken");
-  assert.equal(code, 0, JSON.stringify(json));
-  assert.deepEqual(
-    json.holdings.map((h) => [h.asset, h.amount, h.valueEUR, h.wallet]),
-    [
-      ["BTC", 0.5, 50000, "Spot"],
-      ["ETH", 2, 5000, "Earn"],
-    ],
-  );
-  assert.equal(json.totalEUR, 55000);
+test("balances: readable asset names, staked holdings as Earn", async () => {
+  const holdings = await kraken.balances(ctx(), { owner: "ana" });
+  assert.deepEqual(holdings, [
+    { asset: "BTC", amount: 0.5, wallet: "Spot" },
+    { asset: "ETH", amount: 2, wallet: "Earn" },
+  ]);
   // The withdrawal probe first, then the read; nothing else.
   assert.deepEqual(called, ["/0/private/WithdrawMethods", "/0/private/BalanceEx"]);
   assert.ok(BigInt(nonces[1]) > BigInt(nonces[0]), "nonces increase");
 });
 
-test("transactions: every ledger page, newest first", async () => {
-  const { code, json } = await run(dir(), "transactions", "--source", "kraken");
-  assert.equal(code, 0, JSON.stringify(json));
+test("transactions: every ledger page", async () => {
+  const rows = await kraken.transactions(ctx(), { owner: "ana" }, {});
   assert.deepEqual(
-    json.transactions.map((t) => [t.date.slice(0, 10), t.type, t.asset, t.amount]),
+    rows.map((t) => [t.date.slice(0, 10), t.type, t.asset, t.amount]),
     [
       ["2026-01-01", "trade", "BTC", 0.1],
       ["2025-12-01", "staking", "ETH", 0.01],
@@ -127,27 +123,18 @@ test("transactions: every ledger page, newest first", async () => {
 
 test("a history longer than the cap says so instead of passing the cap off as the total", async () => {
   endless = true;
-  const { code, json } = await run(dir(), "transactions", "--source", "kraken");
-  assert.equal(code, 0, JSON.stringify(json));
-  assert.equal(json.count, 300);
-  assert.match(json.partial[0], /kraken ana: only the newest 300 entries were read/);
+  const c = ctx();
+  const rows = await kraken.transactions(c, { owner: "ana" }, {});
+  assert.equal(rows.length, 300);
+  assert.match(c.notes[0], /ana: only the newest 300 entries were read/);
 });
 
 test("a key that can withdraw is refused before anything is read", async () => {
   canWithdraw = true;
-  const { code, json } = await run(dir(), "balances", "--source", "kraken");
-  assert.equal(code, 1);
-  assert.match(json.error, /can withdraw funds/);
+  await assert.rejects(kraken.balances(ctx(), { owner: "ana" }), /can withdraw funds/);
   assert.deepEqual(called, ["/0/private/WithdrawMethods"]);
 });
 
 test("a key Kraken refuses says how to fix it", async () => {
-  const { code, json } = await run(dir("d3Jvbmc="), "balances", "--source", "kraken");
-  assert.equal(code, 1);
-  assert.match(json.error, /Kraken refused the key of ana .*nanou\.ai → Connectors → Kraken/);
-});
-
-test("accounts lists who connected Kraken", async () => {
-  const { json } = await run(dir(), "accounts");
-  assert.deepEqual(json.kraken, ["ana"]);
+  await assert.rejects(kraken.balances(ctx("d3Jvbmc="), { owner: "ana" }), /Kraken refused the key of ana .*nanou\.ai → Connectors → Kraken/);
 });

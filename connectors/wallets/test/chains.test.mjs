@@ -1,10 +1,10 @@
-// Tests for tools/crypto/wallets.mjs against a stand-in fetch: chains read at
+// Tests for connectors/wallets/src/chains.mjs against a stand-in fetch: chains read at
 // once all keep their holdings, a failing endpoint falls back to the backup,
 // and a broken answer is an error, never a zero balance.
-// Run with `node --test tests/wallets.test.mjs`.
+// Run with `node --test "connectors/wallets/test/*.test.mjs"`.
 import assert from "node:assert/strict";
 import { afterEach, test } from "node:test";
-import { CHAINS, walletHoldings } from "../tools/crypto/wallets.mjs";
+import { CHAINS, walletHoldings } from "../src/chains.mjs";
 
 const ADDRESS = "0x1111111111111111111111111111111111111111";
 const real = globalThis.fetch;
@@ -56,4 +56,28 @@ test("a reply with no result is an error, not an empty wallet", async () => {
   assert.deepEqual(holdings, []);
   assert.equal(errors.length, 1);
   assert.match(errors[0], /^ethereum: eth_getBalance: no result/);
+});
+
+test("the source: add asks whose it is, then the wallet is an account and can be removed", async () => {
+  const { default: wallets } = await import("../src/source.mjs");
+  const { mkdtempSync } = await import("node:fs");
+  const { tmpdir } = await import("node:os");
+  const { join } = await import("node:path");
+  const ctx = {
+    dir: mkdtempSync(join(tmpdir(), "family-crypto-")),
+    currency: "EUR",
+    value: async () => null,
+    note() {},
+    warn() {},
+    fail: (m) => {
+      throw new Error(m);
+    },
+  };
+  stand(async () => "0x0");
+  await assert.rejects(wallets.commands["wallet add"](ctx, [ADDRESS], {}), /--owner/);
+  const added = await wallets.commands["wallet add"](ctx, [ADDRESS], { owner: "Ana", label: "Ledger", chains: "ethereum" });
+  assert.equal(added.wallet.owner, "ana");
+  assert.deepEqual(wallets.accounts(ctx), [{ owner: "ana", label: "Ledger", address: ADDRESS, chains: ["ethereum"] }]);
+  assert.deepEqual(wallets.commands["wallet remove"](ctx, ["ledger"]), { ok: true, removed: 1 });
+  assert.deepEqual(wallets.accounts(ctx), []);
 });

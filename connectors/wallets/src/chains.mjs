@@ -1,4 +1,4 @@
-// Watch-only wallets for the crypto CLI: balances read from public
+// Watch-only wallets for the wallets source: balances read from public
 // blockchains by address. No keys are involved, nothing can be moved.
 //
 // - EVM addresses (0x…) are read on every chain in CHAINS: the native coin

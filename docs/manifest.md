@@ -10,8 +10,12 @@ commands.
 
 ```
 connectors/<id>/connector.json      the manifest (below)
+connectors/<id>/src/source.mjs      its code (the manifest's entry)
+connectors/<id>/SKILL.md            its section of the runtime's skill
+connectors/<id>/test/               its tests
 connectors/<id>/i18n/<locale>.json  catalog text, one per locale (all 25 required)
 connectors/index.json               generated: run node scripts/check.mjs
+skills/<name>/SKILL.md              generated: each runtime's skill with every connector's section
 ```
 
 ## Fields
@@ -25,12 +29,13 @@ connectors/index.json               generated: run node scripts/check.mjs
   "plan": "family",            // lowest plan that includes it: solo | family | plus
   "color": "#7132F5", "mark": "Kr",   // logo tile
   "tool": {
-    "bin": "crypto",           // the CLI in the gateway image
+    "bin": "crypto",           // the runtime that runs it (runtime/crypto)
     "source": "kraken",        // its --source value for this connector
     "commands": {              // every command it uses, with its effect
       "balances": "read", "transactions": "read", "accounts": "public", "prices": "public"
     }
   },
+  "entry": "src/source.mjs",   // the connector's code, inside its folder (runtime/<bin>/README.md: the contract)
   "auth": { "kind": "api_key", "fields": [ { "id": "key", "pattern": "^…$" }, { "id": "secret", "secret": true, "pattern": "^…$" } ] },
   "install": {
     "file": ".config/family-crypto/kraken-{owner}.json",   // under the family's home
@@ -93,7 +98,9 @@ language (tu, du, tú…), and never name AI providers or models.
 an unknown category, plan or auth kind, a `money` effect, an unanchored or
 broken field pattern, an install path that is absolute, has `..` or lacks
 `{owner}`, a check or import that doesn't run the connector's own tool, a
-missing locale or text, or two connectors sharing an id or a `--source`.
+missing locale or text, two connectors sharing an id or a `--source`, an
+`entry` outside the folder, or code that implements a command the manifest
+doesn't declare (or declares one it doesn't implement).
 
 ## Coming next
 

@@ -1,20 +1,28 @@
 # Build a nanou connector
 
 A connector lets nanou, the private family assistant, read one more service
-for a family: an exchange, a bank export, a tool they use. It is three things
-in one folder plus a command-line tool:
+for a family: an exchange, a bank export, a tool they use. **A connector is
+one self-contained folder**: its manifest, its code, what nanou should know
+about it, its tests and its catalog text, importing nothing from outside the
+folder. Build it in your own repository with exactly this layout, and once
+it's approved it moves into this one as it is, as `connectors/<id>/`.
 
-- **a manifest** (`connectors/<id>/connector.json`): what the tool's commands
-  may do, how the person connects, which hosts it reaches. Spec: [manifest.md](manifest.md);
-- **catalog text** in 25 languages (`connectors/<id>/i18n/`);
-- **the tool** (`tools/<bin>/`): a small CLI that prints JSON, which nanou runs
-  inside the family's own container;
-- and usually **a skill** (`skills/<name>/SKILL.md`) telling nanou when and how
-  to use it.
+```
+<id>/
+  connector.json     the manifest: commands and their effects, setup, hosts (docs/manifest.md)
+  src/source.mjs     the code, implementing the runtime's contract (runtime/crypto/README.md)
+  SKILL.md           what nanou should know when using it, one "## <Name>" section
+  test/*.test.mjs    tests on recorded responses: no network, no real key
+  i18n/<locale>.json catalog text in nanou's 25 languages
+  README.md          what it reads, how a person connects it
+```
 
-Kraken is the reference example: [connectors/kraken](../connectors/kraken),
-its `--source kraken` in [tools/crypto](../tools/crypto/crypto.mjs) and
-[its tests](../tests/crypto-kraken.test.mjs).
+The four folders in [connectors/](../connectors) are all built this way;
+[Kraken](../connectors/kraken) is the reference. The code runs inside a
+**runtime** that nanou owns, `crypto` for crypto sources
+([runtime/crypto](../runtime/crypto)): it finds every source, adds totals up
+across them, values them and runs only declared commands. Your module answers
+`accounts`, `balances` and `transactions`, plus any command of its own.
 
 ## Three levels
 
@@ -48,22 +56,27 @@ it opens than have code we haven't reviewed running next to a family's data.
 
 ## Step by step
 
-1. **Pick the setup** the service allows: `api_key` (fields the person
+1. **Copy the Kraken folder** as your starting point and rename it to your
+   connector's id.
+2. **Pick the setup** the service allows: `api_key` (fields the person
    pastes), `key_file` (a JSON key file), `file_import` (a CSV export) or
    `none` (public data, like watched wallet addresses).
-2. **Write the tool's commands.** Add a `--source` to an existing tool (all
-   crypto sources share `tools/crypto`) or a new tool. Keep it dependency-free
-   on Node 22.
-3. **Write the manifest** and the `i18n/en.json` text, then the other 24
-   languages. Informal register everywhere; a machine draft is fine if you
-   say so.
-4. **Test with recorded responses.** Start a local HTTP server in the test
-   that answers like the service (see `tests/crypto-kraken.test.mjs`, which
-   also checks the request signature against Kraken's published test
-   vector). Point the tool at it with an environment variable. No network,
-   no real key.
-5. **Check:** `node scripts/check.mjs && node --test "tests/*.test.mjs"`.
-6. **Open a pull request** (signed-off commits, see
+3. **Write `src/source.mjs`** against the
+   [runtime's contract](../runtime/crypto/README.md): Node built-ins only,
+   files only under `ctx.dir`, errors through `ctx.fail`.
+4. **Write the manifest**, the `SKILL.md` section and `i18n/en.json`, then
+   the other 24 languages. Informal register everywhere; a machine draft is
+   fine if you say so.
+5. **Test with recorded responses.** Start a local HTTP server in the test
+   that answers like the service and hand your module a stand-in `ctx` (see
+   [Kraken's tests](../connectors/kraken/test/kraken.test.mjs), which also
+   check the request signature against Kraken's published test vector). No
+   network, no real key.
+6. **Check** from this repository with your folder under `connectors/`:
+   `node scripts/check.mjs && node --test "tests/*.test.mjs" "connectors/*/test/*.test.mjs"`.
+   The checker also makes sure your code implements exactly the commands
+   your manifest declares.
+7. **Open a pull request** adding your folder (signed-off commits, see
    [CONTRIBUTING.md](../CONTRIBUTING.md)), or keep it in your own repository
    for the Verified track when it opens.
 

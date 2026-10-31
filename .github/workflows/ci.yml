@@ -18,7 +18,7 @@ jobs:
       - name: Manifests are valid and index.json is current
         run: node scripts/check.mjs --check
       - name: Tests (recorded responses only, no network, no credentials)
-        run: node --test "tests/*.test.mjs"
+        run: node --test "tests/*.test.mjs" "connectors/*/test/*.test.mjs"
   dco:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest

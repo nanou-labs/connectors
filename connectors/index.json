@@ -19,6 +19,7 @@
           "transactions": "read"
         }
       },
+      "entry": "src/source.mjs",
       "auth": {
         "kind": "key_file",
         "signIn": true,
@@ -74,6 +75,7 @@
           "transactions": "read"
         }
       },
+      "entry": "src/source.mjs",
       "auth": {
         "kind": "api_key",
         "fields": [
@@ -133,6 +135,7 @@
           "import-nexo": "local"
         }
       },
+      "entry": "src/source.mjs",
       "auth": {
         "kind": "file_import",
         "accept": ".csv,text/csv",
@@ -186,6 +189,7 @@
           "wallet remove": "local"
         }
       },
+      "entry": "src/source.mjs",
       "auth": {
         "kind": "none"
       },
