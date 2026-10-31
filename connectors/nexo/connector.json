@@ -40,7 +40,7 @@
   },
   "accounts": {
     "kind": "crypto",
-    "dir": ".config/family-crypto",
+    "dir": ".config/connectors/nexo",
     "files": [
       "nexo-{owner}.csv"
     ],

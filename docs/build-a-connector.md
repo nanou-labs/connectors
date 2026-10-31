@@ -35,11 +35,10 @@ runs inside a **runtime** that nanou owns, and there are two shapes:
 | **Verified** | in your own repository; we review one exact commit, pin it and sign it | every family |
 | **Private** | anywhere; the family's owner adds it from a GitHub link | that family only, read-only by default, with a warning |
 
-Official connectors are what you see in this repository today. Verified
-submissions and Private installs open once the per-connector sandbox is
-built (each connector in its own process, with only its own key and only its
-declared hosts). We'd rather you build against the spec now and submit when
-it opens than have code we haven't reviewed running next to a family's data.
+Official connectors are what you see in this repository today. Every
+connector already runs in nanou's sandbox (docs/sandbox.md): its own
+process, only its own folder, only its declared hosts. Verified submissions
+and Private installs open next, on top of it.
 
 ## The rules
 

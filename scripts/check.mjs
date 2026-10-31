@@ -82,7 +82,7 @@ function validate(m, dir, text, locales) {
   need(/^#[0-9A-Fa-f]{6}$/.test(m.color ?? ""), "color must be #RRGGBB");
   need(typeof m.mark === "string" && m.mark.length > 0 && m.mark.length <= 3, "mark must be 1-3 characters");
   need(typeof m.data === "string" && m.data.length > 0, "data (what it reads and where it is kept) is required");
-  need(Array.isArray(m.network) && m.network.every((h) => HOST.test(h)), "network must be a list of host names");
+  need(Array.isArray(m.network) && m.network.every((h) => HOST.test(h) && !/^[0-9.]+$/.test(h)), "network must be a list of host names (not addresses)");
   need(
     typeof m.entry === "string" && /^src\/[A-Za-z0-9._/-]+\.mjs$/.test(m.entry) && !m.entry.includes("..") && existsSync(join(SRC, dir, m.entry)),
     "entry is the connector's module inside its folder (src/source.mjs)",
@@ -157,8 +157,11 @@ function validate(m, dir, text, locales) {
   if (a.kind === "key_file") need(Array.isArray(a.jsonKeys) && a.jsonKeys.length > 0, "auth.jsonKeys lists the keys the file must have");
   if (a.kind === "key_file" || a.kind === "file_import") need(typeof a.accept === "string", "auth.accept is the file picker's accept list");
   if (a.kind === "file_import") need(Array.isArray(a.header) && a.header.length > 0, "auth.header lists words the first line must contain");
+  // Each connector's files live in its own folder: the sandbox lets it see nothing else.
+  const ownDir = `.config/connectors/${m.id}`;
   if (a.kind === "api_key" || a.kind === "key_file") {
     need(HOME_FILE.test(i.file ?? "") && (i.file ?? "").includes("{owner}"), "install.file is a path under the home with {owner}");
+    need((i.file ?? "").startsWith(`${ownDir}/`), `install.file is in the connector's own folder, ${ownDir}/`);
     need(placeholders(i.check, ["owner"]) && i.check[0] === t.bin, "install.check runs the tool to test what was saved");
   }
   if (a.kind === "file_import") need(placeholders(i.import, ["owner", "file"]) && i.import[0] === t.bin, "install.import runs the tool on {file}");
@@ -175,6 +178,7 @@ function validate(m, dir, text, locales) {
     const acc = m.accounts;
     need(acc.kind === m.id || SHARED_KINDS[m.category] === acc.kind, `accounts.kind is the connector's id (${m.id}), or "crypto" for a crypto source`);
     need(HOME_FILE.test(acc.dir ?? "") && !acc.dir.includes("{owner}"), "accounts.dir is a folder under the home");
+    need(acc.dir === ownDir, `accounts.dir is the connector's own folder, ${ownDir}`);
     const byField = (/** @type {string} */ f) => /^([A-Za-z0-9_-]+\/)?\*\.json#[a-z_]+$/.test(f);
     need(
       Array.isArray(acc.files) && acc.files.every((f) => /^[A-Za-z0-9._-]*\{owner\}[A-Za-z0-9._-]*$/.test(f) || byField(f)),

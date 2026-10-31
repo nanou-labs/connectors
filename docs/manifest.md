@@ -42,13 +42,13 @@ skills/<name>/SKILL.md              generated: each runtime's skill with its con
   "cards": { },                // own-command connectors: one approval card per write/send command (see Cards)
   "auth": { "kind": "api_key", "fields": [ { "id": "key", "pattern": "^…$" }, { "id": "secret", "secret": true, "pattern": "^…$" } ] },
   "install": {
-    "file": ".config/family-crypto/kraken-{owner}.json",   // under the family's home
+    "file": ".config/connectors/kraken/kraken-{owner}.json",   // under the family's home
     "check": ["crypto", "balances", "--source", "kraken", "--owner", "{owner}"],
     "refused": "What the person reads when the check fails (English for now)."
   },
-  "accounts": { "kind": "crypto", "dir": ".config/family-crypto", "files": ["kraken-{owner}.json"], "label": "Kraken" },
+  "accounts": { "kind": "crypto", "dir": ".config/connectors/kraken", "files": ["kraken-{owner}.json"], "label": "Kraken" },
   "binaries": [ ],             // programs it needs, each { name, url, sha256, path }: fetched into bin/<name>, checksum checked
-  "network": ["api.kraken.com", "api.coinbase.com"],      // every host the tool reaches for it
+  "network": ["api.kraken.com", "api.coinbase.com"],      // every host it reaches, over HTTPS: enforced (docs/sandbox.md)
   "data": "What it reads and where it is kept."
 }
 ```
@@ -166,11 +166,10 @@ missing locale or text, two connectors sharing an id or a `--source`, an
 doesn't declare (or declares one it doesn't implement), a `tool.bin` that is
 neither a shared runtime nor the connector's id, a `write`/`send` command
 without a card (or a card on any other command), or a logo that isn't a
-small square SVG of plain shapes.
+small square SVG of plain shapes, files outside `.config/connectors/<id>/`,
+or a `network` entry that is an address rather than a host name.
 
 ## Coming next
 
-- `network` is declared and reviewed but not yet enforced: that comes with
-  the per-connector sandbox, which is also what private connectors need.
 - A generic `oauth2` sign-in,
   a `qr` pairing kind, and `runtime: mcp` to wrap existing MCP servers.

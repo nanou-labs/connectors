@@ -25,7 +25,7 @@ have one, and each change to it is reviewed line by line.
 github.com/login/device (`auth.kind: "device"`, run by nanou's host with the
 app's client id; no client secret anywhere).
 
-**Files:** `~/.config/family-github/<login>.json`
+**Files:** `~/.config/connectors/github/<login>.json`
 (`{ login, owner, access_token, expires_at, refresh_token, … }`).
 
 **Tests:** `node --test "connectors/github/test/*.test.mjs"`: the policy, and

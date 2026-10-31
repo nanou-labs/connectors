@@ -47,8 +47,8 @@ after(() => server.close());
 beforeEach(() => {
   calls = [];
   home = mkdtempSync(join(tmpdir(), "nanou-slack-"));
-  mkdirSync(join(home, ".config", "family-work"), { recursive: true });
-  writeFileSync(join(home, ".config", "family-work", "slack-ana.json"), JSON.stringify({ token: "xoxp-ana-0000000000000000000" }));
+  mkdirSync(join(home, ".config", "connectors", "slack"), { recursive: true });
+  writeFileSync(join(home, ".config", "connectors", "slack", "slack-ana.json"), JSON.stringify({ token: "xoxp-ana-0000000000000000000" }));
 });
 
 /** Run `slack …` through the runtime. @param {string[]} args @param {Record<string, string>} [env] */
@@ -65,7 +65,7 @@ test("reads a channel with names instead of ids, and caches the people", async (
   const r = /** @type {any} */ (await slack(["history", "--channel", "#dev"]));
   assert.equal(r.code, 0);
   assert.deepEqual(r.json.map((/** @type {any} */ m) => [m.from, m.text]), [["Ana", "morning"], ["Bo", "hi @Ana"]]);
-  assert.ok(existsSync(join(home, ".config", "family-work", "slack-state", "ana-users.json")));
+  assert.ok(existsSync(join(home, ".config", "connectors", "slack", "state", "ana-users.json")));
   calls = [];
   await slack(["channels"]);
   assert.ok(!calls.some((c) => c.method === "users.list"), "the people come from the cache");

@@ -19,7 +19,7 @@
 //   gh accounts              the connected accounts (JSON), with when their access ends
 //   gh git <git args>        git with the token for https://github.com (push needs a card)
 //
-// Tokens: ~/.config/family-github/<login>.json, installed by the nanou
+// Tokens: ~/.config/connectors/github/<login>.json, installed by the nanou
 // provisioner after the person approved nanou's GitHub App on
 // github.com/login/device (device flow, no client secret):
 //   { login, owner, client_id, access_token, expires_at, refresh_token, refresh_expires_at }
@@ -35,7 +35,7 @@ import { fileURLToPath } from "node:url";
 import { ghKind, splitAccount } from "./policy.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const DIR = process.env.FAMILY_GITHUB_DIR ?? join(homedir(), ".config", "family-github");
+const DIR = process.env.FAMILY_GITHUB_DIR ?? join(homedir(), ".config", "connectors", "github");
 const REAL = process.env.FAMILY_GH_BIN ?? join(HERE, "..", "bin", "gh-cli");
 const OAUTH = process.env.FAMILY_GITHUB_OAUTH_URL ?? "https://github.com/login/oauth/access_token";
 const LOGIN = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$/;

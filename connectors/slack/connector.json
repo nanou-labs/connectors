@@ -31,11 +31,11 @@
     "fields": [{ "id": "token", "secret": true, "pattern": "^xoxp-[0-9A-Za-z-]{20,250}$" }]
   },
   "install": {
-    "file": ".config/family-work/slack-{owner}.json",
+    "file": ".config/connectors/slack/slack-{owner}.json",
     "check": ["slack", "whoami", "--owner", "{owner}"],
     "refused": "Slack refused that token. Copy the User OAuth Token (xoxp-…) again and try once more."
   },
-  "accounts": { "kind": "slack", "dir": ".config/family-work", "files": ["slack-{owner}.json"], "label": "Slack" },
+  "accounts": { "kind": "slack", "dir": ".config/connectors/slack", "files": ["slack-{owner}.json"], "label": "Slack" },
   "network": ["slack.com"],
   "data": "Channels, messages and people the person's Slack account can see, read on request; posting or reacting waits for an approval card. Kept in the family's enclave."
 }

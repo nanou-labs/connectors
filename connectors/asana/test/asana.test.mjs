@@ -68,8 +68,8 @@ beforeEach(() => {
 
 /** Save a person's token the way nanou's installer does. @param {string} owner */
 function connect(owner) {
-  mkdirSync(join(home, ".config", "family-work"), { recursive: true });
-  writeFileSync(join(home, ".config", "family-work", `asana-${owner}.json`), JSON.stringify({ token: `1/${owner}:secret` }));
+  mkdirSync(join(home, ".config", "connectors", "asana"), { recursive: true });
+  writeFileSync(join(home, ".config", "connectors", "asana", `asana-${owner}.json`), JSON.stringify({ token: `1/${owner}:secret` }));
 }
 
 /** Run `asana …` through the runtime. @param {string[]} args @param {Record<string, string>} [env] */
@@ -92,7 +92,7 @@ test("reads tasks with the person's own token and remembers the workspace", asyn
   assert.equal(r.json[0].section, "Doing");
   assert.equal(r.json[0].status, "Dev Status: Done", "only status-like fields");
   assert.ok(calls.every((c) => c.token === "Bearer 1/ana:secret"));
-  const saved = JSON.parse(readFileSync(join(home, ".config", "family-work", "asana-ana.json"), "utf8"));
+  const saved = JSON.parse(readFileSync(join(home, ".config", "connectors", "asana", "asana-ana.json"), "utf8"));
   assert.equal(saved.workspace, WS);
   assert.equal(saved.token, "1/ana:secret");
 });

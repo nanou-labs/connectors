@@ -26,5 +26,5 @@ Write as the person would on Slack: short and plain. Reply in the thread (`--thr
 ## Rules
 
 - If `slack` says it isn't connected, send them to nanou.ai → Connectors → Slack. Never ask for a token in chat.
-- Never touch `~/.config/family-work` (the tokens live there; it's blocked).
+- Never touch `~/.config/connectors/slack` (the tokens live there; it's blocked).
 - Work content may be confidential: summarize rather than paste long threads, and don't copy it into family lists or notes unless they ask.

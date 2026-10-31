@@ -56,5 +56,5 @@ When someone gives you a wallet address (pasted, in a photo or a QR, "what's in 
 ## Rules
 
 - Each person connects their own accounts on nanou.ai → Connectors. Never ask for API keys, passwords or seed phrases in chat.
-- Never touch `~/.config/family-crypto` (the keys and imports live there; it's blocked).
+- Never touch `~/.config/connectors/<source>` (the keys and imports live there; it's blocked).
 - You can't move crypto, and `crypto` only runs the commands listed here (anything else is refused). For a buy, sell or transfer, tell them what to do in the app.

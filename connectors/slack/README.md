@@ -14,7 +14,7 @@ it (a workspace admin may have to approve it) and paste the User OAuth Token
 
 `slack whoami` lists what the token can and can't do.
 
-**Files:** `slack-<owner>.json` (`{ token }`) in `~/.config/family-work`, and
+**Files:** `slack-<owner>.json` (`{ token }`) in `~/.config/connectors/slack`, and
 a day-long cache of the workspace's people in `slack-state/`.
 
 **Tests:** `node --test "connectors/slack/test/*.test.mjs"`, against a local

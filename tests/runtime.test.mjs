@@ -1,12 +1,13 @@
 // The crypto runtime end to end, with the real connectors: it adds holdings
 // up across sources and values them, honours --source and --owner, merges
 // histories with the sources' notes, runs a source's own commands only when
-// its manifest declares them, and refuses everything else.
+// its manifest declares them, and refuses everything else. Each source runs in
+// a process of its own and reads only its own folder.
 // Run with `node --test "tests/*.test.mjs"`.
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { createHash, createHmac } from "node:crypto";
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -48,12 +49,17 @@ before(async () => {
 });
 after(() => server.close());
 
-/** A family folder: Ana's Kraken key and Ben's Nexo export. */
+/** A family's home: Ana's Kraken key and Ben's Nexo export, each in its source's own folder. */
 function family() {
-  const d = mkdtempSync(join(tmpdir(), "family-crypto-"));
-  writeFileSync(join(d, "kraken-ana.json"), JSON.stringify({ key: "PUBLICKEY", secret: SECRET }));
+  const d = mkdtempSync(join(tmpdir(), "family-home-"));
+  const own = (/** @type {string} */ id) => {
+    const dir = join(d, ".config", "connectors", id);
+    mkdirSync(dir, { recursive: true });
+    return dir;
+  };
+  writeFileSync(join(own("kraken"), "kraken-ana.json"), JSON.stringify({ key: "PUBLICKEY", secret: SECRET }));
   writeFileSync(
-    join(d, "nexo-ben.csv"),
+    join(own("nexo"), "nexo-ben.csv"),
     "Transaction,Type,Input Currency,Input Amount,Output Currency,Output Amount,USD Equivalent,Details,Date / Time (UTC)\nT1,Top up Crypto,USDC,100,USDC,100,$100,approved / deposit,2026-02-01 10:00:00\n",
   );
   return d;
@@ -63,7 +69,7 @@ function family() {
 function crypto(d, ...args) {
   return new Promise((resolve) => {
     const p = spawn(process.execPath, [CRYPTO, ...args], {
-      env: { PATH: process.env.PATH, HOME: d, FAMILY_CRYPTO_DIR: d, FAMILY_KRAKEN_API: base, FAMILY_COINBASE_API: base },
+      env: { PATH: process.env.PATH, HOME: d, FAMILY_KRAKEN_API: base, FAMILY_COINBASE_API: base },
     });
     let out = "";
     p.stdout.on("data", (c) => (out += c));
