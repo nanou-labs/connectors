@@ -38,7 +38,29 @@ runs inside a **runtime** that nanou owns, and there are two shapes:
 Official connectors are what you see in this repository today. Every
 connector already runs in nanou's sandbox (docs/sandbox.md): its own
 process, only its own folder, only its declared hosts. Verified submissions
-and Private installs open next, on top of it.
+open next, on top of it.
+
+### A Private connector
+
+A family's owner pastes a GitHub link (`https://github.com/you/repo`, or
+`…/tree/<branch>/<folder>`) on nanou.ai → Connectors. nanou fetches that
+exact commit, shows the owner what it may do (its hosts, its commands and
+their effects, what it reads), and installs it read-only unless the owner
+allows changes; each change still gets its card. An update installs only
+when the owner approves the new commit, and nanou says what it widened.
+
+A Private connector is narrower than an Official one:
+
+- a command of its own: `tool.bin` is its `id`, run by `runtime/cli`
+  (no `tool.runs`, `binaries` or `policy`);
+- `auth.kind` is `api_key` or `none`; its key and accounts live in
+  `.config/connectors/<id>/`;
+- every `write` or `send` command has a card in `cards`;
+- its id can't be an Official connector's or a system command's;
+- at most 200 files and 2 MB, no symlinks (hidden files are left out).
+
+nanou never puts your own text in front of its assistant as instructions:
+the skill it reads is generated from your manifest, and your output is data.
 
 ## The rules
 
