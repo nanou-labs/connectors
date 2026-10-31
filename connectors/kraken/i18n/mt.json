@@ -1,0 +1,20 @@
+{
+  "blurb": "Bilanċi u storja, qari biss.",
+  "can": [
+    "L-assi tiegħek u l-valur tagħhom fil-munita tiegħek",
+    "Depożiti, negozjar u premjijiet tal-istaking għat-taxxa",
+    "Ma jistax jinnegozja jew jiġbed, apposta"
+  ],
+  "upload": {
+    "label": "Ċavetta API għall-qari biss",
+    "help": [
+      "Fi Kraken, iftaħ Settings → Connections & API u oħloq ċavetta ġdida.",
+      "Immarka biss Query Funds u Query Ledger Entries. Ħalli l-bqija mitfi, speċjalment Withdraw u l-permessi tal-ordnijiet.",
+      "Ikkopja ċ-ċavetta API u ċ-ċavetta privata fiż-żewġ oqsma hawn taħt."
+    ]
+  },
+  "fields": {
+    "key": "Ċavetta API",
+    "secret": "Ċavetta privata"
+  }
+}

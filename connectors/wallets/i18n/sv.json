@@ -1,0 +1,10 @@
+{
+  "name": "Kryptoplånböcker",
+  "blurb": "Skicka en plånboksadress till nanou, så kollar nanou den och håller koll.",
+  "can": [
+    "Saldon på 8 kedjor",
+    "Räknas in i hushållets förmögenhet",
+    "Bara adresser, aldrig nycklar"
+  ],
+  "howTo": "Inget att ställa in: skicka en offentlig plånboksadress (0x…, Bitcoin eller Solana) till nanou i valfri chatt. nanou kollar den direkt och frågar om den ska bevakas, så att den räknas in i hushållets förmögenhet. Skicka aldrig en seed phrase eller en privat nyckel: nanou kommer aldrig att be om någon."
+}

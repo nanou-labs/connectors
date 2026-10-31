@@ -1,0 +1,10 @@
+{
+  "name": "Krypto-Wallets",
+  "blurb": "Schick nanou eine Wallet-Adresse, sie prüft sie und behält sie im Blick.",
+  "can": [
+    "Guthaben auf 8 Chains",
+    "Zählt zum Vermögen deines Haushalts",
+    "Nur Adressen, nie Schlüssel"
+  ],
+  "howTo": "Nichts einzurichten: Schick nanou in einem beliebigen Chat eine öffentliche Wallet-Adresse (0x…, Bitcoin oder Solana). Sie prüft sie sofort und fragt, ob sie sie weiter beobachten soll, damit sie zum Vermögen deines Haushalts zählt. Schick nie eine Seed-Phrase oder einen privaten Schlüssel: nanou wird nie danach fragen."
+}

@@ -1,0 +1,45 @@
+{
+  "id": "wallets",
+  "name": "Crypto wallets",
+  "category": "crypto",
+  "order": 40,
+  "plan": "solo",
+  "color": "#627EEA",
+  "mark": "◆",
+  "tool": {
+    "bin": "crypto",
+    "source": "wallet",
+    "commands": {
+      "accounts": "public",
+      "prices": "public",
+      "balances": "read",
+      "wallet check": "public",
+      "wallet list": "public",
+      "wallet add": "local",
+      "wallet remove": "local"
+    }
+  },
+  "auth": {
+    "kind": "none"
+  },
+  "network": [
+    "api.mainnet-beta.solana.com",
+    "arbitrum-one-rpc.publicnode.com",
+    "arbitrum.drpc.org",
+    "base-rpc.publicnode.com",
+    "base.drpc.org",
+    "blockstream.info",
+    "bsc-dataseed.bnbchain.org",
+    "bsc-rpc.publicnode.com",
+    "eth.drpc.org",
+    "ethereum-rpc.publicnode.com",
+    "mempool.space",
+    "optimism-rpc.publicnode.com",
+    "optimism.drpc.org",
+    "polygon-bor-rpc.publicnode.com",
+    "polygon.drpc.org",
+    "solana-rpc.publicnode.com",
+    "api.coinbase.com"
+  ],
+  "data": "Public wallet addresses people send in chat, looked up on public blockchains. Never keys or seed phrases."
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Cryptowallets",
+  "blurb": "Stuur nanou een walletadres, nanou controleert het en houdt het in de gaten.",
+  "can": [
+    "Saldi op 8 blockchains",
+    "Meegeteld in het vermogen van je huishouden",
+    "Alleen adressen, nooit sleutels"
+  ],
+  "howTo": "Niets in te stellen: stuur nanou in een willekeurige chat een openbaar walletadres (0x…, Bitcoin of Solana). nanou controleert het meteen en vraagt of het in de gaten moet blijven, zodat het meetelt in het vermogen van je huishouden. Stuur nooit een herstelzin of privésleutel: nanou zal daar nooit om vragen."
+}

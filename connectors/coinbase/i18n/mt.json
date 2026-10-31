@@ -1,0 +1,16 @@
+{
+  "blurb": "Bilanċi u storja, għall-qari biss.",
+  "can": [
+    "Il-valur tal-portafoll fil-munita tiegħek",
+    "Storja tat-tranżazzjonijiet għat-taxxi",
+    "Ma tistax tmexxi flus, apposta"
+  ],
+  "upload": {
+    "label": "Fajl tal-API key għall-wiri biss (cdp_api_key.json)",
+    "help": [
+      "Iftaħ il-Coinbase Developer Platform u idħol bil-kont Coinbase tiegħek.",
+      "Oħloq Secret API key, agħżel ECDSA, u immarka l-permess View biss.",
+      "Niżżel il-fajl tal-key u waqqgħu hawn."
+    ]
+  }
+}

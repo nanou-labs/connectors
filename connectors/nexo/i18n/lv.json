@@ -1,0 +1,15 @@
+{
+  "blurb": "Aktīvi, atjaunoti no tava darījumu eksporta.",
+  "can": [
+    "Aktīvi un nopelnītie procenti",
+    "Vērtība tavā valūtā",
+    "Atjauno, jebkurā laikā importējot vēlreiz"
+  ],
+  "upload": {
+    "label": "Darījumu eksports (CSV)",
+    "help": [
+      "Nexo atver Transactions un eksportē visus kā CSV.",
+      "Ievelc failu šeit."
+    ]
+  }
+}

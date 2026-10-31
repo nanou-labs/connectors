@@ -1,0 +1,51 @@
+{
+  "id": "nexo",
+  "name": "Nexo",
+  "category": "crypto",
+  "order": 30,
+  "plan": "family",
+  "color": "#0A0D11",
+  "mark": "Nx",
+  "tool": {
+    "bin": "crypto",
+    "source": "nexo",
+    "commands": {
+      "accounts": "public",
+      "prices": "public",
+      "balances": "read",
+      "transactions": "read",
+      "import-nexo": "local"
+    }
+  },
+  "auth": {
+    "kind": "file_import",
+    "accept": ".csv,text/csv",
+    "header": [
+      "type",
+      "currency"
+    ]
+  },
+  "install": {
+    "import": [
+      "crypto",
+      "import-nexo",
+      "{file}",
+      "--owner",
+      "{owner}"
+    ],
+    "invalid": "That doesn't look like a Nexo transactions export (CSV).",
+    "refused": "Your enclave couldn't read that Nexo export. Export all transactions as CSV and try again."
+  },
+  "accounts": {
+    "kind": "crypto",
+    "dir": ".config/family-crypto",
+    "files": [
+      "nexo-{owner}.csv"
+    ],
+    "label": "Nexo"
+  },
+  "network": [
+    "api.coinbase.com"
+  ],
+  "data": "The transaction export a person uploads, kept in the family's enclave. Nexo is never contacted."
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Kryptowallets",
+  "blurb": "Send nanou en walletadresse, så tjekker nanou den og holder øje.",
+  "can": [
+    "Saldi på tværs af 8 kæder",
+    "Tælles med i husstandens formue",
+    "Kun adresser, aldrig nøgler"
+  ],
+  "howTo": "Intet at sætte op: send nanou en offentlig walletadresse (0x…, Bitcoin eller Solana) i en hvilken som helst chat. nanou tjekker den med det samme og spørger, om den skal holdes øje med, så den tæller med i husstandens formue. Send aldrig en seed phrase eller en privat nøgle: nanou vil aldrig bede om en."
+}

@@ -1,0 +1,16 @@
+{
+  "blurb": "Likučiai ir istorija, tik skaitymui.",
+  "can": [
+    "Portfelio vertė tavo valiuta",
+    "Operacijų istorija mokesčiams",
+    "Negali pervesti lėšų, taip sumanyta"
+  ],
+  "upload": {
+    "label": "Tik peržiūrai skirto API rakto failas (cdp_api_key.json)",
+    "help": [
+      "Atidaryk Coinbase Developer Platform ir prisijunk su savo Coinbase paskyra.",
+      "Sukurk Secret API key, pasirink ECDSA ir pažymėk tik View leidimą.",
+      "Atsisiųsk rakto failą ir nutempk jį čia."
+    ]
+  }
+}

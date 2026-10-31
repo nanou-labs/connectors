@@ -1,0 +1,15 @@
+{
+  "blurb": "Turtas atkuriamas iš tavo operacijų eksporto.",
+  "can": [
+    "Turtas ir uždirbtos palūkanos",
+    "Vertė tavo valiuta",
+    "Importuok iš naujo bet kada, kad atnaujintum"
+  ],
+  "upload": {
+    "label": "Operacijų eksportas (CSV)",
+    "help": [
+      "Nexo atidaryk Transactions ir eksportuok visas operacijas kaip CSV.",
+      "Nutempk failą čia."
+    ]
+  }
+}

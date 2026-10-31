@@ -1,0 +1,15 @@
+{
+  "blurb": "Imetje, sestavljeno iz izvoza tvojih transakcij.",
+  "can": [
+    "Imetje in prislužene obresti",
+    "Vrednost v tvoji valuti",
+    "Za osvežitev kadar koli uvozi znova"
+  ],
+  "upload": {
+    "label": "Izvoz transakcij (CSV)",
+    "help": [
+      "V Nexu odpri Transactions in vse izvozi kot CSV.",
+      "Spusti datoteko sem."
+    ]
+  }
+}

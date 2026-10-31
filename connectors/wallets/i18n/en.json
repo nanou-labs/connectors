@@ -1,0 +1,10 @@
+{
+  "name": "Crypto wallets",
+  "blurb": "Send nanou a wallet address, it checks it and keeps watch.",
+  "can": [
+    "Balances across 8 chains",
+    "Counted in your household net worth",
+    "Addresses only, never keys"
+  ],
+  "howTo": "Nothing to set up: send nanou a public wallet address (0x…, Bitcoin or Solana) in any chat. It checks it right away and asks if it should keep watching it, so it counts in your household net worth. Never send a seed phrase or private key: nanou will never ask for one."
+}

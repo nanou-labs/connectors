@@ -1,0 +1,15 @@
+{
+  "blurb": "Patrimonio ricostruito dall'esportazione delle transazioni.",
+  "can": [
+    "Patrimonio e interessi maturati",
+    "Valore nella tua valuta",
+    "Reimporta quando vuoi per aggiornare"
+  ],
+  "upload": {
+    "label": "Esportazione delle transazioni (CSV)",
+    "help": [
+      "In Nexo, apri Transazioni ed esportale tutte in CSV.",
+      "Trascina qui il file."
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "blurb": "Balances and history, read-only.",
+  "can": [
+    "Portfolio value in your currency",
+    "Transaction history for taxes",
+    "Cannot move funds, by design"
+  ],
+  "upload": {
+    "label": "View-only API key file (cdp_api_key.json)",
+    "help": [
+      "Open the Coinbase Developer Platform and sign in with your Coinbase account.",
+      "Create a Secret API key, choose ECDSA, and tick only the View permission.",
+      "Download the key file and drop it here."
+    ]
+  }
+}

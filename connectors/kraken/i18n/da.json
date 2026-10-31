@@ -1,0 +1,20 @@
+{
+  "blurb": "Saldi og historik, kun læseadgang.",
+  "can": [
+    "Beholdninger og deres værdi i din valuta",
+    "Indbetalinger, handler og staking-belønninger til skat",
+    "Kan ikke handle eller hæve, helt bevidst"
+  ],
+  "upload": {
+    "label": "API-nøgle med kun læseadgang",
+    "help": [
+      "Åbn Settings → Connections & API i Kraken og opret en ny nøgle.",
+      "Sæt kun flueben ved Query Funds og Query Ledger Entries. Lad alt andet være slået fra, især Withdraw og ordre-rettighederne.",
+      "Kopiér API-nøglen og den private nøgle ind i de to felter nedenfor."
+    ]
+  },
+  "fields": {
+    "key": "API-nøgle",
+    "secret": "Privat nøgle"
+  }
+}

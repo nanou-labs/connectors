@@ -1,0 +1,10 @@
+{
+  "name": "Portfele kryptowalut",
+  "blurb": "Wyślij nanou adres portfela, a nanou go sprawdzi i będzie go pilnować.",
+  "can": [
+    "Salda w 8 sieciach blockchain",
+    "Wliczane do majątku twojego domu",
+    "Tylko adresy, nigdy klucze"
+  ],
+  "howTo": "Nic nie trzeba konfigurować: wyślij nanou publiczny adres portfela (0x…, Bitcoin lub Solana) w dowolnym czacie. nanou od razu go sprawdza i pyta, czy ma go dalej obserwować, żeby wliczał się do majątku twojego domu. Nigdy nie wysyłaj frazy odzyskiwania ani klucza prywatnego: nanou nigdy o nie nie poprosi."
+}

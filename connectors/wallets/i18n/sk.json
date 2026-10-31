@@ -1,0 +1,10 @@
+{
+  "name": "Krypto peňaženky",
+  "blurb": "Pošli nanou adresu peňaženky, skontroluje ju a bude ju sledovať.",
+  "can": [
+    "Zostatky na 8 blockchainoch",
+    "Započítané do čistého majetku domácnosti",
+    "Len adresy, nikdy kľúče"
+  ],
+  "howTo": "Netreba nič nastavovať: pošli nanou verejnú adresu peňaženky (0x…, Bitcoin alebo Solana) v ľubovoľnej konverzácii. Hneď ju skontroluje a spýta sa, či ju má ďalej sledovať, aby sa započítala do čistého majetku domácnosti. Nikdy neposielaj seed frázu ani súkromný kľúč: nanou si o ne nikdy nepovie."
+}

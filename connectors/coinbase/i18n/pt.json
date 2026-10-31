@@ -1,0 +1,16 @@
+{
+  "blurb": "Saldos e histórico, só leitura.",
+  "can": [
+    "Valor da carteira na tua moeda",
+    "Histórico de transações para os impostos",
+    "Não pode mover fundos, de propósito"
+  ],
+  "upload": {
+    "label": "Ficheiro de chave API só de visualização (cdp_api_key.json)",
+    "help": [
+      "Abre a Coinbase Developer Platform e inicia sessão com a tua conta Coinbase.",
+      "Cria uma «Secret API key», escolhe ECDSA e marca só a permissão «View».",
+      "Descarrega o ficheiro da chave e larga-o aqui."
+    ]
+  }
+}

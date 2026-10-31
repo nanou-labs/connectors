@@ -1,0 +1,20 @@
+{
+  "blurb": "Saldi en geschiedenis, alleen-lezen.",
+  "can": [
+    "Je bezittingen en hun waarde in jouw valuta",
+    "Stortingen, trades en staking-beloningen voor de belasting",
+    "Kan niet handelen of opnemen, bewust zo gebouwd"
+  ],
+  "upload": {
+    "label": "Alleen-lezen API-sleutel",
+    "help": [
+      "Open in Kraken Settings → Connections & API en maak een nieuwe sleutel.",
+      "Vink alleen Query Funds en Query Ledger Entries aan. Laat de rest uit, vooral Withdraw en de orderrechten.",
+      "Kopieer de API-sleutel en de privésleutel naar de twee velden hieronder."
+    ]
+  },
+  "fields": {
+    "key": "API-sleutel",
+    "secret": "Privésleutel"
+  }
+}

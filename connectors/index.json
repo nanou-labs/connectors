@@ -1,0 +1,235 @@
+{
+  "generated": "by scripts/check.mjs from connectors/*/connector.json; do not edit",
+  "connectors": [
+    {
+      "id": "coinbase",
+      "name": "Coinbase",
+      "category": "crypto",
+      "order": 10,
+      "plan": "family",
+      "color": "#0052FF",
+      "mark": "Cb",
+      "tool": {
+        "bin": "crypto",
+        "source": "coinbase",
+        "commands": {
+          "accounts": "public",
+          "prices": "public",
+          "balances": "read",
+          "transactions": "read"
+        }
+      },
+      "auth": {
+        "kind": "key_file",
+        "signIn": true,
+        "accept": ".json,application/json",
+        "jsonKeys": [
+          "name",
+          "privateKey"
+        ]
+      },
+      "install": {
+        "file": ".config/family-crypto/coinbase-{owner}.json",
+        "check": [
+          "crypto",
+          "balances",
+          "--source",
+          "coinbase",
+          "--owner",
+          "{owner}"
+        ],
+        "invalid": "That isn't a Coinbase key file (it should contain name and privateKey).",
+        "refused": "Coinbase refused that key. Check it has the View permission and try again."
+      },
+      "accounts": {
+        "kind": "crypto",
+        "dir": ".config/family-crypto",
+        "files": [
+          "coinbase-{owner}.json",
+          "coinbase-oauth/*.json#owner"
+        ],
+        "label": "Coinbase"
+      },
+      "network": [
+        "api.coinbase.com",
+        "login.coinbase.com"
+      ],
+      "data": "Balances and transactions, read on request with read-only scopes or a View-only key. Kept in the family's enclave."
+    },
+    {
+      "id": "kraken",
+      "name": "Kraken",
+      "category": "crypto",
+      "order": 20,
+      "plan": "family",
+      "color": "#7132F5",
+      "mark": "Kr",
+      "tool": {
+        "bin": "crypto",
+        "source": "kraken",
+        "commands": {
+          "accounts": "public",
+          "prices": "public",
+          "balances": "read",
+          "transactions": "read"
+        }
+      },
+      "auth": {
+        "kind": "api_key",
+        "fields": [
+          {
+            "id": "key",
+            "pattern": "^[A-Za-z0-9+/=]{40,100}$"
+          },
+          {
+            "id": "secret",
+            "secret": true,
+            "pattern": "^[A-Za-z0-9+/=]{60,140}$"
+          }
+        ]
+      },
+      "install": {
+        "file": ".config/family-crypto/kraken-{owner}.json",
+        "check": [
+          "crypto",
+          "balances",
+          "--source",
+          "kraken",
+          "--owner",
+          "{owner}"
+        ],
+        "refused": "Kraken refused that key, or it can withdraw. Create a key with only Query Funds and Query Ledger Entries, and try again."
+      },
+      "accounts": {
+        "kind": "crypto",
+        "dir": ".config/family-crypto",
+        "files": [
+          "kraken-{owner}.json"
+        ],
+        "label": "Kraken"
+      },
+      "network": [
+        "api.kraken.com",
+        "api.coinbase.com"
+      ],
+      "data": "Balances and ledger entries, read on request with a key that can only query. Kept in the family's enclave."
+    },
+    {
+      "id": "nexo",
+      "name": "Nexo",
+      "category": "crypto",
+      "order": 30,
+      "plan": "family",
+      "color": "#0A0D11",
+      "mark": "Nx",
+      "tool": {
+        "bin": "crypto",
+        "source": "nexo",
+        "commands": {
+          "accounts": "public",
+          "prices": "public",
+          "balances": "read",
+          "transactions": "read",
+          "import-nexo": "local"
+        }
+      },
+      "auth": {
+        "kind": "file_import",
+        "accept": ".csv,text/csv",
+        "header": [
+          "type",
+          "currency"
+        ]
+      },
+      "install": {
+        "import": [
+          "crypto",
+          "import-nexo",
+          "{file}",
+          "--owner",
+          "{owner}"
+        ],
+        "invalid": "That doesn't look like a Nexo transactions export (CSV).",
+        "refused": "Your enclave couldn't read that Nexo export. Export all transactions as CSV and try again."
+      },
+      "accounts": {
+        "kind": "crypto",
+        "dir": ".config/family-crypto",
+        "files": [
+          "nexo-{owner}.csv"
+        ],
+        "label": "Nexo"
+      },
+      "network": [
+        "api.coinbase.com"
+      ],
+      "data": "The transaction export a person uploads, kept in the family's enclave. Nexo is never contacted."
+    },
+    {
+      "id": "wallets",
+      "name": "Crypto wallets",
+      "category": "crypto",
+      "order": 40,
+      "plan": "solo",
+      "color": "#627EEA",
+      "mark": "◆",
+      "tool": {
+        "bin": "crypto",
+        "source": "wallet",
+        "commands": {
+          "accounts": "public",
+          "prices": "public",
+          "balances": "read",
+          "wallet check": "public",
+          "wallet list": "public",
+          "wallet add": "local",
+          "wallet remove": "local"
+        }
+      },
+      "auth": {
+        "kind": "none"
+      },
+      "network": [
+        "api.mainnet-beta.solana.com",
+        "arbitrum-one-rpc.publicnode.com",
+        "arbitrum.drpc.org",
+        "base-rpc.publicnode.com",
+        "base.drpc.org",
+        "blockstream.info",
+        "bsc-dataseed.bnbchain.org",
+        "bsc-rpc.publicnode.com",
+        "eth.drpc.org",
+        "ethereum-rpc.publicnode.com",
+        "mempool.space",
+        "optimism-rpc.publicnode.com",
+        "optimism.drpc.org",
+        "polygon-bor-rpc.publicnode.com",
+        "polygon.drpc.org",
+        "solana-rpc.publicnode.com",
+        "api.coinbase.com"
+      ],
+      "data": "Public wallet addresses people send in chat, looked up on public blockchains. Never keys or seed phrases."
+    }
+  ],
+  "bins": {
+    "crypto": {
+      "commands": {
+        "accounts": "public",
+        "balances": "read",
+        "import-nexo": "local",
+        "prices": "public",
+        "transactions": "read",
+        "wallet add": "local",
+        "wallet check": "public",
+        "wallet list": "public",
+        "wallet remove": "local"
+      },
+      "sources": {
+        "coinbase": "crypto",
+        "kraken": "crypto",
+        "nexo": "crypto",
+        "wallet": null
+      }
+    }
+  }
+}

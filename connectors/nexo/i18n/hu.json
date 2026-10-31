@@ -1,0 +1,15 @@
+{
+  "blurb": "Az eszközeid a tranzakciós exportodból újraépítve.",
+  "can": [
+    "Eszközök és megszerzett kamat",
+    "Érték a saját pénznemedben",
+    "Bármikor újraimportálhatod a frissítéshez"
+  ],
+  "upload": {
+    "label": "Tranzakciós export (CSV)",
+    "help": [
+      "A Nexóban nyisd meg a Transactions részt, és exportáld mindet CSV-be.",
+      "Húzd ide a fájlt."
+    ]
+  }
+}

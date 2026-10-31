@@ -1,0 +1,20 @@
+{
+  "blurb": "Salda i historia, tylko do odczytu.",
+  "can": [
+    "Twoje aktywa i ich wartość w twojej walucie",
+    "Wpłaty, transakcje i nagrody ze stakingu do podatków",
+    "Nie może handlować ani wypłacać, celowo"
+  ],
+  "upload": {
+    "label": "Klucz API tylko do odczytu",
+    "help": [
+      "W Krakenie otwórz Settings → Connections & API i utwórz nowy klucz.",
+      "Zaznacz tylko Query Funds i Query Ledger Entries. Resztę zostaw wyłączoną, zwłaszcza Withdraw i uprawnienia do zleceń.",
+      "Skopiuj klucz API i klucz prywatny do dwóch pól poniżej."
+    ]
+  },
+  "fields": {
+    "key": "Klucz API",
+    "secret": "Klucz prywatny"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Portefeuilles crypto",
+  "blurb": "Envoie une adresse de portefeuille à nanou, elle la vérifie et la surveille.",
+  "can": [
+    "Soldes sur 8 blockchains",
+    "Comptés dans le patrimoine de ton foyer",
+    "Des adresses seulement, jamais de clés"
+  ],
+  "howTo": "Rien à configurer : envoie à nanou une adresse de portefeuille publique (0x…, Bitcoin ou Solana) dans n'importe quelle discussion. Elle la vérifie tout de suite et te demande si elle doit continuer à la surveiller, pour qu'elle compte dans le patrimoine de ton foyer. N'envoie jamais de phrase de récupération ni de clé privée : nanou ne t'en demandera jamais."
+}

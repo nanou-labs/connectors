@@ -1,0 +1,20 @@
+{
+  "blurb": "Guthaben und Verlauf, nur lesend.",
+  "can": [
+    "Bestände und ihr Wert in deiner Währung",
+    "Einzahlungen, Trades und Staking-Erträge für die Steuer",
+    "Kann nicht handeln oder abheben, ganz bewusst"
+  ],
+  "upload": {
+    "label": "API-Schlüssel nur zum Lesen",
+    "help": [
+      "Öffne in Kraken Settings → Connections & API und erstelle einen neuen Schlüssel.",
+      "Hake nur Query Funds und Query Ledger Entries an. Lass alles andere aus, vor allem Withdraw und die Order-Rechte.",
+      "Kopiere den API-Schlüssel und den privaten Schlüssel in die zwei Felder unten."
+    ]
+  },
+  "fields": {
+    "key": "API-Schlüssel",
+    "secret": "Privater Schlüssel"
+  }
+}

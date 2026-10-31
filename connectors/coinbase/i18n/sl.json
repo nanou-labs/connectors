@@ -1,0 +1,16 @@
+{
+  "blurb": "Stanja in zgodovina, samo za branje.",
+  "can": [
+    "Vrednost portfelja v tvoji valuti",
+    "Zgodovina transakcij za davke",
+    "Ne more premikati sredstev, namenoma"
+  ],
+  "upload": {
+    "label": "Datoteka ključa API samo za ogled (cdp_api_key.json)",
+    "help": [
+      "Odpri Coinbase Developer Platform in se prijavi s svojim računom Coinbase.",
+      "Ustvari Secret API key, izberi ECDSA in označi samo dovoljenje View.",
+      "Prenesi datoteko ključa in jo spusti sem."
+    ]
+  }
+}

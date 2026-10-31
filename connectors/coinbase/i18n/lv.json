@@ -1,0 +1,16 @@
+{
+  "blurb": "Atlikumi un vēsture, tikai lasīšanai.",
+  "can": [
+    "Portfeļa vērtība tavā valūtā",
+    "Darījumu vēsture nodokļiem",
+    "Nevar pārvietot līdzekļus, tā ir paredzēts"
+  ],
+  "upload": {
+    "label": "Tikai skatīšanās API atslēgas fails (cdp_api_key.json)",
+    "help": [
+      "Atver Coinbase Developer Platform un pieraksties ar savu Coinbase kontu.",
+      "Izveido Secret API atslēgu, izvēlies ECDSA un atzīmē tikai atļauju View.",
+      "Lejupielādē atslēgas failu un ievelc to šeit."
+    ]
+  }
+}

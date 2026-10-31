@@ -1,0 +1,15 @@
+{
+  "blurb": "Aktywa odtworzone z eksportu twoich transakcji.",
+  "can": [
+    "Aktywa i zarobione odsetki",
+    "Wartość w twojej walucie",
+    "Importuj ponownie w dowolnej chwili, aby odświeżyć"
+  ],
+  "upload": {
+    "label": "Eksport transakcji (CSV)",
+    "help": [
+      "W Nexo otwórz Transactions i wyeksportuj wszystkie jako CSV.",
+      "Upuść plik tutaj."
+    ]
+  }
+}

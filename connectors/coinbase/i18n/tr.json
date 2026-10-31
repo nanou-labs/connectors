@@ -1,0 +1,16 @@
+{
+  "blurb": "Bakiyeler ve geçmiş, salt okunur.",
+  "can": [
+    "Kendi para biriminde portföy değeri",
+    "Vergi için işlem geçmişi",
+    "Tasarımı gereği para hareket ettiremez"
+  ],
+  "upload": {
+    "label": "Salt görüntüleme API anahtarı dosyası (cdp_api_key.json)",
+    "help": [
+      "Coinbase Developer Platform'u aç ve Coinbase hesabınla giriş yap.",
+      "Bir Secret API key oluştur, ECDSA'yı seç ve yalnızca View iznini işaretle.",
+      "Anahtar dosyasını indir ve buraya bırak."
+    ]
+  }
+}

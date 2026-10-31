@@ -1,0 +1,10 @@
+{
+  "name": "Kriptotárcák",
+  "blurb": "Küldj a nanou-nak egy tárcacímet, ellenőrzi és szemmel tartja.",
+  "can": [
+    "Egyenlegek 8 láncon",
+    "Beleszámít a háztartásod nettó vagyonába",
+    "Csak címek, soha kulcsok"
+  ],
+  "howTo": "Nincs mit beállítani: küldj a nanou-nak egy nyilvános tárcacímet (0x…, Bitcoin vagy Solana) bármelyik beszélgetésben. Azonnal ellenőrzi, és megkérdezi, figyelje-e tovább, hogy beleszámítson a háztartásod nettó vagyonába. Soha ne küldj seed phrase-t vagy privát kulcsot: a nanou soha nem fog ilyet kérni."
+}

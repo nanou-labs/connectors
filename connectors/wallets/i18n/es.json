@@ -1,0 +1,10 @@
+{
+  "name": "Monederos cripto",
+  "blurb": "Envíale a nanou una dirección de monedero: la comprueba y la vigila.",
+  "can": [
+    "Saldos en 8 cadenas",
+    "Contados en el patrimonio de tu hogar",
+    "Solo direcciones, nunca claves"
+  ],
+  "howTo": "Nada que configurar: envíale a nanou una dirección pública de monedero (0x…, Bitcoin o Solana) en cualquier chat. La comprueba enseguida y te pregunta si debe seguir vigilándola, para que cuente en el patrimonio de tu hogar. Nunca envíes una frase semilla ni una clave privada: nanou nunca te pedirá ninguna."
+}

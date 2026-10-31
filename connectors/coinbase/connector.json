@@ -1,0 +1,55 @@
+{
+  "id": "coinbase",
+  "name": "Coinbase",
+  "category": "crypto",
+  "order": 10,
+  "plan": "family",
+  "color": "#0052FF",
+  "mark": "Cb",
+  "tool": {
+    "bin": "crypto",
+    "source": "coinbase",
+    "commands": {
+      "accounts": "public",
+      "prices": "public",
+      "balances": "read",
+      "transactions": "read"
+    }
+  },
+  "auth": {
+    "kind": "key_file",
+    "signIn": true,
+    "accept": ".json,application/json",
+    "jsonKeys": [
+      "name",
+      "privateKey"
+    ]
+  },
+  "install": {
+    "file": ".config/family-crypto/coinbase-{owner}.json",
+    "check": [
+      "crypto",
+      "balances",
+      "--source",
+      "coinbase",
+      "--owner",
+      "{owner}"
+    ],
+    "invalid": "That isn't a Coinbase key file (it should contain name and privateKey).",
+    "refused": "Coinbase refused that key. Check it has the View permission and try again."
+  },
+  "accounts": {
+    "kind": "crypto",
+    "dir": ".config/family-crypto",
+    "files": [
+      "coinbase-{owner}.json",
+      "coinbase-oauth/*.json#owner"
+    ],
+    "label": "Coinbase"
+  },
+  "network": [
+    "api.coinbase.com",
+    "login.coinbase.com"
+  ],
+  "data": "Balances and transactions, read on request with read-only scopes or a View-only key. Kept in the family's enclave."
+}

@@ -1,0 +1,15 @@
+{
+  "blurb": "Tes avoirs reconstitués à partir de ton export de transactions.",
+  "can": [
+    "Avoirs et intérêts gagnés",
+    "Valeur dans ta devise",
+    "Réimporte quand tu veux pour actualiser"
+  ],
+  "upload": {
+    "label": "Export des transactions (CSV)",
+    "help": [
+      "Dans Nexo, ouvre Transactions et exporte-les toutes en CSV.",
+      "Dépose le fichier ici."
+    ]
+  }
+}

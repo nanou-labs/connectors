@@ -1,0 +1,16 @@
+{
+  "blurb": "Saldi e storico, sola lettura.",
+  "can": [
+    "Valore del portafoglio nella tua valuta",
+    "Storico delle transazioni per le tasse",
+    "Non può spostare fondi, per scelta"
+  ],
+  "upload": {
+    "label": "File della chiave API in sola visualizzazione (cdp_api_key.json)",
+    "help": [
+      "Apri la Coinbase Developer Platform e accedi con il tuo account Coinbase.",
+      "Crea una «Secret API key», scegli ECDSA e spunta solo il permesso «View».",
+      "Scarica il file della chiave e trascinalo qui."
+    ]
+  }
+}

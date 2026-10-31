@@ -1,0 +1,15 @@
+{
+  "blurb": "Innehav återskapade från din transaktionsexport.",
+  "can": [
+    "Innehav och intjänad ränta",
+    "Värde i din valuta",
+    "Importera igen när som helst för att uppdatera"
+  ],
+  "upload": {
+    "label": "Transaktionsexport (CSV)",
+    "help": [
+      "Öppna Transactions i Nexo och exportera alla som CSV.",
+      "Släpp filen här."
+    ]
+  }
+}

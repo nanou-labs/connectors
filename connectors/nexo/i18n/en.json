@@ -1,0 +1,15 @@
+{
+  "blurb": "Holdings rebuilt from your transaction export.",
+  "can": [
+    "Holdings and interest earned",
+    "Value in your currency",
+    "Re-import any time to refresh"
+  ],
+  "upload": {
+    "label": "Transactions export (CSV)",
+    "help": [
+      "In Nexo, open Transactions and export all of them as CSV.",
+      "Drop the file here."
+    ]
+  }
+}

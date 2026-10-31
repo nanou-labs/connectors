@@ -1,0 +1,20 @@
+{
+  "blurb": "Soldes et historique, en lecture seule.",
+  "can": [
+    "Tes avoirs et leur valeur dans ta devise",
+    "Dépôts, trades et récompenses de staking pour les impôts",
+    "Ne peut ni trader ni retirer, par conception"
+  ],
+  "upload": {
+    "label": "Clé API en lecture seule",
+    "help": [
+      "Dans Kraken, ouvre Settings → Connections & API et crée une nouvelle clé.",
+      "Coche uniquement Query Funds et Query Ledger Entries. Laisse tout le reste désactivé, surtout Withdraw et les droits sur les ordres.",
+      "Copie la clé API et la clé privée dans les deux champs ci-dessous."
+    ]
+  },
+  "fields": {
+    "key": "Clé API",
+    "secret": "Clé privée"
+  }
+}

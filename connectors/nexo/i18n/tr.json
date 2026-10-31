@@ -1,0 +1,15 @@
+{
+  "blurb": "İşlem dökümünden yeniden oluşturulan varlıklar.",
+  "can": [
+    "Varlıklar ve kazanılan faiz",
+    "Kendi para biriminde değer",
+    "Güncellemek için istediğin zaman yeniden içe aktar"
+  ],
+  "upload": {
+    "label": "İşlem dökümü (CSV)",
+    "help": [
+      "Nexo'da İşlemler'i aç ve hepsini CSV olarak dışa aktar.",
+      "Dosyayı buraya bırak."
+    ]
+  }
+}

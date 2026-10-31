@@ -1,0 +1,15 @@
+{
+  "blurb": "Držba zostavená z exportu tvojich transakcií.",
+  "can": [
+    "Držba a zarobené úroky",
+    "Hodnota v tvojej mene",
+    "Na obnovenie kedykoľvek importuj znova"
+  ],
+  "upload": {
+    "label": "Export transakcií (CSV)",
+    "help": [
+      "V Nexo otvor Transakcie a exportuj všetky ako CSV.",
+      "Pretiahni súbor sem."
+    ]
+  }
+}

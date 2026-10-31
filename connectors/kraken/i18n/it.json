@@ -1,0 +1,20 @@
+{
+  "blurb": "Saldi e cronologia, sola lettura.",
+  "can": [
+    "I tuoi asset e il loro valore nella tua valuta",
+    "Depositi, operazioni e ricompense di staking per le tasse",
+    "Non può fare trading né prelevare, per scelta"
+  ],
+  "upload": {
+    "label": "Chiave API in sola lettura",
+    "help": [
+      "In Kraken, apri Settings → Connections & API e crea una nuova chiave.",
+      "Spunta solo Query Funds e Query Ledger Entries. Lascia tutto il resto disattivato, soprattutto Withdraw e i permessi sugli ordini.",
+      "Copia la chiave API e la chiave privata nei due campi qui sotto."
+    ]
+  },
+  "fields": {
+    "key": "Chiave API",
+    "secret": "Chiave privata"
+  }
+}

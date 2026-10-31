@@ -1,0 +1,10 @@
+{
+  "name": "Krüptorahakotid",
+  "blurb": "Saada nanoule rahakoti aadress, see kontrollib seda ja hoiab silma peal.",
+  "can": [
+    "Saldod 8 plokiahelas",
+    "Arvestatakse sinu pere netovara hulka",
+    "Ainult aadressid, mitte kunagi võtmed"
+  ],
+  "howTo": "Midagi pole vaja seadistada: saada nanoule mis tahes vestluses avalik rahakoti aadress (0x…, Bitcoin või Solana). See kontrollib seda kohe ja küsib, kas jätkata jälgimist, et see arvestataks sinu pere netovara hulka. Ära kunagi saada seemnefraasi ega privaatvõtit: nanou ei küsi seda kunagi."
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Kripto novčanici",
+  "blurb": "Pošalji nanou adresu novčanika, provjerit će je i pratiti.",
+  "can": [
+    "Stanja na 8 lanaca",
+    "Uračunato u neto imovinu kućanstva",
+    "Samo adrese, nikad ključevi"
+  ],
+  "howTo": "Ništa ne treba postavljati: pošalji nanou javnu adresu novčanika (0x…, Bitcoin ili Solana) u bilo kojem razgovoru. Odmah je provjerava i pita treba li je nastaviti pratiti, da se uračuna u neto imovinu tvog kućanstva. Nikad ne šalji seed frazu ni privatni ključ: nanou ih nikad neće tražiti."
+}

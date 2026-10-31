@@ -1,0 +1,20 @@
+{
+  "blurb": "Egyenlegek és előzmények, csak olvasás.",
+  "can": [
+    "Eszközeid és értékük a saját pénznemedben",
+    "Befizetések, kereskedések és staking-jutalmak az adóhoz",
+    "Nem tud kereskedni vagy kivenni, szándékosan"
+  ],
+  "upload": {
+    "label": "Csak olvasási API-kulcs",
+    "help": [
+      "A Krakenben nyisd meg a Settings → Connections & API menüt, és hozz létre új kulcsot.",
+      "Csak a Query Funds és a Query Ledger Entries legyen bepipálva. Minden mást hagyj kikapcsolva, főleg a Withdraw-t és a megbízási jogokat.",
+      "Másold be az API-kulcsot és a privát kulcsot a lenti két mezőbe."
+    ]
+  },
+  "fields": {
+    "key": "API-kulcs",
+    "secret": "Privát kulcs"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Wallet crypto",
+  "blurb": "Manda a nanou l'indirizzo di un wallet: lo controlla e lo tiene d'occhio.",
+  "can": [
+    "Saldi su 8 blockchain",
+    "Contati nel patrimonio della tua famiglia",
+    "Solo indirizzi, mai chiavi"
+  ],
+  "howTo": "Niente da configurare: manda a nanou l'indirizzo pubblico di un wallet (0x…, Bitcoin o Solana) in qualsiasi chat. Lo controlla subito e ti chiede se deve continuare a tenerlo d'occhio, così conta nel patrimonio della tua famiglia. Non mandare mai una seed phrase o una chiave privata: nanou non te la chiederà mai."
+}
