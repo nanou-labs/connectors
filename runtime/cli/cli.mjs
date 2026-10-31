@@ -71,7 +71,8 @@ function save(file, value) {
 /** The connector's manifest and module. @param {string} id */
 async function load(id) {
   if (!/^[a-z][a-z0-9-]{1,23}$/.test(id ?? "")) fail("usage: cli.mjs <connector id> [command] [--flags]");
-  const dir = join(CONNECTORS, id);
+  // nanou-sandbox says where this connector's code is (a private one isn't in CONNECTORS).
+  const dir = process.env.NANOU_CONNECTOR === id && process.env.NANOU_CONNECTOR_DIR ? process.env.NANOU_CONNECTOR_DIR : join(CONNECTORS, id);
   const file = join(dir, "connector.json");
   if (!existsSync(file)) fail(`no connector "${id}"`);
   const m = JSON.parse(readFileSync(file, "utf8"));
