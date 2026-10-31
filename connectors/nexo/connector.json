@@ -17,6 +17,7 @@
       "import-nexo": "local"
     }
   },
+  "entry": "src/source.mjs",
   "auth": {
     "kind": "file_import",
     "accept": ".csv,text/csv",

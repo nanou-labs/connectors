@@ -1,12 +1,15 @@
 #!/usr/bin/env node
-// Checks every connector manifest (spec: docs/manifest.md) and builds
-// connectors/index.json, the summary nanou's gateway and installer read:
+// Checks every connector manifest (spec: docs/manifest.md) and that each
+// connector's code implements exactly what it declares, then builds what
+// nanou reads: connectors/index.json (its gateway and installer) and each
+// runtime's skill (skills/<name>/SKILL.md, from runtime/<bin>/SKILL.md plus
+// every connector's own SKILL.md).
 //   connectors/<id>/connector.json      the manifest
 //   connectors/<id>/i18n/<locale>.json  its catalog text, one file per locale
-// `node scripts/check.mjs --check` fails when index.json is out of date (CI runs it).
-import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+// `node scripts/check.mjs --check` fails when a generated file is out of date (CI runs it).
+import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SRC = join(ROOT, "connectors");
@@ -43,6 +46,10 @@ function validate(m, dir, text, locales) {
   need(typeof m.mark === "string" && m.mark.length > 0 && m.mark.length <= 3, "mark must be 1-3 characters");
   need(typeof m.data === "string" && m.data.length > 0, "data (what it reads and where it is kept) is required");
   need(Array.isArray(m.network) && m.network.every((h) => HOST.test(h)), "network must be a list of host names");
+  need(
+    typeof m.entry === "string" && /^src\/[A-Za-z0-9._/-]+\.mjs$/.test(m.entry) && !m.entry.includes("..") && existsSync(join(SRC, dir, m.entry)),
+    "entry is the connector's module inside its folder (src/source.mjs)",
+  );
 
   const t = m.tool ?? {};
   need(BIN.test(t.bin ?? ""), "tool.bin must be a command name");
@@ -126,6 +133,24 @@ const manifests = readdirSync(SRC, { withFileTypes: true })
   })
   .sort((x, y) => x.m.order - y.m.order || x.m.id.localeCompare(y.m.id));
 
+// The code does what the manifest declares, no more: the runtime's contract (runtime/<bin>/README.md).
+/** Commands the crypto runtime answers itself by calling the source's accounts/balances/transactions. */
+const RUNTIME_OWN = { crypto: ["accounts", "balances", "transactions", "prices"] };
+for (const { m } of manifests) {
+  const own = RUNTIME_OWN[m.tool.bin];
+  if (!own) continue;
+  const mod = (await import(pathToFileURL(join(SRC, m.id, m.entry)).href)).default ?? {};
+  const declared = Object.keys(m.tool.commands);
+  const bad = [];
+  for (const f of ["accounts", "balances"]) if (typeof mod[f] !== "function") bad.push(`${m.entry} must export ${f}()`);
+  if (declared.includes("transactions") !== (typeof mod.transactions === "function")) bad.push("transactions() is implemented exactly when the manifest declares transactions");
+  const extra = declared.filter((c) => !own.includes(c));
+  const implemented = Object.keys(mod.commands ?? {});
+  for (const c of extra) if (typeof mod.commands?.[c] !== "function") bad.push(`declares "${c}" but ${m.entry} doesn't implement it`);
+  for (const c of implemented) if (!extra.includes(c)) bad.push(`${m.entry} implements "${c}", which the manifest doesn't declare`);
+  if (bad.length) throw new Error(`connectors/${m.id}:\n  ${bad.join("\n  ")}`);
+}
+
 const ids = manifests.map((x) => x.m.id);
 if (new Set(ids).size !== ids.length) throw new Error("two connectors share an id");
 const sources = manifests.map((x) => `${x.m.tool.bin}:${x.m.tool.source}`);
@@ -146,15 +171,41 @@ for (const b of Object.values(bins)) b.commands = Object.fromEntries(Object.entr
 
 const index = `${JSON.stringify({ generated: "by scripts/check.mjs from connectors/*/connector.json; do not edit", connectors: manifests.map((x) => x.m), bins }, null, 2)}\n`;
 
-const file = join(SRC, "index.json");
-const current = existsSync(file) ? readFileSync(file, "utf8") : "";
+// Each runtime's skill: its own part, with every connector's SKILL.md (in catalog order) where it says so.
+/** @type {Record<string, string>} generated file → content */
+const outputs = { [join(SRC, "index.json")]: index };
+const RUNTIMES = join(ROOT, "runtime");
+for (const bin of existsSync(RUNTIMES) ? readdirSync(RUNTIMES) : []) {
+  const template = join(RUNTIMES, bin, "SKILL.md");
+  if (!existsSync(template)) continue;
+  const text = readFileSync(template, "utf8");
+  const name = /^name: (.+)$/m.exec(text)?.[1]?.trim();
+  if (!name || !/^[a-z0-9-]+$/.test(name)) throw new Error(`runtime/${bin}/SKILL.md needs a name in its front matter`);
+  const mine = manifests.filter((x) => x.m.tool.bin === bin);
+  const sections = mine
+    .map((x) => join(SRC, x.m.id, "SKILL.md"))
+    .filter((f) => existsSync(f))
+    .map((f) => readFileSync(f, "utf8").trim())
+    .join("\n\n");
+  const skill = text
+    .replace("{{sources}}", mine.map((x) => x.m.tool.source).join("|"))
+    .replace(/^<!-- connectors:.*-->$/m, sections)
+    // After the front matter, which must stay first.
+    .replace(/^(---\n[\s\S]*?\n---\n)/, `$1\n<!-- Generated by scripts/check.mjs from runtime/${bin}/SKILL.md and connectors/*/SKILL.md; do not edit. -->\n`);
+  outputs[join(ROOT, "skills", name, "SKILL.md")] = skill;
+}
+
+const stale = Object.entries(outputs).filter(([f, content]) => (existsSync(f) ? readFileSync(f, "utf8") : "") !== content);
 if (process.argv.includes("--check")) {
-  if (current !== index) {
-    console.error("connectors/index.json is out of date: run node scripts/check.mjs");
+  if (stale.length) {
+    console.error(`out of date: ${stale.map(([f]) => f.slice(ROOT.length + 1)).join(", ")}; run node scripts/check.mjs`);
     process.exit(1);
   }
   console.log(`${manifests.length} connectors ok`);
 } else {
-  if (current !== index) writeFileSync(file, index);
-  console.log(`${manifests.length} connectors ok, connectors/index.json written`);
+  for (const [f, content] of stale) {
+    mkdirSync(dirname(f), { recursive: true });
+    writeFileSync(f, content);
+  }
+  console.log(`${manifests.length} connectors ok${stale.length ? `, wrote ${stale.map(([f]) => f.slice(ROOT.length + 1)).join(", ")}` : ""}`);
 }

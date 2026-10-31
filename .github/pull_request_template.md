@@ -9,5 +9,5 @@
 - [ ] `network` lists every host the tool reaches
 - [ ] Tests use recorded responses; no live credentials anywhere in the PR
 - [ ] Catalog text in all 25 languages (`i18n/`)
-- [ ] `node scripts/check.mjs --check` and `node --test "tests/*.test.mjs"` pass
+- [ ] `node scripts/check.mjs --check` and `node --test "tests/*.test.mjs" "connectors/*/test/*.test.mjs"` pass
 - [ ] Commits signed off (`git commit -s`)

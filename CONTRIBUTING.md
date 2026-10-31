@@ -33,7 +33,7 @@ CI refuses commits without a `Signed-off-by` line.
 
 ```sh
 node scripts/check.mjs   # validates every manifest and rebuilds connectors/index.json
-node --test "tests/*.test.mjs"       # no network, no credentials
+node --test "tests/*.test.mjs" "connectors/*/test/*.test.mjs"       # no network, no credentials
 ```
 
 Node 22 or newer, no dependencies.

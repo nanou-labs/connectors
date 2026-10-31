@@ -13,6 +13,22 @@ approval, and nothing may move money.
 | [Nexo](connectors/nexo) | transactions | the person's CSV export |
 | [Crypto wallets](connectors/wallets) | public balances of watched addresses | nothing (public data) |
 
+## How it's laid out
+
+Each connector is **one self-contained folder** under `connectors/`: its
+manifest, code, skill section, tests and catalog text, importing nothing from
+outside it. A community connector lives in its author's repository with the
+same layout and moves in here as it is once approved. The code runs inside a
+runtime nanou owns (`runtime/crypto` for crypto sources), which adds totals
+up across sources and only runs what the manifests declare.
+
+```
+connectors/<id>/   one connector (connector.json, src/, SKILL.md, test/, i18n/, README.md)
+runtime/crypto/    the crypto runtime and its source contract
+scripts/check.mjs  validates everything, builds connectors/index.json and skills/
+docs/              the guide and the manifest spec
+```
+
 ## Build one
 
 - [Build a nanou connector](docs/build-a-connector.md): the three levels
@@ -22,7 +38,7 @@ approval, and nothing may move money.
 
 ```sh
 node scripts/check.mjs   # validate the manifests, rebuild connectors/index.json
-node --test "tests/*.test.mjs"       # recorded responses only: no network, no credentials
+node --test "tests/*.test.mjs" "connectors/*/test/*.test.mjs"       # recorded responses only: no network, no credentials
 ```
 
 Node 22 or newer, no dependencies.
