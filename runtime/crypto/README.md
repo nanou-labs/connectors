@@ -44,7 +44,7 @@ A holding may carry `priceAs` when its code isn't the one it's priced as
 
 | | |
 |---|---|
-| `ctx.dir` | the family's crypto folder, where nanou's installer saves `install.file`; read your key and keep your files here, nowhere else |
+| `ctx.dir` | the source's own folder (`~/.config/connectors/<id>/`), where nanou's installer saves `install.file`; the only files it can open |
 | `ctx.fail(message)` | stop with a sentence the person can act on (shown as `{"error"}`) |
 | `ctx.note(message)` | something to say with the figures (a history cut short, an export's date) |
 | `ctx.warn(message)` | a part that couldn't be read: shown as missing, never as zero |
@@ -60,9 +60,10 @@ A holding may carry `priceAs` when its code isn't the one it's priced as
   That is what lets a connector move from its author's repository into this
   one as it is.
 
-## Coming
+## The sandbox
 
-When the per-connector sandbox lands, `ctx` is also how a source gets its
-key and reaches the network: the runtime will hand each source only its own
-secret and only its declared hosts. Sources that already stick to `ctx.dir`
-and their manifest's `network` won't need changes.
+Each source runs in a process of its own (`source.mjs`), one after another,
+and under nanou in its own jail (docs/sandbox.md): it can open only
+`ctx.dir` (`~/.config/connectors/<id>/`) and reach only its manifest's
+`network` hosts with `fetch()`. `ctx.value` fetches Coinbase's public rates,
+so a source that uses it lists `api.coinbase.com`.

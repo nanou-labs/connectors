@@ -28,7 +28,7 @@
     ]
   },
   "install": {
-    "file": ".config/family-crypto/coinbase-{owner}.json",
+    "file": ".config/connectors/coinbase/coinbase-{owner}.json",
     "check": [
       "crypto",
       "balances",
@@ -42,7 +42,7 @@
   },
   "accounts": {
     "kind": "crypto",
-    "dir": ".config/family-crypto",
+    "dir": ".config/connectors/coinbase",
     "files": [
       "coinbase-{owner}.json",
       "coinbase-oauth/*.json#owner"

@@ -117,7 +117,7 @@
     ]
   },
   "install": {
-    "file": ".config/family-work/asana-{owner}.json",
+    "file": ".config/connectors/asana/asana-{owner}.json",
     "check": [
       "asana",
       "me",
@@ -128,7 +128,7 @@
   },
   "accounts": {
     "kind": "asana",
-    "dir": ".config/family-work",
+    "dir": ".config/connectors/asana",
     "files": [
       "asana-{owner}.json"
     ],

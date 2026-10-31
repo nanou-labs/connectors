@@ -31,7 +31,7 @@
         ]
       },
       "install": {
-        "file": ".config/family-crypto/coinbase-{owner}.json",
+        "file": ".config/connectors/coinbase/coinbase-{owner}.json",
         "check": [
           "crypto",
           "balances",
@@ -45,7 +45,7 @@
       },
       "accounts": {
         "kind": "crypto",
-        "dir": ".config/family-crypto",
+        "dir": ".config/connectors/coinbase",
         "files": [
           "coinbase-{owner}.json",
           "coinbase-oauth/*.json#owner"
@@ -93,7 +93,7 @@
         ]
       },
       "install": {
-        "file": ".config/family-crypto/kraken-{owner}.json",
+        "file": ".config/connectors/kraken/kraken-{owner}.json",
         "check": [
           "crypto",
           "balances",
@@ -106,7 +106,7 @@
       },
       "accounts": {
         "kind": "crypto",
-        "dir": ".config/family-crypto",
+        "dir": ".config/connectors/kraken",
         "files": [
           "kraken-{owner}.json"
         ],
@@ -160,7 +160,7 @@
       },
       "accounts": {
         "kind": "crypto",
-        "dir": ".config/family-crypto",
+        "dir": ".config/connectors/nexo",
         "files": [
           "nexo-{owner}.csv"
         ],
@@ -337,7 +337,7 @@
         ]
       },
       "install": {
-        "file": ".config/family-work/asana-{owner}.json",
+        "file": ".config/connectors/asana/asana-{owner}.json",
         "check": [
           "asana",
           "me",
@@ -348,7 +348,7 @@
       },
       "accounts": {
         "kind": "asana",
-        "dir": ".config/family-work",
+        "dir": ".config/connectors/asana",
         "files": [
           "asana-{owner}.json"
         ],
@@ -427,7 +427,7 @@
         ]
       },
       "install": {
-        "file": ".config/family-work/slack-{owner}.json",
+        "file": ".config/connectors/slack/slack-{owner}.json",
         "check": [
           "slack",
           "whoami",
@@ -438,7 +438,7 @@
       },
       "accounts": {
         "kind": "slack",
-        "dir": ".config/family-work",
+        "dir": ".config/connectors/slack",
         "files": [
           "slack-{owner}.json"
         ],
@@ -482,7 +482,7 @@
       },
       "accounts": {
         "kind": "github",
-        "dir": ".config/family-github",
+        "dir": ".config/connectors/github",
         "files": [
           "*.json#owner"
         ],

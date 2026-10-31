@@ -83,7 +83,7 @@ async function load(id) {
 
 /**
  * Where each person's secret is saved (install.file, e.g.
- * ".config/family-work/asana-{owner}.json"), and who has one.
+ * ".config/connectors/asana/asana-{owner}.json"), and who has one.
  * @param {any} m
  */
 function secrets(m) {
@@ -151,7 +151,7 @@ async function main() {
   /** @param {string} name */
   const statePath = (name) => {
     if (!/^[a-z0-9-]{1,40}$/.test(name)) fail(`state name "${name}" must be a short lowercase word`);
-    return join(dirname(path(owner())), `${id}-state`, `${owner()}-${name}.json`);
+    return join(dirname(path(owner())), "state", `${owner()}-${name}.json`);
   };
   const ctx = {
     words: rest,
@@ -172,7 +172,7 @@ async function main() {
     },
     /**
      * The account's own state next to its secret (a cache, a cursor):
-     * <secret's folder>/<id>-state/<owner>-<name>.json.
+     * <secret's folder>/state/<owner>-<name>.json.
      */
     state: {
       /** @param {string} name @param {any} fallback */

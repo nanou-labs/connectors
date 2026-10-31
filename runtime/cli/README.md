@@ -47,7 +47,7 @@ export default {
 | `ctx.flags`, `ctx.flag(k)` | all flags; one flag's text value (undefined when absent or given without a value) |
 | `ctx.secret()` | the account's saved JSON (`{ token }` for an `api_key` with a `token` field) |
 | `ctx.saveSecret(v)` | replace it atomically, owner-only (a refreshed token, a remembered workspace) |
-| `ctx.state.get(name, fallback)`, `ctx.state.set(name, value)` | the account's own state (a cache, a cursor), kept next to its secret |
+| `ctx.state.get(name, fallback)`, `ctx.state.set(name, value)` | the account's own state (a cache, a cursor), kept next to its secret (`state/<owner>-<name>.json`) |
 | `ctx.owner()` | whose account is in use |
 | `ctx.fail(msg)` | stop with a sentence the person can act on |
 
@@ -58,6 +58,8 @@ export default {
   the button, which flags or words the card shows, and the body. That is what
   the family sees before they tap ✓, so make it say exactly what will happen.
 - Never check approval yourself and never read `NANOU_WRITE`: the runtime does.
-- Reach only your manifest's `network` hosts, read only through `ctx.secret()`.
+- Reach only your manifest's `network` hosts with `fetch()`, read only through
+  `ctx.secret()` and `ctx.state`: nanou's sandbox allows nothing else
+  (docs/sandbox.md).
 - Make the base URL overridable by an environment variable
   (`FAMILY_ASANA_API`), so tests run against a local stand-in.

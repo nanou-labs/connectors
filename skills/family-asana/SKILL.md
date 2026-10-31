@@ -30,5 +30,5 @@ Comments read like the person wrote them: short and plain, no headers or bold.
 ## Rules
 
 - If `asana` says it isn't connected, send them to nanou.ai → Connectors → Asana. Never ask for a token in chat.
-- Never touch `~/.config/family-work` (the tokens live there; it's blocked).
+- Never touch `~/.config/connectors/asana` (the tokens live there; it's blocked).
 - Work content may be confidential: summarize rather than paste long threads, and don't copy it into family lists or notes unless they ask.

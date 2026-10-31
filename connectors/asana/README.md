@@ -16,7 +16,7 @@ access token, then paste it on nanou.ai → Connectors → Asana.
 
 **In nanou:** `asana tasks`, `asana inbox --since 1d`, `asana comment <gid> --text "…"` (a card).
 
-**Files:** `asana-<owner>.json` (`{ token, workspace? }`) in `~/.config/family-work`.
+**Files:** `asana-<owner>.json` (`{ token, workspace? }`) in `~/.config/connectors/asana`.
 
 **Tests:** `node --test "connectors/asana/test/*.test.mjs"`, against a local
 stand-in for Asana's API.
