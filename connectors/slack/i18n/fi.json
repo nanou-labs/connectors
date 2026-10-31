@@ -1,0 +1,24 @@
+{
+  "blurb": "Pysy kärryillä kanavista ja yksityisviesteistä.",
+  "can": [
+    "Mitä jäi välistä kanavillasi",
+    "Löydä se ketju tai päätös",
+    "Vastaukset ja reaktiot vasta napautuksesi jälkeen"
+  ],
+  "upload": {
+    "label": "Käyttäjätunnus-token",
+    "help": [
+      "Luo api.slack.com/apps-sivulla uusi sovellus alusta työtilaasi.",
+      "Lisää kohdassa OAuth & Permissions nämä käyttäjätokenin oikeudet: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Asenna se sitten (työtilan ylläpitäjän voi joutua hyväksymään sen).",
+      "Kopioi User OAuth Token (alkaa xoxp-) ja liitä se tähän."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "Slack-tilisi",
+    "next": "Seuraavaksi yhdistämäsi Slack-tilit",
+    "first": "Kun yhdistät Slack-tilisi"
+  }
+}

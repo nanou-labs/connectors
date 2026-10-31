@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Personal access token"
+  },
+  "sharing": {
+    "yours": "il-kontijiet Asana tiegħek",
+    "next": "Kontijiet Asana li tqabbad minn issa",
+    "first": "Meta tqabbad il-kontijiet Asana tiegħek"
   }
 }

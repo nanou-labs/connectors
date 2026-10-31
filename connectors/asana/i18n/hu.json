@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Personal access token"
+  },
+  "sharing": {
+    "yours": "a Asana-fiókjaid",
+    "next": "A következőként csatlakoztatott Asana-fiókok",
+    "first": "Amikor csatlakoztatod a Asana-fiókjaidat"
   }
 }

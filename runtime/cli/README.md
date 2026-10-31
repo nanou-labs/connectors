@@ -47,6 +47,7 @@ export default {
 | `ctx.flags`, `ctx.flag(k)` | all flags; one flag's text value (undefined when absent or given without a value) |
 | `ctx.secret()` | the account's saved JSON (`{ token }` for an `api_key` with a `token` field) |
 | `ctx.saveSecret(v)` | replace it atomically, owner-only (a refreshed token, a remembered workspace) |
+| `ctx.state.get(name, fallback)`, `ctx.state.set(name, value)` | the account's own state (a cache, a cursor), kept next to its secret |
 | `ctx.owner()` | whose account is in use |
 | `ctx.fail(msg)` | stop with a sentence the person can act on |
 

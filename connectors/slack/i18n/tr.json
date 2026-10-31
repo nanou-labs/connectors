@@ -1,0 +1,24 @@
+{
+  "blurb": "Kanallarına ve özel mesajlarına yetiş.",
+  "can": [
+    "Kanallarında neleri kaçırdın",
+    "O konuşmayı ya da kararı bul",
+    "Yanıtlar ve tepkiler yalnızca senin dokunuşundan sonra"
+  ],
+  "upload": {
+    "label": "Kullanıcı jetonu",
+    "help": [
+      "api.slack.com/apps adresinde çalışma alanında sıfırdan bir uygulama oluştur.",
+      "OAuth & Permissions altında şu kullanıcı jetonu izinlerini ekle: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Sonra uygulamayı kur (çalışma alanı yöneticinin onaylaması gerekebilir).",
+      "User OAuth Token'ı (xoxp- ile başlar) kopyala ve buraya yapıştır."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "Slack hesaplarınla",
+    "next": "Bundan sonra bağlayacağın Slack hesapları",
+    "first": "Slack hesaplarını bağladığında"
+  }
+}

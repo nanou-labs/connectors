@@ -1,0 +1,24 @@
+{
+  "blurb": "Pasivyk, kas vyko kanaluose ir asmeninėse žinutėse.",
+  "can": [
+    "Ką praleidai savo kanaluose",
+    "Rask tą giją ar sprendimą",
+    "Atsakymai ir reakcijos tik po tavo prisilietimo"
+  ],
+  "upload": {
+    "label": "Naudotojo raktas",
+    "help": [
+      "Svetainėje api.slack.com/apps sukurk naują programėlę nuo nulio savo darbo erdvėje.",
+      "Skiltyje OAuth & Permissions pridėk šias naudotojo rakto teises: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Tada ją įdiek (gali būti, kad darbo erdvės administratorius turės ją patvirtinti).",
+      "Nukopijuok User OAuth Token (prasideda xoxp-) ir įklijuok čia."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "tavo Slack paskyromis",
+    "next": "Slack paskyros, kurias prijungsi vėliau",
+    "first": "Kai prijungsi savo Slack paskyras"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "blurb": "Hol nach, was in Kanälen und Direktnachrichten los war.",
+  "can": [
+    "Was du in deinen Kanälen verpasst hast",
+    "Finde den Thread oder die Entscheidung",
+    "Antworten und Reaktionen erst nach deinem Tippen"
+  ],
+  "upload": {
+    "label": "Benutzer-Token",
+    "help": [
+      "Erstelle auf api.slack.com/apps eine neue App von Grund auf in deinem Workspace.",
+      "Füge unter OAuth & Permissions diese User-Token-Scopes hinzu: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Installiere sie dann (eventuell muss der Admin deines Workspaces zustimmen).",
+      "Kopiere den User OAuth Token (er beginnt mit xoxp-) und füge ihn hier ein."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "deinen Slack-Konten",
+    "next": "Slack-Konten, die du als Nächstes verbindest",
+    "first": "Wenn du deine Slack-Konten verbindest"
+  }
+}

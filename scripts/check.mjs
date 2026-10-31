@@ -20,7 +20,9 @@ export const LOCALES = ["bg", "cs", "da", "de", "el", "en", "es", "et", "fi", "f
 export const EFFECTS = ["public", "read", "local", "write", "send"];
 const CATEGORIES = { crypto: "Money", work: "Work" };
 const PLANS = ["solo", "family", "plus"];
-const AUTH = ["none", "api_key", "key_file", "file_import"];
+const AUTH = ["none", "api_key", "key_file", "file_import", "device"];
+/** Sharing kinds several connectors share (one line per person: "Crypto: Coinbase, Kraken"); any other kind is the connector's id. */
+const SHARED_KINDS = { crypto: "crypto" };
 const ID = /^[a-z][a-z0-9-]{1,23}$/;
 const BIN = /^[a-z][a-z0-9-]{0,23}$/;
 const COMMAND = /^[a-z][a-z0-9-]*( [a-z][a-z0-9-]*)?$/;
@@ -91,10 +93,30 @@ function validate(m, dir, text, locales) {
 
   const t = m.tool ?? {};
   need(BIN.test(t.bin ?? ""), "tool.bin must be a command name");
-  need(t.bin in RUNTIME_OWN || t.bin === m.id, `tool.bin is a shared runtime (${Object.keys(RUNTIME_OWN).join(", ")}) or the connector's own command, named like its id`);
+  const own = t.runs === "entry";
+  need(t.runs === undefined || own, 'tool.runs is "entry" (the connector\'s entry is the whole command) or left out');
+  if (own) {
+    // Its own program, too wide to list command by command (gh): a policy module classifies every call.
+    need(!(t.bin in RUNTIME_OWN), "tool.bin of a connector that runs its entry can't be a shared runtime's");
+    need(
+      typeof t.policy === "string" && /^src\/[A-Za-z0-9._/-]+\.mjs$/.test(t.policy) && !t.policy.includes("..") && existsSync(join(SRC, dir, t.policy)),
+      "tool.policy is the module that classifies its commands (src/policy.mjs)",
+    );
+    need(t.commands === undefined && m.cards === undefined, "a connector with a policy has no tool.commands or cards: its policy says both");
+  } else {
+    need(t.policy === undefined, "tool.policy only goes with tool.runs: \"entry\"");
+    need(t.bin in RUNTIME_OWN || t.bin === m.id, `tool.bin is a shared runtime (${Object.keys(RUNTIME_OWN).join(", ")}) or the connector's own command, named like its id`);
+  }
   need(BIN.test(t.source ?? ""), "tool.source is the tool's --source value for it");
   const commands = Object.entries(t.commands ?? {});
-  need(commands.length > 0, "tool.commands lists every command it uses");
+  need(own || commands.length > 0, "tool.commands lists every command it uses");
+  for (const b of m.binaries ?? []) {
+    need(
+      /^[a-z0-9-]{1,32}$/.test(b?.name ?? "") && /^https:\/\/[^\s]+$/.test(b?.url ?? "") && /^[0-9a-f]{64}$/.test(b?.sha256 ?? "") &&
+        typeof b?.path === "string" && !b.path.startsWith("/") && !b.path.includes(".."),
+      "binaries[]: { name, url (https), sha256 of the download, path inside the archive }; nanou fetches it into bin/<name> and checks the sum",
+    );
+  }
   for (const [c, effect] of commands) {
     need(COMMAND.test(c), `tool.commands: "${c}" must be one or two lowercase words`);
     if (effect === "money") bad.push(`tool.commands: "${c}" moves money; nothing may move money, so this connector can't be installed`);
@@ -140,16 +162,25 @@ function validate(m, dir, text, locales) {
     need(placeholders(i.check, ["owner"]) && i.check[0] === t.bin, "install.check runs the tool to test what was saved");
   }
   if (a.kind === "file_import") need(placeholders(i.import, ["owner", "file"]) && i.import[0] === t.bin, "install.import runs the tool on {file}");
-  if (a.kind !== "none") need(typeof i.refused === "string", "install.refused is what the person reads when the check fails");
+  if (a.kind !== "none" && a.kind !== "device") need(typeof i.refused === "string", "install.refused is what the person reads when the check fails");
+  if (a.kind === "device") {
+    // OAuth device sign-in (RFC 8628), run by nanou's host: the person types a code on the service's own site.
+    for (const k of ["codeUrl", "tokenUrl", "verifyUrl", "userUrl"]) {
+      const host = /^https:\/\/([^/\s]+)\//.exec(a[k] ?? "")?.[1];
+      need(host !== undefined && (m.network ?? []).includes(host), `auth.${k}: an https URL on one of the network hosts`);
+    }
+  }
 
   if (m.accounts !== undefined) {
     const acc = m.accounts;
-    need(acc.kind === m.category, "accounts.kind is the sharing kind, the same as category");
+    need(acc.kind === m.id || SHARED_KINDS[m.category] === acc.kind, `accounts.kind is the connector's id (${m.id}), or "crypto" for a crypto source`);
     need(HOME_FILE.test(acc.dir ?? "") && !acc.dir.includes("{owner}"), "accounts.dir is a folder under the home");
+    const byField = (/** @type {string} */ f) => /^([A-Za-z0-9_-]+\/)?\*\.json#[a-z_]+$/.test(f);
     need(
-      Array.isArray(acc.files) && acc.files.every((f) => /^[A-Za-z0-9._-]*\{owner\}[A-Za-z0-9._-]*$/.test(f) || /^[A-Za-z0-9_-]+\/\*\.json#[a-z_]+$/.test(f)),
-      'accounts.files: "name-{owner}.ext" or "folder/*.json#field"',
+      Array.isArray(acc.files) && acc.files.every((f) => /^[A-Za-z0-9._-]*\{owner\}[A-Za-z0-9._-]*$/.test(f) || byField(f)),
+      'accounts.files: "name-{owner}.ext", or "*.json#field" / "folder/*.json#field" where the JSON field is the owner',
     );
+    need(acc.account === undefined || (/^[a-z_]+$/.test(acc.account) && acc.files.every(byField)), "accounts.account: the JSON field naming each account (one sharing line per account), with *.json#owner files");
     need(typeof acc.label === "string", "accounts.label names the source in Settings");
   }
 
@@ -161,7 +192,10 @@ function validate(m, dir, text, locales) {
     }
     need(typeof x.blurb === "string" && Array.isArray(x.can) && x.can.length > 0, `i18n/${l}: blurb and can are required`);
     if (a.kind === "none") need(typeof x.howTo === "string", `i18n/${l}: howTo is required when there is nothing to set up`);
-    else need(typeof x.upload?.label === "string" && Array.isArray(x.upload?.help), `i18n/${l}: upload.label and upload.help are required`);
+    else if (a.kind !== "device") need(typeof x.upload?.label === "string" && Array.isArray(x.upload?.help), `i18n/${l}: upload.label and upload.help are required`);
+    if (m.accounts?.kind === m.id) {
+      need(["yours", "next", "first"].every((k) => typeof x.sharing?.[k] === "string"), `i18n/${l}: sharing.yours, sharing.next and sharing.first word its sharing setting`);
+    }
     if (a.kind === "api_key") for (const f of a.fields ?? []) need(typeof x.fields?.[f.id] === "string", `i18n/${l}: fields.${f.id} is required`);
   }
   if (bad.length) throw new Error(`connectors/${dir}:\n  ${bad.join("\n  ")}`);
@@ -187,6 +221,14 @@ const manifests = readdirSync(SRC, { withFileTypes: true })
 
 // The code does what the manifest declares, no more: the runtime's contract (runtime/<bin>/README.md).
 for (const { m } of manifests) {
+  if (m.tool.runs === "entry") {
+    // The entry is a whole program (importing it would run it): check the policy instead.
+    const policy = (await import(pathToFileURL(join(SRC, m.id, m.tool.policy)).href)).default ?? {};
+    if (typeof policy.kind !== "function" || typeof policy.card !== "function") {
+      throw new Error(`connectors/${m.id}: ${m.tool.policy} must default-export { kind(args), card(args) }`);
+    }
+    continue;
+  }
   const own = RUNTIME_OWN[m.tool.bin];
   const mod = (await import(pathToFileURL(join(SRC, m.id, m.entry)).href)).default ?? {};
   const declared = Object.keys(m.tool.commands);
@@ -212,13 +254,17 @@ const ids = manifests.map((x) => x.m.id);
 if (new Set(ids).size !== ids.length) throw new Error("two connectors share an id");
 const sources = manifests.map((x) => `${x.m.tool.bin}:${x.m.tool.source}`);
 if (new Set(sources).size !== sources.length) throw new Error("two connectors share a tool --source");
+const ownBins = manifests.filter((x) => !(x.m.tool.bin in RUNTIME_OWN)).map((x) => x.m.tool.bin);
+if (new Set(ownBins).size !== ownBins.length) throw new Error("two connectors claim the same command");
 
 // What each tool's commands may do, across every connector that uses it: the strictest wins.
-/** @type {Record<string, { commands: Record<string, string>, sources: Record<string, string | null> }>} */
+/** @type {Record<string, { commands: Record<string, string>, sources: Record<string, string | null>, policy?: string }>} */
 const bins = {};
 for (const { m } of manifests) {
   const b = (bins[m.tool.bin] ??= { commands: {}, sources: {} });
-  for (const [c, e] of Object.entries(m.tool.commands)) {
+  // Its policy module classifies every command (nanou's gateway builds it in at a pin bump).
+  if (m.tool.policy) b.policy = `${m.id}/${m.tool.policy}`;
+  for (const [c, e] of Object.entries(m.tool.commands ?? {})) {
     if (!b.commands[c] || EFFECTS.indexOf(e) > EFFECTS.indexOf(b.commands[c])) b.commands[c] = e;
   }
   // A --source without accounts (public wallets) reads nothing private.

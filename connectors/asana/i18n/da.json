@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Personligt adgangstoken"
+  },
+  "sharing": {
+    "yours": "dine Asana-konti",
+    "next": "Asana-konti, du forbinder fremover",
+    "first": "Når du forbinder dine Asana-konti"
   }
 }

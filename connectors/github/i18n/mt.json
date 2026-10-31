@@ -1,0 +1,13 @@
+{
+  "blurb": "Issues, pull requests u kodiċi.",
+  "can": [
+    "Laħħaq mal-issues, il-pull requests u l-builds li fallew",
+    "Irrevedi diff u ikteb abbozz tal-kumment",
+    "Tiftaħ, tikkummenta, tagħmel merge jew push biss wara li tagħfas int"
+  ],
+  "sharing": {
+    "yours": "il-kontijiet GitHub tiegħek",
+    "next": "Kontijiet GitHub li tqabbad minn issa",
+    "first": "Meta tqabbad il-kontijiet GitHub tiegħek"
+  }
+}

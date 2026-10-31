@@ -346,10 +346,157 @@
         ],
         "refused": "Asana refused that token. Create a new one and try again."
       },
+      "accounts": {
+        "kind": "asana",
+        "dir": ".config/family-work",
+        "files": [
+          "asana-{owner}.json"
+        ],
+        "label": "Asana"
+      },
       "network": [
         "app.asana.com"
       ],
       "data": "Tasks, projects and comments, read on request with the person's own token; nothing changes without an approval card. Kept in the family's enclave."
+    },
+    {
+      "id": "slack",
+      "name": "Slack",
+      "category": "work",
+      "order": 55,
+      "plan": "family",
+      "color": "#4A154B",
+      "mark": "Sl",
+      "logo": "logo.svg",
+      "tool": {
+        "bin": "slack",
+        "source": "slack",
+        "commands": {
+          "whoami": "read",
+          "channels": "read",
+          "history": "read",
+          "thread": "read",
+          "search": "read",
+          "users": "read",
+          "send": "send",
+          "react": "send"
+        }
+      },
+      "entry": "src/slack.mjs",
+      "cards": {
+        "send": {
+          "title": "💼 Slack message",
+          "verb": "Send",
+          "fields": [
+            [
+              "To",
+              "--channel"
+            ],
+            [
+              "In thread",
+              "--thread-ts"
+            ]
+          ],
+          "body": [
+            "--text"
+          ]
+        },
+        "react": {
+          "title": "💼 Slack reaction",
+          "verb": "Send",
+          "fields": [
+            [
+              "In",
+              "--channel"
+            ],
+            [
+              "Emoji",
+              "--emoji"
+            ]
+          ]
+        }
+      },
+      "auth": {
+        "kind": "api_key",
+        "fields": [
+          {
+            "id": "token",
+            "secret": true,
+            "pattern": "^xoxp-[0-9A-Za-z-]{20,250}$"
+          }
+        ]
+      },
+      "install": {
+        "file": ".config/family-work/slack-{owner}.json",
+        "check": [
+          "slack",
+          "whoami",
+          "--owner",
+          "{owner}"
+        ],
+        "refused": "Slack refused that token. Copy the User OAuth Token (xoxp-…) again and try once more."
+      },
+      "accounts": {
+        "kind": "slack",
+        "dir": ".config/family-work",
+        "files": [
+          "slack-{owner}.json"
+        ],
+        "label": "Slack"
+      },
+      "network": [
+        "slack.com"
+      ],
+      "data": "Channels, messages and people the person's Slack account can see, read on request; posting or reacting waits for an approval card. Kept in the family's enclave."
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "category": "work",
+      "order": 60,
+      "plan": "solo",
+      "color": "#181717",
+      "mark": "Gh",
+      "logo": "logo.svg",
+      "tool": {
+        "bin": "gh",
+        "source": "github",
+        "runs": "entry",
+        "policy": "src/policy.mjs"
+      },
+      "entry": "src/gh.mjs",
+      "binaries": [
+        {
+          "name": "gh-cli",
+          "url": "https://github.com/cli/cli/releases/download/v2.102.0/gh_2.102.0_linux_amd64.tar.gz",
+          "sha256": "bb766f710eef8ede859c18578c72c327597cd4c8a85b06001b1f3843c6019386",
+          "path": "gh_2.102.0_linux_amd64/bin/gh"
+        }
+      ],
+      "auth": {
+        "kind": "device",
+        "codeUrl": "https://github.com/login/device/code",
+        "tokenUrl": "https://github.com/login/oauth/access_token",
+        "verifyUrl": "https://github.com/login/device",
+        "userUrl": "https://api.github.com/user"
+      },
+      "accounts": {
+        "kind": "github",
+        "dir": ".config/family-github",
+        "files": [
+          "*.json#owner"
+        ],
+        "account": "login",
+        "label": "GitHub"
+      },
+      "network": [
+        "github.com",
+        "api.github.com",
+        "uploads.github.com",
+        "codeload.github.com",
+        "objects.githubusercontent.com"
+      ],
+      "data": "Issues, pull requests, code and CI runs the person's GitHub account can see, read on request; every write waits for an approval card. Kept in the family's enclave."
     }
   ],
   "bins": {
@@ -387,8 +534,30 @@
         "update": "write"
       },
       "sources": {
-        "asana": null
+        "asana": "asana"
       }
+    },
+    "slack": {
+      "commands": {
+        "channels": "read",
+        "history": "read",
+        "react": "send",
+        "search": "read",
+        "send": "send",
+        "thread": "read",
+        "users": "read",
+        "whoami": "read"
+      },
+      "sources": {
+        "slack": "slack"
+      }
+    },
+    "gh": {
+      "commands": {},
+      "sources": {
+        "github": "github"
+      },
+      "policy": "github/src/policy.mjs"
     }
   }
 }

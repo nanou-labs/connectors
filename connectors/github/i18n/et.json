@@ -1,0 +1,13 @@
+{
+  "blurb": "Issued, pull requestid ja kood.",
+  "can": [
+    "Aitab issue'de, pull requestide ja ebaõnnestunud buildidega järje peale jõuda",
+    "Vaatab diffi üle ja koostab kommentaari",
+    "Avab, kommenteerib, liidab või pushib ainult pärast sinu puudutust"
+  ],
+  "sharing": {
+    "yours": "sinu GitHubi kontod",
+    "next": "GitHubi kontod, mille järgmisena ühendad",
+    "first": "Kui ühendad oma GitHubi kontod"
+  }
+}

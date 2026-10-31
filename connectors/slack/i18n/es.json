@@ -1,0 +1,24 @@
+{
+  "blurb": "Ponte al día con tus canales y mensajes directos.",
+  "can": [
+    "Lo que te perdiste en tus canales",
+    "Encuentra ese hilo o esa decisión",
+    "Respuestas y reacciones solo tras tu toque"
+  ],
+  "upload": {
+    "label": "Token de usuario",
+    "help": [
+      "En api.slack.com/apps, crea una app desde cero en tu espacio de trabajo.",
+      "En OAuth & Permissions, añade estos scopes de token de usuario: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Después instálala (puede que el admin de tu espacio tenga que aprobarla).",
+      "Copia el User OAuth Token (empieza por xoxp-) y pégalo aquí."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "tus cuentas de Slack",
+    "next": "Las cuentas de Slack que conectes después",
+    "first": "Cuando conectes tus cuentas de Slack"
+  }
+}

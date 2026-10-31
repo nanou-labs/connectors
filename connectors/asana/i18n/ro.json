@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Token de acces personal"
+  },
+  "sharing": {
+    "yours": "conturile tale Asana",
+    "next": "Conturile Asana pe care le conectezi de acum",
+    "first": "Când îți conectezi conturile Asana"
   }
 }

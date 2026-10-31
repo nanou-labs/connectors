@@ -1,0 +1,24 @@
+{
+  "blurb": "Zárkózz fel a csatornáidra és a privát üzeneteidre.",
+  "can": [
+    "Amiről lemaradtál a csatornáidban",
+    "Keresd meg azt a szálat vagy döntést",
+    "Válaszok és reakciók csak a koppintásod után"
+  ],
+  "upload": {
+    "label": "Felhasználói token",
+    "help": [
+      "Az api.slack.com/apps oldalon hozz létre egy új alkalmazást a nulláról a munkaterületeden.",
+      "Az OAuth & Permissions alatt add hozzá ezeket a felhasználói token jogosultságokat: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Aztán telepítsd (lehet, hogy a munkaterület adminjának jóvá kell hagynia).",
+      "Másold ki a User OAuth Tokent (xoxp- kezdetű), és illeszd be ide."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "a Slack-fiókjaid",
+    "next": "A következőként csatlakoztatott Slack-fiókok",
+    "first": "Amikor csatlakoztatod a Slack-fiókjaidat"
+  }
+}

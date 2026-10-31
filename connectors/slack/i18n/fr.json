@@ -1,0 +1,24 @@
+{
+  "blurb": "Rattrape tes canaux et tes messages privés.",
+  "can": [
+    "Ce que tu as manqué dans tes canaux",
+    "Retrouve ce fil ou cette décision",
+    "Réponses et réactions seulement après ton accord"
+  ],
+  "upload": {
+    "label": "Jeton utilisateur",
+    "help": [
+      "Sur api.slack.com/apps, crée une app de zéro dans ton espace de travail.",
+      "Dans OAuth & Permissions, ajoute ces scopes de jeton utilisateur : channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Puis installe-la (l'admin de ton espace devra peut-être l'approuver).",
+      "Copie le User OAuth Token (il commence par xoxp-) et colle-le ici."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "tes comptes Slack",
+    "next": "Les comptes Slack que tu connecteras ensuite",
+    "first": "Quand tu connectes tes comptes Slack"
+  }
+}

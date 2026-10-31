@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Osobní přístupový token"
+  },
+  "sharing": {
+    "yours": "tvoje účty Asana",
+    "next": "Účty Asana, které připojíš příště",
+    "first": "Až připojíš své účty Asana"
   }
 }

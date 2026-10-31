@@ -1,0 +1,41 @@
+{
+  "id": "slack",
+  "name": "Slack",
+  "category": "work",
+  "order": 55,
+  "plan": "family",
+  "color": "#4A154B",
+  "mark": "Sl",
+  "logo": "logo.svg",
+  "tool": {
+    "bin": "slack",
+    "source": "slack",
+    "commands": {
+      "whoami": "read",
+      "channels": "read",
+      "history": "read",
+      "thread": "read",
+      "search": "read",
+      "users": "read",
+      "send": "send",
+      "react": "send"
+    }
+  },
+  "entry": "src/slack.mjs",
+  "cards": {
+    "send": { "title": "💼 Slack message", "verb": "Send", "fields": [["To", "--channel"], ["In thread", "--thread-ts"]], "body": ["--text"] },
+    "react": { "title": "💼 Slack reaction", "verb": "Send", "fields": [["In", "--channel"], ["Emoji", "--emoji"]] }
+  },
+  "auth": {
+    "kind": "api_key",
+    "fields": [{ "id": "token", "secret": true, "pattern": "^xoxp-[0-9A-Za-z-]{20,250}$" }]
+  },
+  "install": {
+    "file": ".config/family-work/slack-{owner}.json",
+    "check": ["slack", "whoami", "--owner", "{owner}"],
+    "refused": "Slack refused that token. Copy the User OAuth Token (xoxp-…) again and try once more."
+  },
+  "accounts": { "kind": "slack", "dir": ".config/family-work", "files": ["slack-{owner}.json"], "label": "Slack" },
+  "network": ["slack.com"],
+  "data": "Channels, messages and people the person's Slack account can see, read on request; posting or reacting waits for an approval card. Kept in the family's enclave."
+}

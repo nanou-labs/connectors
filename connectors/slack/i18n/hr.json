@@ -1,0 +1,24 @@
+{
+  "blurb": "Sustigni kanale i privatne poruke.",
+  "can": [
+    "Što si propustio u svojim kanalima",
+    "Pronađi tu nit ili odluku",
+    "Odgovori i reakcije tek nakon tvog dodira"
+  ],
+  "upload": {
+    "label": "Korisnički token",
+    "help": [
+      "Na api.slack.com/apps izradi aplikaciju od nule u svom radnom prostoru.",
+      "U OAuth & Permissions dodaj ove opsege korisničkog tokena: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Zatim je instaliraj (administrator radnog prostora možda će je morati odobriti).",
+      "Kopiraj User OAuth Token (počinje s xoxp-) i zalijepi ga ovdje."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "tvoji Slack računi",
+    "next": "Slack računi koje povežeš sljedeće",
+    "first": "Kad povežeš svoje Slack račune"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "blurb": "Issues, pull requesti in koda.",
+  "can": [
+    "Povzame issues, pull requeste in neuspele gradnje",
+    "Pregleda diff in pripravi komentar",
+    "Odpre, komentira, združi ali potisne šele po tvojem tapu"
+  ],
+  "sharing": {
+    "yours": "tvojih računih GitHub",
+    "next": "Računi GitHub, ki jih povežeš naslednje",
+    "first": "Ko povežeš svoje račune GitHub"
+  }
+}

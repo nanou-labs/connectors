@@ -1,0 +1,13 @@
+{
+  "blurb": "Issuet, pull requestit ja koodi.",
+  "can": [
+    "Pysyy kärryillä issueista, pull requesteista ja epäonnistuneista buildeista",
+    "Käy läpi diffin ja luonnostelee kommentin",
+    "Avaa, kommentoi, yhdistää tai pushaa vain napautuksesi jälkeen"
+  ],
+  "sharing": {
+    "yours": "GitHub-tilisi",
+    "next": "Seuraavaksi yhdistämäsi GitHub-tilit",
+    "first": "Kun yhdistät GitHub-tilisi"
+  }
+}

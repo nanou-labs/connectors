@@ -1,0 +1,24 @@
+{
+  "blurb": "Recuperează ce s-a întâmplat pe canale și în mesajele directe.",
+  "can": [
+    "Ce ai pierdut pe canalele tale",
+    "Găsește firul sau decizia aceea",
+    "Răspunsuri și reacții doar după atingerea ta"
+  ],
+  "upload": {
+    "label": "Token de utilizator",
+    "help": [
+      "Pe api.slack.com/apps, creează o aplicație de la zero în spațiul tău de lucru.",
+      "La OAuth & Permissions, adaugă aceste permisiuni de token de utilizator: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Apoi instaleaz-o (poate fi nevoie ca adminul spațiului să o aprobe).",
+      "Copiază User OAuth Token (începe cu xoxp-) și lipește-l aici."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "conturile tale Slack",
+    "next": "Conturile Slack pe care le conectezi de acum",
+    "first": "Când îți conectezi conturile Slack"
+  }
+}

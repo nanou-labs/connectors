@@ -1,0 +1,24 @@
+{
+  "blurb": "Nadrób zaległości na kanałach i w wiadomościach prywatnych.",
+  "can": [
+    "Co cię ominęło na kanałach",
+    "Znajdź ten wątek albo decyzję",
+    "Odpowiedzi i reakcje dopiero po twoim kliknięciu"
+  ],
+  "upload": {
+    "label": "Token użytkownika",
+    "help": [
+      "Na api.slack.com/apps utwórz aplikację od zera w swoim workspace.",
+      "W OAuth & Permissions dodaj te zakresy tokenu użytkownika: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Potem ją zainstaluj (admin twojego workspace może musieć ją zatwierdzić).",
+      "Skopiuj User OAuth Token (zaczyna się od xoxp-) i wklej go tutaj."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "twoje konta Slack",
+    "next": "Konta Slack, które połączysz później",
+    "first": "Gdy połączysz swoje konta Slack"
+  }
+}

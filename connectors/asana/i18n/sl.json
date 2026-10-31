@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Osebni žeton za dostop"
+  },
+  "sharing": {
+    "yours": "tvojih računih Asana",
+    "next": "Računi Asana, ki jih povežeš naslednje",
+    "first": "Ko povežeš svoje račune Asana"
   }
 }

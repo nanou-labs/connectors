@@ -1,0 +1,13 @@
+{
+  "blurb": "Issues, pull requests și cod.",
+  "can": [
+    "Te pune la curent cu issues, pull requests și build-uri eșuate",
+    "Analizează un diff și pregătește comentariul",
+    "Deschide, comentează, face merge sau push doar după atingerea ta"
+  ],
+  "sharing": {
+    "yours": "conturile tale GitHub",
+    "next": "Conturile GitHub pe care le conectezi de acum",
+    "first": "Când îți conectezi conturile GitHub"
+  }
+}

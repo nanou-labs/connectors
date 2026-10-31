@@ -1,0 +1,24 @@
+{
+  "blurb": "Ilħaq dak li ġara fil-kanali u fil-messaġġi diretti tiegħek.",
+  "can": [
+    "Dak li tlift fil-kanali tiegħek",
+    "Sib dak il-ħajt jew id-deċiżjoni",
+    "Tweġibiet u reazzjonijiet biss wara l-mess tiegħek"
+  ],
+  "upload": {
+    "label": "Token tal-utent",
+    "help": [
+      "Fuq api.slack.com/apps, oħloq app mill-bidu fil-workspace tiegħek.",
+      "Taħt OAuth & Permissions, żid dawn l-iscopes tat-token tal-utent: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Imbagħad installaha (forsi l-admin tal-workspace ikollu japprovaha).",
+      "Ikkopja l-User OAuth Token (jibda b'xoxp-) u waħħlu hawn."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "il-kontijiet Slack tiegħek",
+    "next": "Kontijiet Slack li tqabbad minn issa",
+    "first": "Meta tqabbad il-kontijiet Slack tiegħek"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "blurb": "Issues, pull requesty a kód.",
+  "can": [
+    "Shrne issues, pull requesty a neúspěšné buildy",
+    "Projde diff a navrhne komentář",
+    "Otevírá, komentuje, merguje nebo pushuje jen po tvém klepnutí"
+  ],
+  "sharing": {
+    "yours": "tvoje účty GitHub",
+    "next": "Účty GitHub, které připojíš příště",
+    "first": "Až připojíš své účty GitHub"
+  }
+}

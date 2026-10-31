@@ -1,0 +1,24 @@
+{
+  "blurb": "Faigh amach cad a tharla i do chainéil agus i do theachtaireachtaí díreacha.",
+  "can": [
+    "An méid a chaill tú i do chainéil",
+    "Aimsigh an snáithe nó an cinneadh sin",
+    "Freagraí agus frithghníomhartha tar éis do bhrú amháin"
+  ],
+  "upload": {
+    "label": "Comhartha úsáideora",
+    "help": [
+      "Ar api.slack.com/apps, cruthaigh aip ón tús i do spás oibre.",
+      "Faoi OAuth & Permissions, cuir na raonta comhartha úsáideora seo leis: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Ansin suiteáil í (b'fhéidir go mbeidh ar riarthóir do spáis oibre í a cheadú).",
+      "Cóipeáil an User OAuth Token (tosaíonn sé le xoxp-) agus greamaigh anseo é."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "do chuntais Slack",
+    "next": "Cuntais Slack a cheanglóidh tú amach anseo",
+    "first": "Nuair a cheanglaíonn tú do chuntais Slack"
+  }
+}

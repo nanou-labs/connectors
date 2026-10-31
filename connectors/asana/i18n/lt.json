@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Asmeninis prieigos raktas"
+  },
+  "sharing": {
+    "yours": "tavo Asana paskyromis",
+    "next": "Asana paskyros, kurias prijungsi vėliau",
+    "first": "Kai prijungsi savo Asana paskyras"
   }
 }

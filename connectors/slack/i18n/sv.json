@@ -1,0 +1,24 @@
+{
+  "blurb": "Kom ikapp med kanaler och direktmeddelanden.",
+  "can": [
+    "Vad du missat i dina kanaler",
+    "Hitta den tråden eller det beslutet",
+    "Svar och reaktioner först efter ditt tryck"
+  ],
+  "upload": {
+    "label": "Användartoken",
+    "help": [
+      "Skapa en ny app från grunden i din arbetsyta på api.slack.com/apps.",
+      "Lägg till dessa user token scopes under OAuth & Permissions: channels:read, groups:read, im:read, mpim:read, channels:history, groups:history, im:history, mpim:history, search:read, users:read, users:read.email, chat:write, im:write, reactions:write. Installera den sedan (din arbetsytas admin kan behöva godkänna den).",
+      "Kopiera User OAuth Token (börjar med xoxp-) och klistra in den här."
+    ]
+  },
+  "fields": {
+    "token": "User OAuth Token"
+  },
+  "sharing": {
+    "yours": "dina Slack-konton",
+    "next": "Slack-konton du ansluter framöver",
+    "first": "När du ansluter dina Slack-konton"
+  }
+}

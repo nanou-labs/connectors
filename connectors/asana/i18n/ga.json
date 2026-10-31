@@ -14,5 +14,10 @@
   },
   "fields": {
     "token": "Personal access token"
+  },
+  "sharing": {
+    "yours": "do chuntais Asana",
+    "next": "Cuntais Asana a cheanglóidh tú amach anseo",
+    "first": "Nuair a cheanglaíonn tú do chuntais Asana"
   }
 }
