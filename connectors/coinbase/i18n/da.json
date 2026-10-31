@@ -1,0 +1,16 @@
+{
+  "blurb": "Saldi og historik, kun læseadgang.",
+  "can": [
+    "Porteføljens værdi i din valuta",
+    "Transaktionshistorik til skatten",
+    "Kan bevidst ikke flytte midler"
+  ],
+  "upload": {
+    "label": "API-nøglefil med kun læseadgang (cdp_api_key.json)",
+    "help": [
+      "Åbn Coinbase Developer Platform, og log ind med din Coinbase-konto.",
+      "Opret en Secret API key, vælg ECDSA, og sæt kun flueben ved View-tilladelsen.",
+      "Download nøglefilen, og slip den her."
+    ]
+  }
+}

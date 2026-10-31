@@ -1,0 +1,10 @@
+{
+  "name": "Kriptovaliutų piniginės",
+  "blurb": "Nusiųsk nanou piniginės adresą, ir nanou jį patikrins bei stebės.",
+  "can": [
+    "Likučiai 8 grandinėse",
+    "Įskaičiuojama į namų ūkio grynąją vertę",
+    "Tik adresai, niekada ne raktai"
+  ],
+  "howTo": "Nieko nustatyti nereikia: bet kuriame pokalbyje nusiųsk nanou viešą piniginės adresą (0x…, Bitcoin ar Solana). nanou jį iškart patikrins ir paklaus, ar toliau jį stebėti, kad jis būtų įskaičiuotas į namų ūkio grynąją vertę. Niekada nesiųsk atkūrimo frazės ar privataus rakto: nanou niekada jų neprašys."
+}

@@ -1,0 +1,20 @@
+{
+  "blurb": "Saldod ja ajalugu, ainult lugemiseks.",
+  "can": [
+    "Varad ja nende väärtus sinu valuutas",
+    "Sissemaksed, tehingud ja staking-tasud maksude jaoks",
+    "Ei saa kaubelda ega raha välja võtta, meelega"
+  ],
+  "upload": {
+    "label": "Ainult lugemiseks API-võti",
+    "help": [
+      "Ava Krakenis Settings → Connections & API ja loo uus võti.",
+      "Märgi ainult Query Funds ja Query Ledger Entries. Jäta kõik muu välja, eriti Withdraw ja orderite õigused.",
+      "Kopeeri API-võti ja privaatvõti kahte allolevasse välja."
+    ]
+  },
+  "fields": {
+    "key": "API-võti",
+    "secret": "Privaatvõti"
+  }
+}

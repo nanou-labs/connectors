@@ -1,0 +1,16 @@
+{
+  "blurb": "Solduri și istoric, doar citire.",
+  "can": [
+    "Valoarea portofoliului în moneda ta",
+    "Istoricul tranzacțiilor pentru taxe",
+    "Nu poate muta fonduri, din construcție"
+  ],
+  "upload": {
+    "label": "Fișier cu cheie API doar pentru vizualizare (cdp_api_key.json)",
+    "help": [
+      "Deschide Coinbase Developer Platform și conectează-te cu contul tău Coinbase.",
+      "Creează o cheie Secret API, alege ECDSA și bifează doar permisiunea View.",
+      "Descarcă fișierul cu cheia și trage-l aici."
+    ]
+  }
+}

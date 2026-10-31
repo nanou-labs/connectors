@@ -1,0 +1,20 @@
+{
+  "blurb": "Saldon och historik, bara läsning.",
+  "can": [
+    "Dina innehav och deras värde i din valuta",
+    "Insättningar, affärer och staking-belöningar till skatten",
+    "Kan inte handla eller ta ut pengar, med flit"
+  ],
+  "upload": {
+    "label": "API-nyckel med bara läsrätt",
+    "help": [
+      "Öppna Settings → Connections & API i Kraken och skapa en ny nyckel.",
+      "Kryssa bara i Query Funds och Query Ledger Entries. Lämna allt annat avstängt, särskilt Withdraw och orderrättigheterna.",
+      "Kopiera API-nyckeln och den privata nyckeln till de två fälten nedan."
+    ]
+  },
+  "fields": {
+    "key": "API-nyckel",
+    "secret": "Privat nyckel"
+  }
+}

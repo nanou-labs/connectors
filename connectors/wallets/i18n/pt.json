@@ -1,0 +1,10 @@
+{
+  "name": "Carteiras cripto",
+  "blurb": "Envia ao nanou um endereço de carteira: ele verifica-o e fica de olho.",
+  "can": [
+    "Saldos em 8 blockchains",
+    "Contados no património da tua casa",
+    "Só endereços, nunca chaves"
+  ],
+  "howTo": "Nada para configurar: envia ao nanou um endereço público de carteira (0x…, Bitcoin ou Solana) em qualquer conversa. Ele verifica-o logo e pergunta se deve continuar a acompanhá-lo, para que conte no património da tua casa. Nunca envies uma seed phrase nem uma chave privada: o nanou nunca te vai pedir nenhuma."
+}

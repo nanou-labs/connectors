@@ -1,0 +1,20 @@
+{
+  "blurb": "Bakiyeler ve geçmiş, salt okunur.",
+  "can": [
+    "Varlıkların ve kendi para birimindeki değerleri",
+    "Vergi için yatırmalar, işlemler ve staking ödülleri",
+    "Alım satım ya da para çekme yapamaz, bilerek böyle"
+  ],
+  "upload": {
+    "label": "Salt okunur API anahtarı",
+    "help": [
+      "Kraken'de Settings → Connections & API'yi aç ve yeni bir anahtar oluştur.",
+      "Yalnızca Query Funds ve Query Ledger Entries'i işaretle. Geri kalan her şeyi kapalı bırak, özellikle Withdraw ve emir izinlerini.",
+      "API anahtarını ve özel anahtarı aşağıdaki iki alana kopyala."
+    ]
+  },
+  "fields": {
+    "key": "API anahtarı",
+    "secret": "Özel anahtar"
+  }
+}

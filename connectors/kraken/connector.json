@@ -1,0 +1,58 @@
+{
+  "id": "kraken",
+  "name": "Kraken",
+  "category": "crypto",
+  "order": 20,
+  "plan": "family",
+  "color": "#7132F5",
+  "mark": "Kr",
+  "tool": {
+    "bin": "crypto",
+    "source": "kraken",
+    "commands": {
+      "accounts": "public",
+      "prices": "public",
+      "balances": "read",
+      "transactions": "read"
+    }
+  },
+  "auth": {
+    "kind": "api_key",
+    "fields": [
+      {
+        "id": "key",
+        "pattern": "^[A-Za-z0-9+/=]{40,100}$"
+      },
+      {
+        "id": "secret",
+        "secret": true,
+        "pattern": "^[A-Za-z0-9+/=]{60,140}$"
+      }
+    ]
+  },
+  "install": {
+    "file": ".config/family-crypto/kraken-{owner}.json",
+    "check": [
+      "crypto",
+      "balances",
+      "--source",
+      "kraken",
+      "--owner",
+      "{owner}"
+    ],
+    "refused": "Kraken refused that key, or it can withdraw. Create a key with only Query Funds and Query Ledger Entries, and try again."
+  },
+  "accounts": {
+    "kind": "crypto",
+    "dir": ".config/family-crypto",
+    "files": [
+      "kraken-{owner}.json"
+    ],
+    "label": "Kraken"
+  },
+  "network": [
+    "api.kraken.com",
+    "api.coinbase.com"
+  ],
+  "data": "Balances and ledger entries, read on request with a key that can only query. Kept in the family's enclave."
+}

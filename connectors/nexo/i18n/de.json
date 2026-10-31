@@ -1,0 +1,15 @@
+{
+  "blurb": "Bestände, aus deinem Transaktionsexport rekonstruiert.",
+  "can": [
+    "Bestände und erhaltene Zinsen",
+    "Wert in deiner Währung",
+    "Jederzeit neu importieren, um zu aktualisieren"
+  ],
+  "upload": {
+    "label": "Transaktionsexport (CSV)",
+    "help": [
+      "Öffne in Nexo die Transaktionen und exportiere alle als CSV.",
+      "Zieh die Datei hierher."
+    ]
+  }
+}

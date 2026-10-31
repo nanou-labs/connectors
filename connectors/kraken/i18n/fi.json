@@ -1,0 +1,20 @@
+{
+  "blurb": "Saldot ja historia, vain luku.",
+  "can": [
+    "Omistukset ja niiden arvo omassa valuutassasi",
+    "Talletukset, kaupat ja staking-palkkiot verotusta varten",
+    "Ei voi käydä kauppaa eikä nostaa, tarkoituksella"
+  ],
+  "upload": {
+    "label": "Vain luku -API-avain",
+    "help": [
+      "Avaa Krakenissa Settings → Connections & API ja luo uusi avain.",
+      "Valitse vain Query Funds ja Query Ledger Entries. Jätä kaikki muu pois päältä, etenkin Withdraw ja toimeksiantojen oikeudet.",
+      "Kopioi API-avain ja yksityinen avain alla oleviin kahteen kenttään."
+    ]
+  },
+  "fields": {
+    "key": "API-avain",
+    "secret": "Yksityinen avain"
+  }
+}

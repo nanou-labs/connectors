@@ -1,0 +1,15 @@
+{
+  "blurb": "Varad, mis on taastatud sinu tehingute ekspordist.",
+  "can": [
+    "Varad ja teenitud intress",
+    "Väärtus sinu valuutas",
+    "Värskendamiseks impordi igal ajal uuesti"
+  ],
+  "upload": {
+    "label": "Tehingute eksport (CSV)",
+    "help": [
+      "Ava Nexos Transactions ja ekspordi kõik tehingud CSV-na.",
+      "Lohista fail siia."
+    ]
+  }
+}

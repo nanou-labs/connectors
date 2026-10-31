@@ -1,0 +1,15 @@
+{
+  "blurb": "L-assi tiegħek mibnija mill-export tat-tranżazzjonijiet.",
+  "can": [
+    "Assi u l-imgħax li qlajt",
+    "Il-valur fil-munita tiegħek",
+    "Erġa' importa meta trid biex taġġorna"
+  ],
+  "upload": {
+    "label": "Export tat-tranżazzjonijiet (CSV)",
+    "help": [
+      "F'Nexo, iftaħ Transactions u esportahom kollha bħala CSV.",
+      "Waqqa' l-fajl hawn."
+    ]
+  }
+}

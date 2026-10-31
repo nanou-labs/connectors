@@ -1,0 +1,15 @@
+{
+  "blurb": "Držená aktiva sestavená z exportu tvých transakcí.",
+  "can": [
+    "Aktiva a získané úroky",
+    "Hodnota ve tvé měně",
+    "Pro obnovení kdykoli importuj znovu"
+  ],
+  "upload": {
+    "label": "Export transakcí (CSV)",
+    "help": [
+      "V Nexo otevři Transakce a vyexportuj je všechny jako CSV.",
+      "Přetáhni soubor sem."
+    ]
+  }
+}

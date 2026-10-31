@@ -1,0 +1,16 @@
+{
+  "blurb": "Egyenlegek és előzmények, csak olvasásra.",
+  "can": [
+    "A portfólió értéke a saját pénznemedben",
+    "Tranzakciós előzmények az adózáshoz",
+    "Pénzt mozgatni nem tud, szándékosan"
+  ],
+  "upload": {
+    "label": "Csak megtekintésre szóló API-kulcsfájl (cdp_api_key.json)",
+    "help": [
+      "Nyisd meg a Coinbase Developer Platformot, és jelentkezz be a Coinbase-fiókoddal.",
+      "Hozz létre egy Secret API key-t, válaszd az ECDSA-t, és csak a View engedélyt jelöld be.",
+      "Töltsd le a kulcsfájlt, és húzd ide."
+    ]
+  }
+}

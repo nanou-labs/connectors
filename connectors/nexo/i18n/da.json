@@ -1,0 +1,15 @@
+{
+  "blurb": "Beholdninger genskabt ud fra din transaktionseksport.",
+  "can": [
+    "Beholdninger og optjente renter",
+    "Værdi i din valuta",
+    "Importér igen når som helst for at opdatere"
+  ],
+  "upload": {
+    "label": "Transaktionseksport (CSV)",
+    "help": [
+      "Åbn Transactions i Nexo, og eksportér dem alle som CSV.",
+      "Slip filen her."
+    ]
+  }
+}

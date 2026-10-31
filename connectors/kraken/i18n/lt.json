@@ -1,0 +1,20 @@
+{
+  "blurb": "Likučiai ir istorija, tik skaitymui.",
+  "can": [
+    "Turtas ir jo vertė tavo valiuta",
+    "Įnašai, sandoriai ir staking atlygis mokesčiams",
+    "Negali prekiauti ar išsiimti, taip sumanyta"
+  ],
+  "upload": {
+    "label": "Tik skaitymo API raktas",
+    "help": [
+      "Krakene atidaryk Settings → Connections & API ir sukurk naują raktą.",
+      "Pažymėk tik Query Funds ir Query Ledger Entries. Visa kita palik išjungta, ypač Withdraw ir pavedimų teises.",
+      "Nukopijuok API raktą ir privatų raktą į du laukus žemiau."
+    ]
+  },
+  "fields": {
+    "key": "API raktas",
+    "secret": "Privatus raktas"
+  }
+}

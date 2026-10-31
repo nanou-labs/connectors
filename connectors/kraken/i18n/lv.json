@@ -1,0 +1,20 @@
+{
+  "blurb": "Atlikumi un vēsture, tikai lasīšanai.",
+  "can": [
+    "Aktīvi un to vērtība tavā valūtā",
+    "Iemaksas, darījumi un staking atlīdzības nodokļiem",
+    "Nevar tirgoties vai izņemt naudu, ar nodomu"
+  ],
+  "upload": {
+    "label": "API atslēga tikai lasīšanai",
+    "help": [
+      "Krakenā atver Settings → Connections & API un izveido jaunu atslēgu.",
+      "Atzīmē tikai Query Funds un Query Ledger Entries. Visu pārējo atstāj izslēgtu, īpaši Withdraw un orderu atļaujas.",
+      "Iekopē API atslēgu un privāto atslēgu divos laukos zemāk."
+    ]
+  },
+  "fields": {
+    "key": "API atslēga",
+    "secret": "Privātā atslēga"
+  }
+}

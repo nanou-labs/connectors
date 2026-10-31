@@ -1,0 +1,16 @@
+{
+  "blurb": "Salda i historia, tylko do odczytu.",
+  "can": [
+    "Wartość portfela w twojej walucie",
+    "Historia transakcji do rozliczenia podatku",
+    "Nie może przenosić środków, celowo"
+  ],
+  "upload": {
+    "label": "Plik klucza API tylko do odczytu (cdp_api_key.json)",
+    "help": [
+      "Otwórz Coinbase Developer Platform i zaloguj się kontem Coinbase.",
+      "Utwórz Secret API key, wybierz ECDSA i zaznacz tylko uprawnienie View.",
+      "Pobierz plik klucza i upuść go tutaj."
+    ]
+  }
+}

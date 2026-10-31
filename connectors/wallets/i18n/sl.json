@@ -1,0 +1,10 @@
+{
+  "name": "Kripto denarnice",
+  "blurb": "Pošlji nanou naslov denarnice, ona ga preveri in spremlja.",
+  "can": [
+    "Stanja na 8 verigah",
+    "Šteje v neto premoženje gospodinjstva",
+    "Samo naslovi, nikoli ključi"
+  ],
+  "howTo": "Ničesar ni treba nastaviti: v katerem koli klepetu pošlji nanou javni naslov denarnice (0x…, Bitcoin ali Solana). Takoj ga preveri in vpraša, ali naj ga še naprej spremlja, da šteje v neto premoženje gospodinjstva. Nikoli ne pošiljaj obnovitvene fraze ali zasebnega ključa: nanou te ju ne bo nikoli vprašala."
+}

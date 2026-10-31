@@ -1,0 +1,10 @@
+{
+  "name": "Kryptolompakot",
+  "blurb": "Lähetä nanoulle lompakon osoite, se tarkistaa sen ja pitää sitä silmällä.",
+  "can": [
+    "Saldot 8 ketjussa",
+    "Lasketaan kotitaloutesi nettovarallisuuteen",
+    "Vain osoitteet, ei koskaan avaimia"
+  ],
+  "howTo": "Ei mitään asetettavaa: lähetä nanoulle julkinen lompakon osoite (0x…, Bitcoin tai Solana) missä tahansa keskustelussa. Se tarkistaa sen heti ja kysyy, pitäisikö sen jatkaa seurantaa, jotta se lasketaan kotitaloutesi nettovarallisuuteen. Älä koskaan lähetä palautuslausetta tai yksityistä avainta: nanou ei koskaan pyydä sellaista."
+}

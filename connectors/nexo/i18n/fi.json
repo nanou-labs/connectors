@@ -1,0 +1,15 @@
+{
+  "blurb": "Omistukset koottuna tapahtumaviennistäsi.",
+  "can": [
+    "Omistukset ja ansaitut korot",
+    "Arvo omassa valuutassasi",
+    "Tuo uudelleen milloin vain päivittääksesi"
+  ],
+  "upload": {
+    "label": "Tapahtumavienti (CSV)",
+    "help": [
+      "Avaa Nexossa Transactions ja vie ne kaikki CSV-muodossa.",
+      "Pudota tiedosto tähän."
+    ]
+  }
+}

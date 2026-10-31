@@ -1,0 +1,16 @@
+{
+  "blurb": "Zostatky a história, len na čítanie.",
+  "can": [
+    "Hodnota portfólia v tvojej mene",
+    "História transakcií pre dane",
+    "Peniaze presúvať nemôže, zámerne"
+  ],
+  "upload": {
+    "label": "Súbor s API kľúčom len na prezeranie (cdp_api_key.json)",
+    "help": [
+      "Otvor Coinbase Developer Platform a prihlás sa svojím účtom Coinbase.",
+      "Vytvor Secret API key, zvoľ ECDSA a zaškrtni len povolenie View.",
+      "Stiahni súbor s kľúčom a pretiahni ho sem."
+    ]
+  }
+}

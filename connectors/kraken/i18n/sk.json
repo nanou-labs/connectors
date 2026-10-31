@@ -1,0 +1,20 @@
+{
+  "blurb": "Zostatky a história, len na čítanie.",
+  "can": [
+    "Aktíva a ich hodnota v tvojej mene",
+    "Vklady, obchody a odmeny zo stakingu pre dane",
+    "Nemôže obchodovať ani vyberať, zámerne"
+  ],
+  "upload": {
+    "label": "API kľúč len na čítanie",
+    "help": [
+      "V Krakene otvor Settings → Connections & API a vytvor nový kľúč.",
+      "Zaškrtni len Query Funds a Query Ledger Entries. Všetko ostatné nechaj vypnuté, hlavne Withdraw a oprávnenia na príkazy.",
+      "Skopíruj API kľúč a súkromný kľúč do dvoch polí nižšie."
+    ]
+  },
+  "fields": {
+    "key": "API kľúč",
+    "secret": "Súkromný kľúč"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "blurb": "Saldos e historial, solo lectura.",
+  "can": [
+    "Tus activos y su valor en tu moneda",
+    "Depósitos, operaciones y recompensas de staking para Hacienda",
+    "No puede operar ni retirar, a propósito"
+  ],
+  "upload": {
+    "label": "Clave API de solo lectura",
+    "help": [
+      "En Kraken, abre Settings → Connections & API y crea una clave nueva.",
+      "Marca solo Query Funds y Query Ledger Entries. Deja todo lo demás desactivado, sobre todo Withdraw y los permisos de órdenes.",
+      "Copia la clave API y la clave privada en los dos campos de abajo."
+    ]
+  },
+  "fields": {
+    "key": "Clave API",
+    "secret": "Clave privada"
+  }
+}

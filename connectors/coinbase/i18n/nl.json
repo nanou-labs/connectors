@@ -1,0 +1,16 @@
+{
+  "blurb": "Saldi en geschiedenis, alleen lezen.",
+  "can": [
+    "Waarde van je portefeuille in je eigen valuta",
+    "Transactiegeschiedenis voor de belasting",
+    "Kan geen geld verplaatsen, zo ontworpen"
+  ],
+  "upload": {
+    "label": "API-sleutelbestand met alleen-lezen (cdp_api_key.json)",
+    "help": [
+      "Open het Coinbase Developer Platform en log in met je Coinbase-account.",
+      "Maak een Secret API key, kies ECDSA en vink alleen het recht View aan.",
+      "Download het sleutelbestand en zet het hier neer."
+    ]
+  }
+}

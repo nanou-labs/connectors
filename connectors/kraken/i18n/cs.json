@@ -1,0 +1,20 @@
+{
+  "blurb": "Zůstatky a historie, jen pro čtení.",
+  "can": [
+    "Aktiva a jejich hodnota ve tvé měně",
+    "Vklady, obchody a odměny ze stakingu pro daně",
+    "Nemůže obchodovat ani vybírat, už z principu"
+  ],
+  "upload": {
+    "label": "API klíč jen pro čtení",
+    "help": [
+      "V Krakenu otevři Settings → Connections & API a vytvoř nový klíč.",
+      "Zaškrtni jen Query Funds a Query Ledger Entries. Vše ostatní nech vypnuté, hlavně Withdraw a oprávnění k objednávkám.",
+      "Zkopíruj API klíč a soukromý klíč do dvou polí níže."
+    ]
+  },
+  "fields": {
+    "key": "API klíč",
+    "secret": "Soukromý klíč"
+  }
+}

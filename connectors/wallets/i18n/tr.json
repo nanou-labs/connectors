@@ -1,0 +1,10 @@
+{
+  "name": "Kripto cüzdanlar",
+  "blurb": "nanou'ya bir cüzdan adresi gönder, kontrol edip takipte tutsun.",
+  "can": [
+    "8 ağda bakiyeler",
+    "Hanenin net varlığına dahil edilir",
+    "Sadece adresler, asla anahtarlar"
+  ],
+  "howTo": "Kurulacak bir şey yok: herhangi bir sohbette nanou'ya herkese açık bir cüzdan adresi (0x…, Bitcoin ya da Solana) gönder. Adresi hemen kontrol eder ve takip etmeye devam edip etmeyeceğini sorar, böylece adres hanenin net varlığına dahil olur. Kurtarma ifadeni (seed phrase) ya da özel anahtarını asla gönderme: nanou bunları asla istemez."
+}

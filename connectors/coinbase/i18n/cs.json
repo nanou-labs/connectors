@@ -1,0 +1,16 @@
+{
+  "blurb": "Zůstatky a historie, jen pro čtení.",
+  "can": [
+    "Hodnota portfolia ve tvé měně",
+    "Historie transakcí pro daně",
+    "Záměrně nemůže hýbat penězi"
+  ],
+  "upload": {
+    "label": "Soubor s API klíčem jen pro čtení (cdp_api_key.json)",
+    "help": [
+      "Otevři Coinbase Developer Platform a přihlas se svým účtem Coinbase.",
+      "Vytvoř Secret API key, zvol ECDSA a zaškrtni jen oprávnění View.",
+      "Stáhni soubor s klíčem a přetáhni ho sem."
+    ]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "blurb": "Balances and history, read-only.",
+  "can": [
+    "Holdings and their value in your currency",
+    "Deposits, trades and staking rewards for taxes",
+    "Cannot trade or withdraw, by design"
+  ],
+  "upload": {
+    "label": "Read-only API key",
+    "help": [
+      "In Kraken, open Settings → Connections & API and create a new key.",
+      "Tick only Query Funds and Query Ledger Entries. Leave everything else off, especially Withdraw and the order permissions.",
+      "Copy the API key and the private key into the two fields below."
+    ]
+  },
+  "fields": {
+    "key": "API key",
+    "secret": "Private key"
+  }
+}

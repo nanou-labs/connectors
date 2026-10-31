@@ -1,0 +1,15 @@
+{
+  "blurb": "Bezittingen opnieuw opgebouwd uit je transactie-export.",
+  "can": [
+    "Bezittingen en verdiende rente",
+    "Waarde in je eigen valuta",
+    "Altijd opnieuw te importeren om bij te werken"
+  ],
+  "upload": {
+    "label": "Transactie-export (CSV)",
+    "help": [
+      "Open in Nexo Transactions en exporteer ze allemaal als CSV.",
+      "Zet het bestand hier neer."
+    ]
+  }
+}

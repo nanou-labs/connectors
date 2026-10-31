@@ -1,0 +1,16 @@
+{
+  "blurb": "Saldod ja ajalugu, ainult lugemiseks.",
+  "can": [
+    "Portfelli väärtus sinu valuutas",
+    "Tehingute ajalugu maksude jaoks",
+    "Ei saa raha liigutada, nii on loodud"
+  ],
+  "upload": {
+    "label": "Ainult vaatamiseks mõeldud API-võtme fail (cdp_api_key.json)",
+    "help": [
+      "Ava Coinbase Developer Platform ja logi sisse oma Coinbase'i kontoga.",
+      "Loo Secret API key, vali ECDSA ja märgi ainult õigus View.",
+      "Laadi võtmefail alla ja lohista see siia."
+    ]
+  }
+}

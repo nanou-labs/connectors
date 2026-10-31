@@ -1,0 +1,20 @@
+{
+  "blurb": "Solduri și istoric, doar citire.",
+  "can": [
+    "Activele tale și valoarea lor în moneda ta",
+    "Depuneri, tranzacții și recompense de staking pentru taxe",
+    "Nu poate tranzacționa sau retrage, intenționat"
+  ],
+  "upload": {
+    "label": "Cheie API doar pentru citire",
+    "help": [
+      "În Kraken, deschide Settings → Connections & API și creează o cheie nouă.",
+      "Bifează doar Query Funds și Query Ledger Entries. Lasă restul dezactivat, mai ales Withdraw și permisiunile pentru ordine.",
+      "Copiază cheia API și cheia privată în cele două câmpuri de mai jos."
+    ]
+  },
+  "fields": {
+    "key": "Cheie API",
+    "secret": "Cheie privată"
+  }
+}

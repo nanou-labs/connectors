@@ -1,0 +1,10 @@
+{
+  "name": "Crypto wallets",
+  "blurb": "Ibgħat lil nanou indirizz ta' wallet, tiċċekkjah u żżommu taħt għajnejha.",
+  "can": [
+    "Bilanċi fuq 8 chains",
+    "Jingħaddu fil-patrimonju tad-dar tiegħek",
+    "Indirizzi biss, qatt keys"
+  ],
+  "howTo": "M'hemm xejn x'tissettja: ibgħat lil nanou indirizz pubbliku ta' wallet (0x…, Bitcoin jew Solana) f'kwalunkwe chat. Tiċċekkjah minnufih u tistaqsik jekk għandhiex tibqa' żżommu taħt għajnejha, biex jingħadd fil-patrimonju tad-dar tiegħek. Qatt tibgħat seed phrase jew private key: nanou qatt mhi se titlobhom."
+}

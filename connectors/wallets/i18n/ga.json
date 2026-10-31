@@ -1,0 +1,10 @@
+{
+  "name": "Sparáin crypto",
+  "blurb": "Seol seoladh sparáin chuig nanou, seiceálann sé é agus coinníonn sé súil air.",
+  "can": [
+    "Iarmhéideanna thar 8 slabhra",
+    "Áirithe i nglanfhiúchas do theaghlaigh",
+    "Seoltaí amháin, eochracha riamh"
+  ],
+  "howTo": "Níl aon rud le socrú: seol seoladh poiblí sparáin (0x…, Bitcoin nó Solana) chuig nanou in aon chomhrá. Seiceálann sé é láithreach agus fiafraíonn sé ar cheart dó súil a choinneáil air, ionas go n-áireofar é i nglanfhiúchas do theaghlaigh. Ná seol frása síl ná eochair phríobháideach riamh: ní iarrfaidh nanou ceann ort riamh."
+}

@@ -1,0 +1,15 @@
+{
+  "blurb": "Ativos reconstruídos a partir da tua exportação de transações.",
+  "can": [
+    "Ativos e juros ganhos",
+    "Valor na tua moeda",
+    "Volta a importar quando quiseres para atualizar"
+  ],
+  "upload": {
+    "label": "Exportação de transações (CSV)",
+    "help": [
+      "No Nexo, abre Transações e exporta-as todas em CSV.",
+      "Larga o ficheiro aqui."
+    ]
+  }
+}

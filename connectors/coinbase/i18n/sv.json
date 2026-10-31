@@ -1,0 +1,16 @@
+{
+  "blurb": "Saldon och historik, bara läsbehörighet.",
+  "can": [
+    "Portföljens värde i din valuta",
+    "Transaktionshistorik för deklarationen",
+    "Kan med avsikt inte flytta pengar"
+  ],
+  "upload": {
+    "label": "API-nyckelfil med bara läsbehörighet (cdp_api_key.json)",
+    "help": [
+      "Öppna Coinbase Developer Platform och logga in med ditt Coinbase-konto.",
+      "Skapa en Secret API key, välj ECDSA och kryssa bara i behörigheten View.",
+      "Ladda ner nyckelfilen och släpp den här."
+    ]
+  }
+}

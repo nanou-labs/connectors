@@ -1,0 +1,20 @@
+{
+  "blurb": "Iarmhéideanna agus stair, léamh amháin.",
+  "can": [
+    "Do shealúchais agus a luach i d'airgeadra féin",
+    "Taisceanna, trádálacha agus luach saothair staking don cháin",
+    "Ní féidir leis trádáil ná aistarraingt, d'aon ghnó"
+  ],
+  "upload": {
+    "label": "Eochair API léamh amháin",
+    "help": [
+      "In Kraken, oscail Settings → Connections & API agus cruthaigh eochair nua.",
+      "Cuir tic le Query Funds agus Query Ledger Entries amháin. Fág gach rud eile múchta, go háirithe Withdraw agus na ceadanna orduithe.",
+      "Cóipeáil an eochair API agus an eochair phríobháideach isteach sa dá réimse thíos."
+    ]
+  },
+  "fields": {
+    "key": "Eochair API",
+    "secret": "Eochair phríobháideach"
+  }
+}

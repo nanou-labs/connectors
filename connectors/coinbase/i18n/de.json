@@ -1,0 +1,16 @@
+{
+  "blurb": "Guthaben und Verlauf, nur lesen.",
+  "can": [
+    "Depotwert in deiner Währung",
+    "Transaktionsverlauf für die Steuer",
+    "Kann absichtlich kein Geld bewegen"
+  ],
+  "upload": {
+    "label": "API-Schlüsseldatei nur zum Ansehen (cdp_api_key.json)",
+    "help": [
+      "Öffne die Coinbase Developer Platform und melde dich mit deinem Coinbase-Konto an.",
+      "Erstelle einen „Secret API key“, wähle ECDSA und hake nur die Berechtigung „View“ an.",
+      "Lade die Schlüsseldatei herunter und zieh sie hierher."
+    ]
+  }
+}

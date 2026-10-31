@@ -1,0 +1,10 @@
+{
+  "name": "Kriptomaki",
+  "blurb": "Nosūti nanou maka adresi, tas to pārbauda un uzrauga.",
+  "can": [
+    "Atlikumi 8 blokķēdēs",
+    "Ieskaitīti tavas mājsaimniecības neto vērtībā",
+    "Tikai adreses, nekad atslēgas"
+  ],
+  "howTo": "Nekas nav jāiestata: jebkurā sarunā nosūti nanou publisku maka adresi (0x…, Bitcoin vai Solana). nanou to uzreiz pārbauda un pajautā, vai turpināt to uzraudzīt, lai tā tiktu ieskaitīta tavas mājsaimniecības neto vērtībā. Nekad nesūti atkopšanas frāzi vai privāto atslēgu: nanou to nekad neprasīs."
+}

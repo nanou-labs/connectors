@@ -1,0 +1,16 @@
+{
+  "blurb": "Soldes et historique, en lecture seule.",
+  "can": [
+    "Valeur du portefeuille dans ta devise",
+    "Historique des transactions pour les impôts",
+    "Ne peut pas déplacer de fonds, par conception"
+  ],
+  "upload": {
+    "label": "Fichier de clé API en lecture seule (cdp_api_key.json)",
+    "help": [
+      "Ouvre la Coinbase Developer Platform et connecte-toi avec ton compte Coinbase.",
+      "Crée une « Secret API key », choisis ECDSA et coche uniquement la permission « View ».",
+      "Télécharge le fichier de clé et dépose-le ici."
+    ]
+  }
+}

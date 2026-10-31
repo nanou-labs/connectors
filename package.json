@@ -1,0 +1,12 @@
+{
+  "name": "nanou-connectors",
+  "private": true,
+  "description": "Connectors for nanou, the private family assistant: manifests, tools, skills and tests.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "check": "node scripts/check.mjs --check",
+    "test": "node --test \"tests/*.test.mjs\""
+  }
+}

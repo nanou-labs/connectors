@@ -1,0 +1,15 @@
+{
+  "blurb": "Imovina rekonstruirana iz izvoza tvojih transakcija.",
+  "can": [
+    "Imovina i zarađene kamate",
+    "Vrijednost u tvojoj valuti",
+    "Ponovni uvoz bilo kad za osvježavanje"
+  ],
+  "upload": {
+    "label": "Izvoz transakcija (CSV)",
+    "help": [
+      "U Nexu otvori Transactions i izvezi sve kao CSV.",
+      "Ispusti datoteku ovdje."
+    ]
+  }
+}

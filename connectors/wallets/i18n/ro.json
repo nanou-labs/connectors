@@ -1,0 +1,10 @@
+{
+  "name": "Portofele cripto",
+  "blurb": "Trimite-i lui nanou adresa unui portofel, o verifică și o urmărește.",
+  "can": [
+    "Solduri pe 8 blockchainuri",
+    "Incluse în averea familiei",
+    "Doar adrese, niciodată chei"
+  ],
+  "howTo": "Nu e nimic de configurat: trimite-i lui nanou adresa publică a unui portofel (0x…, Bitcoin sau Solana) în orice conversație. O verifică imediat și te întreabă dacă s-o urmărească în continuare, ca să intre în averea familiei. Nu trimite niciodată o frază seed sau o cheie privată: nanou nu îți va cere niciodată așa ceva."
+}

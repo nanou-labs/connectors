@@ -1,0 +1,20 @@
+{
+  "blurb": "Stanja in zgodovina, samo za branje.",
+  "can": [
+    "Sredstva in njihova vrednost v tvoji valuti",
+    "Pologi, posli in nagrade od stakinga za davke",
+    "Ne more trgovati ali dvigovati, namenoma"
+  ],
+  "upload": {
+    "label": "API ključ samo za branje",
+    "help": [
+      "V Krakenu odpri Settings → Connections & API in ustvari nov ključ.",
+      "Označi samo Query Funds in Query Ledger Entries. Vse drugo pusti izklopljeno, predvsem Withdraw in dovoljenja za naročila.",
+      "Kopiraj API ključ in zasebni ključ v polji spodaj."
+    ]
+  },
+  "fields": {
+    "key": "API ključ",
+    "secret": "Zasebni ključ"
+  }
+}

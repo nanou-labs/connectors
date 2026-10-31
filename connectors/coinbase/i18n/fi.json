@@ -1,0 +1,16 @@
+{
+  "blurb": "Saldot ja historia, vain luku.",
+  "can": [
+    "Salkun arvo omassa valuutassasi",
+    "Tapahtumahistoria verotusta varten",
+    "Ei voi siirtää varoja, tarkoituksella"
+  ],
+  "upload": {
+    "label": "Vain luku -API-avaintiedosto (cdp_api_key.json)",
+    "help": [
+      "Avaa Coinbase Developer Platform ja kirjaudu Coinbase-tililläsi.",
+      "Luo Secret API key, valitse ECDSA ja rastita vain View-oikeus.",
+      "Lataa avaintiedosto ja pudota se tähän."
+    ]
+  }
+}

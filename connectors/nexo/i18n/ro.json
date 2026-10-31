@@ -1,0 +1,15 @@
+{
+  "blurb": "Deținerile, refăcute din exportul tranzacțiilor tale.",
+  "can": [
+    "Dețineri și dobânda câștigată",
+    "Valoarea în moneda ta",
+    "Reimportă oricând ca să actualizezi"
+  ],
+  "upload": {
+    "label": "Exportul tranzacțiilor (CSV)",
+    "help": [
+      "În Nexo, deschide Transactions și exportă-le pe toate în CSV.",
+      "Trage fișierul aici."
+    ]
+  }
+}

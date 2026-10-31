@@ -1,0 +1,15 @@
+{
+  "blurb": "Sealúchais atógtha ó easpórtáil d’idirbheart.",
+  "can": [
+    "Sealúchais agus ús tuillte",
+    "Luach i d’airgeadra féin",
+    "Iompórtáil arís am ar bith le hathnuachan"
+  ],
+  "upload": {
+    "label": "Easpórtáil idirbheart (CSV)",
+    "help": [
+      "In Nexo, oscail Transactions agus easpórtáil iad ar fad mar CSV.",
+      "Scaoil an comhad anseo."
+    ]
+  }
+}

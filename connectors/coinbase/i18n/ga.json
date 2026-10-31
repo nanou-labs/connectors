@@ -1,0 +1,16 @@
+{
+  "blurb": "Iarmhéideanna agus stair, léamh amháin.",
+  "can": [
+    "Luach na punainne i d’airgeadra féin",
+    "Stair idirbheart don cháin",
+    "Ní féidir leis cistí a bhogadh, d’aon ghnó"
+  ],
+  "upload": {
+    "label": "Comhad eochrach API féachana amháin (cdp_api_key.json)",
+    "help": [
+      "Oscail Coinbase Developer Platform agus sínigh isteach le do chuntas Coinbase.",
+      "Cruthaigh Secret API key, roghnaigh ECDSA, agus cuir tic leis an gcead View amháin.",
+      "Íoslódáil an comhad eochrach agus scaoil anseo é."
+    ]
+  }
+}
