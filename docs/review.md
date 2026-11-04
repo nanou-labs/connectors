@@ -21,9 +21,9 @@ default, with a warning.
   signing in to GitHub, so a private repository fails at once.
 
 Submitting is for nanou members: sign in on nanou.ai with an account that
-belongs to a family. Updates go to that account's email. The form takes the
-link and a sentence on what the connector is for, and you get a link to
-follow your submission's state.
+belongs to a family; the nanou team reaches you at that account's email.
+The form takes the link and a sentence on what the connector is for, and
+you get a link to follow your submission's state.
 
 ### Open source
 
