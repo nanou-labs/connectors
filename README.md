@@ -22,7 +22,9 @@ approval, and nothing may move money.
 Each connector is **one self-contained folder** under `connectors/`: its
 manifest, code, skill section, tests and catalog text, importing nothing from
 outside it. A community connector lives in its author's repository with the
-same layout and moves in here as it is once approved. The code runs inside a
+same layout (a public repository under an open-source license, see
+[review.md](docs/review.md#open-source)) and moves in here as it is once
+approved. The code runs inside a
 runtime nanou owns, which only runs what the manifests declare:
 `runtime/crypto` adds crypto sources up, and `runtime/cli` runs connectors
 with a command of their own (`asana`, `slack`, `outlook`), holding every change for the

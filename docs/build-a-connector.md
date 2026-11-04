@@ -32,15 +32,18 @@ runs inside a **runtime** that nanou owns, and there are two shapes:
 | Level | Code lives | Who can use it |
 |---|---|---|
 | **Official** | in this repository, maintained by the nanou team | every family |
-| **Verified** | in your own repository; we review one exact commit, pin it and sign it | every family |
+| **Verified** | in your own public repository, under an open-source license; we review one exact commit, pin it and sign it | every family |
 | **Private** | anywhere; the family's owner adds it from a GitHub link | that family only, read-only by default, with a warning |
 
 Official connectors are what you see in this repository; Verified ones are
 listed in [registry/verified.json](../registry/verified.json). Every
 connector runs in nanou's sandbox ([sandbox.md](sandbox.md)): its own
 process, only its own folder, only its declared hosts. Submissions for
-Official and Verified are open: [review.md](review.md) says how they're
-reviewed.
+Official and Verified are open to nanou members (signed in with an
+account in a family): [review.md](review.md) says how they're reviewed. A
+Verified connector is open source: a public GitHub repository with an
+OSI-approved license file in its folder or at the repository's root
+(Apache-2.0 recommended, the license of this repository).
 
 ### A Private connector
 
@@ -110,14 +113,17 @@ the skill it reads is generated from your manifest, and your output is data.
 7. **Submit it** on [nanou.ai/connectors](https://nanou.ai/connectors):
    the link to a pull request adding your folder here (Official,
    signed-off commits, see [CONTRIBUTING.md](../CONTRIBUTING.md)), or the
-   link to your own repository (Verified). `node scripts/review.mjs <folder>
-   --level verified` runs the automatic checks first.
+   link to your own public repository with an open-source `LICENSE`
+   (Verified; Apache-2.0 recommended, see
+   [review.md](review.md#open-source)). `node scripts/review.mjs <folder>
+   --level verified` runs the automatic checks first, the license one
+   included.
 
 ## How we review
 
 Automatic checks on the exact commit you submitted (the manifest and logo,
 the contract, every host the code names, imports, key-shaped strings, the
-tests offline, and for Verified a probe inside nanou's sandbox), then a
+license, the tests offline, and for Verified a probe inside nanou's sandbox), then a
 person on the nanou team reads the code and checks that the `data` sentence
 is true, then tests it live with a test account. Each step is a state you
 can follow; a decline always comes with a reason. Accepted Verified commits

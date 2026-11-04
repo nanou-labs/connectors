@@ -11,14 +11,35 @@ default, with a warning.
 - **Official:** open a pull request adding `connectors/<id>/`, then paste
   the pull request's link on [nanou.ai/connectors](https://nanou.ai/connectors).
   Once accepted, the nanou team maintains it here.
-- **Verified:** keep the connector in your own public repository (the
-  layout in [build-a-connector.md](build-a-connector.md)) and paste its link,
+- **Verified:** keep the connector in your own **public** GitHub
+  repository, under an **OSI-approved open-source license** (we recommend
+  Apache-2.0, this repository's license), with the layout in
+  [build-a-connector.md](build-a-connector.md), and paste its link,
   `https://github.com/you/repo` or `…/tree/<branch>/<folder>`, on
   [nanou.ai/connectors](https://nanou.ai/connectors). It stays yours: nanou
-  pins the exact commit we reviewed and signs it.
+  pins the exact commit we reviewed and signs it. nanou fetches it without
+  signing in to GitHub, so a private repository fails at once.
 
-Both forms take a contact email and a sentence on what the connector is for.
-You get a link to follow your submission's state.
+Submitting is for nanou members: sign in on nanou.ai with an account that
+belongs to a family. Updates go to that account's email. The form takes the
+link and a sentence on what the connector is for, and you get a link to
+follow your submission's state.
+
+### Open source
+
+A Verified connector's repository has a license file (`LICENSE`, `LICENCE`
+or `COPYING`, any extension) in the connector's folder or at the
+repository's root, with one of these licenses: **Apache-2.0**
+(recommended), MIT, BSD-2-Clause, BSD-3-Clause, ISC, MPL-2.0, or a GNU GPL,
+LGPL or AGPL (2.x or 3.0). The `license` check recognises the license's own
+text, unmodified, or an `SPDX-License-Identifier:` line (any OSI-approved
+identifier; with `OR`, one open choice is enough). Source-available terms
+(Commons Clause, BSL, SSPL and the like) are refused.
+
+An Official connector is licensed like the rest of this repository,
+Apache-2.0, through the sign-off on every commit ([DCO](../CONTRIBUTING.md));
+it needs no license file of its own, and a different one in its folder is
+refused.
 
 ## The states
 
@@ -47,7 +68,9 @@ Until the update is listed, families keep running the reviewed commit.
 
 ## The automatic checks
 
-`node scripts/review.mjs <folder> [--level verified]` runs them; CI runs it
+`node scripts/review.mjs <folder> [--level verified] [--repo <root>]` runs
+them (`--repo` is where to look for the repository's license; by default the
+folder's nearest ancestor with `.git`); CI runs it
 on every pull request that touches `connectors/`, and nanou runs it on a
 Verified submission in a container with no network at all.
 
@@ -61,6 +84,7 @@ Verified submission in a container with no network at all.
 | `hosts` | every host the code names is in `network` |
 | `code` | Node built-ins only, nothing outside its folder, no sockets, processes or code built at runtime: `fetch()` is the way out |
 | `secrets` | no key-shaped strings or key files |
+| `license` | Verified: an OSI-approved open-source license file in the folder or at the repository's root ([Open source](#open-source)); Official: nothing but Apache-2.0 |
 | `tests` | the tests pass, offline: any connection but loopback is refused and reported |
 
 nanou then runs the **sandbox probe** on a Verified submission: each `read`

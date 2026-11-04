@@ -17,6 +17,9 @@ const ASANA = new URL("../connectors/asana", import.meta.url).pathname;
 const tmp = mkdtempSync(join(tmpdir(), "review-test-"));
 after(() => rmSync(tmp, { recursive: true, force: true }));
 let n = 0;
+/** The MIT license's grant, as its text has it. */
+const MIT =
+  "Permission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction.\n";
 
 /** A copy of the Asana connector, changed by `edit`. @param {(dir: string) => void} [edit] */
 function copy(edit) {
@@ -29,7 +32,7 @@ function copy(edit) {
 const problems = (report, name) => report.checks.find((/** @type {any} */ c) => c.name === name)?.problems ?? null;
 
 test("a clean connector passes every check; as Verified, only its Official id is refused", async () => {
-  const dir = copy();
+  const dir = copy((d) => cpSync(new URL("../LICENSE", import.meta.url).pathname, join(d, "LICENSE")));
   const r = await review(dir);
   assert.equal(r.ok, true, JSON.stringify(r.checks.filter((c) => !c.ok)));
   assert.equal(r.id, "asana");
@@ -39,6 +42,34 @@ test("a clean connector passes every check; as Verified, only its Official id is
     v.checks.filter((c) => !c.ok),
     [{ name: "shape", ok: false, problems: ['id: "asana" is an Official connector\'s'] }],
   );
+});
+
+test("a Verified connector needs an open-source LICENSE, in its folder or at the repository's root", async () => {
+  const license = (/** @type {any} */ r) => r.checks.find((/** @type {any} */ c) => c.name === "license");
+  const bare = copy();
+  const none = license(await review(bare, { level: "verified", tests: false, repo: null }));
+  assert.equal(none.ok, false);
+  assert.match(none.problems[0], /^no LICENSE file .* Apache-2\.0/);
+  // At the repository's root (the folder is one level down), found by --repo.
+  const root = join(bare, "..");
+  writeFileSync(join(root, "LICENSE.md"), `MIT License\n\nCopyright (c) 2026 Jane\n\n${MIT}`);
+  const atRoot = license(await review(bare, { level: "verified", tests: false, repo: root }));
+  assert.deepEqual([atRoot.ok, atRoot.note], [true, "MIT, LICENSE.md at the repository's root"]);
+  // In the folder, by its SPDX line; a proprietary one is refused with what to use.
+  const spdx = copy((d) => writeFileSync(join(d, "COPYING"), "SPDX-License-Identifier: MPL-2.0\n"));
+  assert.equal(license(await review(spdx, { level: "verified", tests: false, repo: null })).note, "MPL-2.0, COPYING");
+  const closed = copy((d) => writeFileSync(join(d, "LICENSE"), "Copyright 2026 Jane. All rights reserved.\n"));
+  const refused = license(await review(closed, { level: "verified", tests: false, repo: null }));
+  assert.equal(refused.ok, false);
+  assert.match(refused.problems[0], /^LICENSE: not an open-source license we recognise\. Use Apache-2\.0 \(recommended\), MIT/);
+});
+
+test("an Official connector is Apache-2.0: another license in its folder is refused", async () => {
+  const dir = copy((d) => writeFileSync(join(d, "LICENSE"), `Copyright (c) 2026 Jane\n\n${MIT}`));
+  const c = (await review(dir, { tests: false, repo: null })).checks.find((x) => x.name === "license");
+  assert.deepEqual(c?.problems, ["LICENSE: an Official connector is Apache-2.0, this repository's license (CONTRIBUTING.md). Remove it"]);
+  // No license file of its own is the usual case: the repository's covers it.
+  assert.equal((await review(copy(), { tests: false, repo: null })).checks.find((x) => x.name === "license")?.ok, true);
 });
 
 test("a host the code names but doesn't declare is caught", async () => {

@@ -3,13 +3,15 @@
 // request here, or the author's own repository for the Verified track). Every
 // check is listed in docs/review.md; a person reviews only what passes.
 //
-//   node scripts/review.mjs <folder> [--level official|verified] [--json] [--no-tests]
+//   node scripts/review.mjs <folder> [--level official|verified] [--repo <root>] [--json] [--no-tests]
 //
 // It copies the folder next to this repository's runtimes (as
 // connectors/<id>/ in a temporary tree), then checks the files, the manifest
 // and logo (scripts/check.mjs rules), that the code implements exactly the
 // declared commands, that every host the code names is declared, the imports,
-// key-shaped strings, and runs the tests offline (scripts/offline.mjs refuses
+// key-shaped strings, the license (a Verified connector's repository is open
+// source: a LICENSE in the folder or at --repo, the repository's root, which
+// defaults to the folder's nearest ancestor with .git), and runs the tests offline (scripts/offline.mjs refuses
 // every connection but loopback). Exit code 1 if anything failed.
 //
 // It imports and runs the connector's code: run it somewhere disposable (CI,
@@ -21,6 +23,7 @@ import { tmpdir } from "node:os";
 import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { contractProblems, LOCALES, logoProblems, readConnector, validate } from "./check.mjs";
+import { ACCEPTED, LICENSE_FILE, licenseOf } from "./license.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const MAX_FILES = 200;
@@ -110,16 +113,68 @@ export function imports(src) {
   return { specs: [...specs], dynamic, builds };
 }
 
+/** The repository a folder sits in: its nearest ancestor with .git, or null. @param {string} dir */
+function repoRoot(dir) {
+  for (let d = dir; ; d = dirname(d)) {
+    if (existsSync(join(d, ".git"))) return d;
+    if (dirname(d) === d) return null;
+  }
+}
+
+/**
+ * The license check: a Verified connector's repository is open source, an
+ * Official one is this repository's Apache-2.0 (contributed under the DCO).
+ * Looks for LICENSE / LICENCE / COPYING files in the folder, then at the
+ * repository's root. @param {string} src the folder @param {string[]} files its files
+ * @param {"official" | "verified"} level @param {string | null} repo the repository's root
+ * @returns {{ problems: string[], note?: string }}
+ */
+export function licenseCheck(src, files, level, repo) {
+  /** @type {{ name: string, path: string, root: boolean }[]} */
+  const found = files.filter((f) => !f.includes("/") && LICENSE_FILE.test(f)).map((f) => ({ name: f, path: join(src, f), root: false }));
+  if (repo && resolve(repo) !== src && existsSync(repo)) {
+    for (const e of readdirSync(repo, { withFileTypes: true })) {
+      if (e.isFile() && LICENSE_FILE.test(e.name)) found.push({ name: `${e.name} at the repository's root`, path: join(repo, e.name), root: true });
+    }
+  }
+  const read = (/** @type {string} */ p) => (lstatSync(p).size > 1_000_000 ? "" : readFileSync(p, "utf8"));
+  const recognised = found.map((f) => ({ ...f, id: licenseOf(read(f.path)) }));
+  if (level === "official") {
+    return {
+      problems: recognised
+        .filter((f) => !f.root && f.id?.toLowerCase() !== "apache-2.0")
+        .map((f) => `${f.name}: an Official connector is Apache-2.0, this repository's license (CONTRIBUTING.md). Remove it`),
+      note: "Apache-2.0, this repository's license, contributed under the DCO",
+    };
+  }
+  if (found.length === 0) {
+    return {
+      problems: [
+        "no LICENSE file in the connector's folder or at the repository's root: a Verified connector is open source. Add a LICENSE with an OSI-approved license (we recommend Apache-2.0, the license of nanou-labs/connectors)",
+      ],
+    };
+  }
+  const ok = recognised.find((f) => f.id);
+  if (ok) return { problems: [], note: `${ok.id}, ${ok.name}` };
+  return {
+    problems: [
+      `${found.map((f) => f.name).join(", ")}: not an open-source license we recognise. Use ${ACCEPTED}, with its text unmodified, or start the file with a line like "SPDX-License-Identifier: Apache-2.0"`,
+    ],
+  };
+}
+
 /**
  * Review one connector folder. @param {string} folder
- * @param {{ level?: "official" | "verified", tests?: boolean }} [opts]
- * @returns {Promise<{ id: string | null, level: string, tree: string | null, ok: boolean, checks: { name: string, ok: boolean, problems: string[] }[] }>}
+ * @param {{ level?: "official" | "verified", tests?: boolean, repo?: string | null }} [opts] `repo`: the
+ * repository's root (default: the folder's nearest ancestor with .git)
+ * @returns {Promise<{ id: string | null, level: string, tree: string | null, ok: boolean, checks: { name: string, ok: boolean, problems: string[], note?: string }[] }>}
  */
 export async function review(folder, opts = {}) {
   const level = opts.level ?? "official";
-  /** @type {{ name: string, ok: boolean, problems: string[] }[]} */
+  /** @type {{ name: string, ok: boolean, problems: string[], note?: string }[]} */
   const checks = [];
-  const add = (/** @type {string} */ name, /** @type {string[]} */ problems) => checks.push({ name, ok: problems.length === 0, problems });
+  const add = (/** @type {string} */ name, /** @type {string[]} */ problems, /** @type {string | undefined} */ note) =>
+    checks.push({ name, ok: problems.length === 0, problems, ...(note ? { note } : {}) });
   const done = (/** @type {string | null} */ id, /** @type {string | null} */ tree) => ({ id, level, tree, ok: checks.every((c) => c.ok), checks });
   const src = resolve(folder);
 
@@ -232,7 +287,11 @@ export async function review(folder, opts = {}) {
     }
     add("secrets", [...new Set(secretProblems)]);
 
-    // 7. the tests, offline: any connection but loopback is refused and reported.
+    // 7. the license: open source for Verified, this repository's for Official.
+    const license = licenseCheck(src, files, level, opts.repo === undefined ? repoRoot(src) : opts.repo);
+    add("license", license.problems, license.note);
+
+    // 8. the tests, offline: any connection but loopback is refused and reported.
     if (opts.tests !== false) {
       const testFiles = files.filter((f) => /^test\/[^/]+\.test\.mjs$/.test(f)).map((f) => join("connectors", id, f));
       if (testFiles.length === 0) add("tests", ["no tests to run"]);
@@ -270,13 +329,14 @@ export async function review(folder, opts = {}) {
 
 if (process.argv[1] && import.meta.url === new URL(`file://${resolve(process.argv[1])}`).href) {
   const args = process.argv.slice(2);
-  const folder = args.find((a) => !a.startsWith("--") && args[args.indexOf(a) - 1] !== "--level");
+  const folder = args.find((a, i) => !a.startsWith("--") && !["--level", "--repo"].includes(args[i - 1]));
   const level = args.includes("--level") ? args[args.indexOf("--level") + 1] : "official";
+  const repo = args.includes("--repo") ? resolve(args[args.indexOf("--repo") + 1] ?? ".") : undefined;
   if (!folder || !["official", "verified"].includes(level)) {
-    console.error("usage: node scripts/review.mjs <connector folder> [--level official|verified] [--json] [--no-tests]");
+    console.error("usage: node scripts/review.mjs <connector folder> [--level official|verified] [--repo <root>] [--json] [--no-tests]");
     process.exit(2);
   }
-  const report = await review(folder, { level: /** @type {"official" | "verified"} */ (level), tests: !args.includes("--no-tests") });
+  const report = await review(folder, { level: /** @type {"official" | "verified"} */ (level), tests: !args.includes("--no-tests"), repo });
   if (args.includes("--json")) console.log(JSON.stringify(report, null, 2));
   else {
     for (const c of report.checks) console.log(c.ok ? `ok ${c.name}` : `FAIL ${c.name}:\n  ${c.problems.join("\n  ")}`);

@@ -19,10 +19,18 @@ specified in [docs/manifest.md](docs/manifest.md).
 
 ## Submitting
 
-Paste the link on [nanou.ai/connectors](https://nanou.ai/connectors): a pull
-request here for an Official connector, or your own repository for a
-Verified one. Each submission reviews one commit, through explicit states
-you can follow ([docs/review.md](docs/review.md)).
+Paste the link on [nanou.ai/connectors](https://nanou.ai/connectors),
+signed in with a nanou account that belongs to a family: a pull request here
+for an Official connector, or your own repository for a Verified one. Each
+submission reviews one commit, through explicit states you can follow
+([docs/review.md](docs/review.md)).
+
+A **Verified** connector is open source: a **public** GitHub repository with
+an OSI-approved license file (`LICENSE`, `LICENCE` or `COPYING`) in the
+connector's folder or at the repository's root. We recommend Apache-2.0,
+this repository's license; MIT, BSD-2/3-Clause, ISC, MPL-2.0 and the GNU
+GPL, LGPL and AGPL are accepted too. The automatic `license` check enforces
+it ([docs/review.md](docs/review.md#open-source)).
 
 ## Sign your commits (DCO)
 
@@ -48,4 +56,5 @@ Node 22 or newer, no dependencies.
 
 ## License
 
-Contributions are licensed under the [Apache License 2.0](LICENSE).
+Contributions here (Official connectors) are licensed under the
+[Apache License 2.0](LICENSE), certified by your sign-off.
