@@ -1,0 +1,13 @@
+{
+  "blurb": "Pošta, kalendar i OneDrive.",
+  "can": [
+    "Sustigni pristiglu poštu i pronađi taj e-mail",
+    "Pogledaj svoj tjedan i isplaniraj ga",
+    "Šalje, odgovara ili mijenja događaje tek nakon tvog dodira"
+  ],
+  "sharing": {
+    "yours": "tvoji Outlook računi",
+    "next": "Outlook računi koje povežeš sljedeće",
+    "first": "Kad povežeš svoje Outlook račune"
+  }
+}

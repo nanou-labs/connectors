@@ -15,7 +15,7 @@ connector, so the connector's code only implements its commands:
 
 - parses `--flag value`, `--flag=value` and positional words;
 - runs **only** the commands the manifest declares (two words first, `wallet add`, then one);
-- picks whose account: `--owner <name>`, else the only person who connected it, else asks;
+- picks whose account: `--owner <name>`, else the only person who connected it, else asks (and with `--account <name>` which of theirs, for a connector whose accounts carry their owner, `*.json#owner`);
 - reads and saves that person's secret at the manifest's `install.file`;
 - refuses every `write` or `send` command unless nanou's gateway approved that one command on a card (it runs it with `NANOU_WRITE=1`), and always with `--readonly`;
 - prints the result as JSON, or `{"error": "…"}` with exit code 1;
@@ -45,7 +45,7 @@ export default {
 |---|---|
 | `ctx.words` | positional words after the command (`asana task 123` → `["123"]`) |
 | `ctx.flags`, `ctx.flag(k)` | all flags; one flag's text value (undefined when absent or given without a value) |
-| `ctx.secret()` | the account's saved JSON (`{ token }` for an `api_key` with a `token` field) |
+| `ctx.secret()` | the account's saved JSON (`{ token }` for an `api_key` with a `token` field; the host's token file for a `device` sign-in) |
 | `ctx.saveSecret(v)` | replace it atomically, owner-only (a refreshed token, a remembered workspace) |
 | `ctx.state.get(name, fallback)`, `ctx.state.set(name, value)` | the account's own state (a cache, a cursor), kept next to its secret (`state/<owner>-<name>.json`) |
 | `ctx.owner()` | whose account is in use |

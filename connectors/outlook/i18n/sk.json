@@ -1,0 +1,13 @@
+{
+  "blurb": "Pošta, kalendár a OneDrive.",
+  "can": [
+    "Dobehni doručenú poštu a nájdi ten e-mail",
+    "Pozri si svoj týždeň a naplánuj si ho",
+    "Posiela, odpovedá alebo mení udalosti až po tvojom ťuknutí"
+  ],
+  "sharing": {
+    "yours": "tvojimi účtami Outlook",
+    "next": "Účty Outlook, ktoré pripojíš neskôr",
+    "first": "Keď pripojíš svoje účty Outlook"
+  }
+}

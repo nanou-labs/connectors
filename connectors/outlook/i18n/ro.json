@@ -1,0 +1,13 @@
+{
+  "blurb": "E-mail, calendar și OneDrive.",
+  "can": [
+    "Recuperează-ți inboxul și găsește acel e-mail",
+    "Vezi-ți săptămâna și planifică în jurul ei",
+    "Trimite, răspunde sau schimbă evenimente doar după atingerea ta"
+  ],
+  "sharing": {
+    "yours": "conturile tale Outlook",
+    "next": "Conturile Outlook pe care le conectezi de acum",
+    "first": "Când îți conectezi conturile Outlook"
+  }
+}

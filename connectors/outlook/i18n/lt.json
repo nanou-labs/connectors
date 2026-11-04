@@ -1,0 +1,13 @@
+{
+  "blurb": "Paštas, kalendorius ir OneDrive.",
+  "can": [
+    "Peržiūrėk gautus laiškus ir rask tą laišką",
+    "Pamatyk savo savaitę ir planuok pagal ją",
+    "Siunčia, atsako ar keičia įvykius tik po tavo palietimo"
+  ],
+  "sharing": {
+    "yours": "tavo Outlook paskyromis",
+    "next": "Outlook paskyros, kurias prijungsi vėliau",
+    "first": "Kai prijungsi savo Outlook paskyras"
+  }
+}

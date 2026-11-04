@@ -12,6 +12,7 @@ approval, and nothing may move money.
 | [Kraken](connectors/kraken) | balances and ledger | API key with Query Funds and Query Ledger Entries |
 | [Nexo](connectors/nexo) | transactions | the person's CSV export |
 | [Crypto wallets](connectors/wallets) | public balances of watched addresses | nothing (public data) |
+| [Outlook](connectors/outlook) | mail, calendars, OneDrive file links; emails, replies and event changes after an approval card | a code typed on Microsoft's sign-in page (device sign-in) |
 | [Asana](connectors/asana) | tasks, projects, inbox; comments and changes after an approval card | personal access token |
 | [Slack](connectors/slack) | channels, DMs, threads, search; posts and reactions after an approval card | user token from a Slack app |
 | [GitHub](connectors/github) | issues, pull requests, code, CI; every write after an approval card | a code typed on github.com (device sign-in) |
@@ -24,7 +25,7 @@ outside it. A community connector lives in its author's repository with the
 same layout and moves in here as it is once approved. The code runs inside a
 runtime nanou owns, which only runs what the manifests declare:
 `runtime/crypto` adds crypto sources up, and `runtime/cli` runs connectors
-with a command of their own (`asana`, `slack`), holding every change for the
+with a command of their own (`asana`, `slack`, `outlook`), holding every change for the
 family's approval card. GitHub runs its own program (`gh`) and brings a
 policy module that classifies each call instead.
 

@@ -118,7 +118,7 @@ pull request.
 | `api_key` | one input per field (secret ones masked), each checked against its `pattern` | checks the patterns again, saves the fields as one JSON file at `install.file`, runs `install.check`, puts the old file back if it fails |
 | `key_file` | a file picker (`accept`); the file must be JSON with `jsonKeys` | the same checks, saves the file as is, runs the check |
 | `file_import` | a file picker (`accept`) | checks the first line holds every `header` word, runs `install.import` with `{file}` |
-| `device` | a code to type on the service's own site (OAuth device sign-in) | nanou's host runs the flow with the app's client id (`codeUrl`, `tokenUrl`, `verifyUrl`, `userUrl`, each on a `network` host) and writes the tokens; GitHub only for now |
+| `device` | a code to type on the service's own site (OAuth device sign-in) | nanou's host runs the flow with the app's client id (`codeUrl`, `tokenUrl`, `verifyUrl`, `userUrl`, each on a `network` host, and `scope` when the service wants the permissions named) and writes one token file per account, `<account>.json` carrying its `owner`, in the connector's folder; GitHub and Outlook for now, as the host needs each service's app |
 
 Everything the person pastes or uploads is sealed in their browser to their
 family's server, so nanou.ai only ever relays ciphertext. `oauth2` is not

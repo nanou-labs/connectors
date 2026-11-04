@@ -1,0 +1,13 @@
+{
+  "blurb": "Pošta, koledar in OneDrive.",
+  "can": [
+    "Ujemi nabiralnik in poišči tisto e-pošto",
+    "Poglej svoj teden in ga načrtuj",
+    "Pošlje, odgovori ali spremeni dogodke šele po tvojem dotiku"
+  ],
+  "sharing": {
+    "yours": "tvojih računih Outlook",
+    "next": "Računi Outlook, ki jih povežeš naslednje",
+    "first": "Ko povežeš svoje račune Outlook"
+  }
+}

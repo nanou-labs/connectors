@@ -1,0 +1,13 @@
+{
+  "blurb": "Levelek, naptár és OneDrive.",
+  "can": [
+    "Zárkózz fel a beérkezett leveleiddel, és találd meg azt az e-mailt",
+    "Lásd a heted, és tervezz köré",
+    "Csak a koppintásod után küld, válaszol vagy módosít eseményt"
+  ],
+  "sharing": {
+    "yours": "az Outlook-fiókjaid",
+    "next": "A következőként csatlakoztatott Outlook-fiókok",
+    "first": "Amikor csatlakoztatod az Outlook-fiókjaidat"
+  }
+}

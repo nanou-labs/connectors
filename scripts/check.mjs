@@ -172,6 +172,8 @@ export function validate(m, dir, text, locales, base = SRC) {
       const host = /^https:\/\/([^/\s]+)\//.exec(a[k] ?? "")?.[1];
       need(host !== undefined && (m.network ?? []).includes(host), `auth.${k}: an https URL on one of the network hosts`);
     }
+    // The permissions the sign-in asks for, when the service wants them named (Microsoft does, GitHub's app has its own).
+    need(a.scope === undefined || (typeof a.scope === "string" && /^[A-Za-z0-9._:/-]+( [A-Za-z0-9._:/-]+)*$/.test(a.scope)), "auth.scope: the scopes the sign-in asks for, separated by spaces");
   }
 
   if (m.accounts !== undefined) {

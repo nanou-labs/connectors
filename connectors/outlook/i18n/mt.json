@@ -1,0 +1,13 @@
+{
+  "blurb": "Posta, kalendarju u OneDrive.",
+  "can": [
+    "Aqbad mal-inbox tiegħek u sib dik l-email",
+    "Ara l-ġimgħa tiegħek u ippjana madwarha",
+    "Jibgħat, iwieġeb jew ibiddel avvenimenti biss wara l-mess tiegħek"
+  ],
+  "sharing": {
+    "yours": "il-kontijiet Outlook tiegħek",
+    "next": "Kontijiet Outlook li tqabbad minn issa",
+    "first": "Meta tqabbad il-kontijiet Outlook tiegħek"
+  }
+}

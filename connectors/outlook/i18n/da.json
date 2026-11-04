@@ -1,0 +1,13 @@
+{
+  "blurb": "Mail, kalender og OneDrive.",
+  "can": [
+    "Kom ajour med din indbakke og find den mail",
+    "Se din uge og planlæg ud fra den",
+    "Sender, svarer eller ændrer begivenheder først efter dit tryk"
+  ],
+  "sharing": {
+    "yours": "dine Outlook-konti",
+    "next": "Outlook-konti, du forbinder fremover",
+    "first": "Når du forbinder dine Outlook-konti"
+  }
+}

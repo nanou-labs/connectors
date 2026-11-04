@@ -1,0 +1,13 @@
+{
+  "blurb": "Mejl, kalender och OneDrive.",
+  "can": [
+    "Kom ikapp med inkorgen och hitta det där mejlet",
+    "Se din vecka och planera runt den",
+    "Skickar, svarar eller ändrar händelser först efter ditt tryck"
+  ],
+  "sharing": {
+    "yours": "dina Outlook-konton",
+    "next": "Outlook-konton du ansluter framöver",
+    "first": "När du ansluter dina Outlook-konton"
+  }
+}

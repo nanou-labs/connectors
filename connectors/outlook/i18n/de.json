@@ -1,0 +1,13 @@
+{
+  "blurb": "Mail, Kalender und OneDrive.",
+  "can": [
+    "Deinen Posteingang nachholen und die eine Mail finden",
+    "Deine Woche sehen und drumherum planen",
+    "Sendet, antwortet oder ändert Termine erst nach deinem Tippen"
+  ],
+  "sharing": {
+    "yours": "deinen Outlook-Konten",
+    "next": "Outlook-Konten, die du als Nächstes verbindest",
+    "first": "Wenn du deine Outlook-Konten verbindest"
+  }
+}

@@ -1,0 +1,211 @@
+{
+  "id": "outlook",
+  "name": "Outlook",
+  "category": "work",
+  "order": 45,
+  "plan": "solo",
+  "color": "#0078D4",
+  "mark": "Ol",
+  "logo": "logo.svg",
+  "tool": {
+    "bin": "outlook",
+    "source": "outlook",
+    "commands": {
+      "me": "read",
+      "folders": "read",
+      "mail": "read",
+      "message": "read",
+      "calendars": "read",
+      "events": "read",
+      "event": "read",
+      "files": "read",
+      "send": "send",
+      "reply": "send",
+      "forward": "send",
+      "event add": "write",
+      "event update": "write",
+      "event delete": "write",
+      "event respond": "send"
+    }
+  },
+  "entry": "src/outlook.mjs",
+  "cards": {
+    "send": {
+      "title": "✉️ Outlook: email",
+      "verb": "Send",
+      "fields": [
+        [
+          "To",
+          "--to"
+        ],
+        [
+          "Cc",
+          "--cc"
+        ],
+        [
+          "Bcc",
+          "--bcc"
+        ],
+        [
+          "Subject",
+          "--subject"
+        ]
+      ],
+      "body": [
+        "--body"
+      ]
+    },
+    "reply": {
+      "title": "✉️ Outlook: reply",
+      "verb": "Send",
+      "fields": [
+        [
+          "To",
+          "--to"
+        ],
+        [
+          "Subject",
+          "--subject"
+        ]
+      ],
+      "body": [
+        "--body"
+      ]
+    },
+    "forward": {
+      "title": "✉️ Outlook: forward",
+      "verb": "Send",
+      "fields": [
+        [
+          "To",
+          "--to"
+        ],
+        [
+          "Subject",
+          "--subject"
+        ]
+      ],
+      "body": [
+        "--body"
+      ]
+    },
+    "event add": {
+      "title": "📅 Outlook: new event",
+      "verb": "Save",
+      "fields": [
+        [
+          "Title",
+          "--subject"
+        ],
+        [
+          "Start",
+          "--start"
+        ],
+        [
+          "End",
+          "--end"
+        ],
+        [
+          "Time zone",
+          "--tz"
+        ],
+        [
+          "Calendar",
+          "--calendar"
+        ],
+        [
+          "Where",
+          "--location"
+        ],
+        [
+          "Guests",
+          "--attendees"
+        ]
+      ],
+      "body": [
+        "--body"
+      ]
+    },
+    "event update": {
+      "title": "📅 Outlook: change event",
+      "verb": "Save",
+      "fields": [
+        [
+          "Event",
+          "--event"
+        ],
+        [
+          "New name",
+          "--subject"
+        ],
+        [
+          "Start",
+          "--start"
+        ],
+        [
+          "End",
+          "--end"
+        ],
+        [
+          "Time zone",
+          "--tz"
+        ],
+        [
+          "Where",
+          "--location"
+        ]
+      ],
+      "body": [
+        "--body"
+      ]
+    },
+    "event delete": {
+      "title": "📅 Outlook: delete event",
+      "fields": [
+        [
+          "Event",
+          "--event"
+        ]
+      ]
+    },
+    "event respond": {
+      "title": "📅 Outlook: answer an invitation",
+      "verb": "Send",
+      "fields": [
+        [
+          "Event",
+          "--event"
+        ],
+        [
+          "Answer",
+          "--answer"
+        ]
+      ],
+      "body": [
+        "--comment"
+      ]
+    }
+  },
+  "auth": {
+    "kind": "device",
+    "codeUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/devicecode",
+    "tokenUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
+    "verifyUrl": "https://login.microsoftonline.com/common/oauth2/deviceauth",
+    "userUrl": "https://graph.microsoft.com/v1.0/me",
+    "scope": "offline_access User.Read Mail.Read Mail.Send Calendars.ReadWrite Files.Read"
+  },
+  "accounts": {
+    "kind": "outlook",
+    "dir": ".config/connectors/outlook",
+    "files": [
+      "*.json#owner"
+    ],
+    "account": "address",
+    "label": "Outlook"
+  },
+  "network": [
+    "graph.microsoft.com",
+    "login.microsoftonline.com"
+  ],
+  "data": "Mail, calendars and OneDrive file names the person's Microsoft account can see, read on request; every email, reply, event change or invitation answer waits for an approval card. Kept in the family's enclave; Microsoft sees what nanou asks for, as with any Outlook app."
+}

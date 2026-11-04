@@ -1,0 +1,13 @@
+{
+  "blurb": "Posta, calendario e OneDrive.",
+  "can": [
+    "Rimettiti in pari con la posta e trova quell'email",
+    "Guarda la tua settimana e organizzati",
+    "Invia, risponde o modifica eventi solo dopo il tuo tocco"
+  ],
+  "sharing": {
+    "yours": "i tuoi account Outlook",
+    "next": "Gli account Outlook che collegherai dopo",
+    "first": "Quando colleghi i tuoi account Outlook"
+  }
+}

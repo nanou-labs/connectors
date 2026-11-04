@@ -1,0 +1,13 @@
+{
+  "blurb": "Mail, agenda en OneDrive.",
+  "can": [
+    "Bijlezen in je inbox en die ene mail vinden",
+    "Je week zien en eromheen plannen",
+    "Verstuurt, antwoordt of wijzigt afspraken pas na jouw tik"
+  ],
+  "sharing": {
+    "yours": "je Outlook-accounts",
+    "next": "Outlook-accounts die je hierna koppelt",
+    "first": "Als je je Outlook-accounts koppelt"
+  }
+}

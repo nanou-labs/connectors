@@ -1,0 +1,13 @@
+{
+  "blurb": "Pasts, kalendārs un OneDrive.",
+  "can": [
+    "Pārskati iesūtni un atrodi to e-pastu",
+    "Apskati savu nedēļu un plāno to",
+    "Sūta, atbild vai maina notikumus tikai pēc tava pieskāriena"
+  ],
+  "sharing": {
+    "yours": "taviem Outlook kontiem",
+    "next": "Outlook konti, ko pievienosi turpmāk",
+    "first": "Kad pievienosi savus Outlook kontus"
+  }
+}

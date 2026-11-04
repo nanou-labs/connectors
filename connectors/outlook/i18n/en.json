@@ -1,0 +1,13 @@
+{
+  "blurb": "Mail, calendar and OneDrive.",
+  "can": [
+    "Catch up on your inbox and find that email",
+    "See your week and plan around it",
+    "Sends, replies or changes events only after your tap"
+  ],
+  "sharing": {
+    "yours": "your Outlook accounts",
+    "next": "Outlook accounts you connect next",
+    "first": "When you connect your Outlook accounts"
+  }
+}

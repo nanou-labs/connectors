@@ -1,0 +1,13 @@
+{
+  "blurb": "Sähköposti, kalenteri ja OneDrive.",
+  "can": [
+    "Käy saapuneet läpi ja löydä se yksi viesti",
+    "Katso viikkosi ja suunnittele sen mukaan",
+    "Lähettää, vastaa tai muuttaa tapahtumia vasta napautuksesi jälkeen"
+  ],
+  "sharing": {
+    "yours": "Outlook-tilisi",
+    "next": "Seuraavaksi yhdistämäsi Outlook-tilit",
+    "first": "Kun yhdistät Outlook-tilisi"
+  }
+}

@@ -83,24 +83,58 @@ async function load(id) {
 }
 
 /**
- * Where each person's secret is saved (install.file, e.g.
- * ".config/connectors/asana/asana-{owner}.json"), and who has one.
+ * Where each account's secret is saved, and who has one. Either one file per
+ * person at the manifest's install.file (".config/connectors/asana/asana-{owner}.json"),
+ * or, for a connector nanou's host signs in (auth.kind "device"), one file per
+ * account in accounts.dir carrying its owner ("*.json#owner", written by the
+ * host), so a person can connect several and picks one with --account.
  * @param {any} m
+ * @returns {{ owners: () => string[], file: (owner: string, account: string | null) => string }}
  */
 function secrets(m) {
   const pattern = m.install?.file;
-  const path = (/** @type {string} */ owner) => join(HOME, pattern.replace("{owner}", owner));
-  const owners = () => {
-    if (!pattern) return [];
-    const dir = dirname(join(HOME, pattern));
-    const [before, after] = basename(pattern).split("{owner}");
-    if (!existsSync(dir)) return [];
-    return readdirSync(dir)
-      .filter((f) => f.startsWith(before) && f.endsWith(after) && f.length > before.length + after.length)
-      .map((f) => f.slice(before.length, f.length - after.length))
-      .sort();
+  if (pattern) {
+    const path = (/** @type {string} */ owner) => join(HOME, pattern.replace("{owner}", owner));
+    const owners = () => {
+      const dir = dirname(join(HOME, pattern));
+      const [before, after] = basename(pattern).split("{owner}");
+      if (!existsSync(dir)) return [];
+      return readdirSync(dir)
+        .filter((f) => f.startsWith(before) && f.endsWith(after) && f.length > before.length + after.length)
+        .map((f) => f.slice(before.length, f.length - after.length))
+        .sort();
+    };
+    return { owners, file: (owner) => path(owner) };
+  }
+  const field = (m.accounts?.files ?? []).map((/** @type {string} */ f) => /^\*\.json#([a-z_]+)$/.exec(f)?.[1]).find(Boolean);
+  if (!field || typeof m.accounts?.dir !== "string") return { owners: () => [], file: () => fail(`${m.name} doesn't say where its accounts are saved`) };
+  const dir = join(HOME, m.accounts.dir);
+  const label = m.accounts.account;
+  /** Every account file: its path, owner and name. */
+  const all = () =>
+    (existsSync(dir) ? readdirSync(dir) : [])
+      .filter((f) => f.endsWith(".json"))
+      .sort()
+      .flatMap((f) => {
+        try {
+          const j = JSON.parse(readFileSync(join(dir, f), "utf8"));
+          const owner = typeof j?.[field] === "string" ? j[field].toLowerCase() : "";
+          return owner ? [{ path: join(dir, f), owner, name: String((label && j[label]) || f.slice(0, -5)) }] : [];
+        } catch {
+          return [];
+        }
+      });
+  return {
+    owners: () => [...new Set(all().map((a) => a.owner))].sort(),
+    file(owner, account) {
+      const mine = all().filter((a) => a.owner === owner);
+      const hit = account ? mine.filter((a) => a.name.toLowerCase() === account.toLowerCase()) : mine;
+      if (hit.length === 1) return hit[0].path;
+      if (mine.length === 0) fail(`${owner} hasn't connected ${m.name}. They connect it on nanou.ai → Connectors → ${m.name}.`);
+      if (account) fail(`${owner} has no ${m.name} account "${account}" (theirs: ${mine.map((a) => a.name).join(", ")})`);
+      return fail(`${owner} connected several ${m.name} accounts (${mine.map((a) => a.name).join(", ")}): say which with --account <name>`);
+    },
   };
-  return { path, owners };
 }
 
 /** The `{help, commands}` text for `<bin> help`. @param {any} m @param {any} mod */
@@ -113,7 +147,7 @@ function usage(m, mod) {
     "",
     ...(mod.help ?? Object.keys(m.tool.commands).map((c) => `  ${m.tool.bin} ${c}`)),
     "",
-    "Add --owner <name> for someone else's account, --readonly to make sure nothing is changed.",
+    `Add --owner <name> for someone else's account${m.install?.file ? "" : ", --account <name> to pick one of theirs"}, --readonly to make sure nothing is changed.`,
   ].join("\n");
 }
 
@@ -137,7 +171,7 @@ async function main() {
   }
 
   // Whose account: --owner, else the only person who connected one.
-  const { path, owners } = secrets(m);
+  const { file, owners } = secrets(m);
   const named = typeof flags.owner === "string" ? flags.owner.toLowerCase() : null;
   if (named !== null && !/^[a-z0-9-]{1,32}$/.test(named)) fail("--owner is a first name, lowercase");
   const owner = () => {
@@ -148,11 +182,16 @@ async function main() {
     fail(`several people connected ${m.name} (${all.join(", ")}): say whose with --owner <name>`);
   };
 
+  const account = typeof flags.account === "string" ? flags.account : null;
+  if (account !== null && !/^[A-Za-z0-9@._+-]{1,254}$/.test(account)) fail("--account is the account's name, as `help` lists it");
+  /** The secret file of the account in use. */
+  const path = () => file(owner(), account);
   const rest = words.slice(command.split(" ").length);
   /** @param {string} name */
   const statePath = (name) => {
     if (!/^[a-z0-9-]{1,40}$/.test(name)) fail(`state name "${name}" must be a short lowercase word`);
-    return join(dirname(path(owner())), "state", `${owner()}-${name}.json`);
+    const stem = m.install?.file ? owner() : basename(path(), ".json");
+    return join(dirname(path()), "state", `${stem}-${name}.json`);
   };
   const ctx = {
     words: rest,
@@ -163,13 +202,13 @@ async function main() {
     /** The saved secret of the account in use (install.file). @returns {Record<string, any>} */
     secret() {
       const who = owner();
-      const file = path(who);
-      if (!existsSync(file)) fail(`${who} hasn't connected ${m.name}. They connect it on nanou.ai → Connectors → ${m.name}.`);
-      return JSON.parse(readFileSync(file, "utf8"));
+      const at = path();
+      if (!existsSync(at)) fail(`${who} hasn't connected ${m.name}. They connect it on nanou.ai → Connectors → ${m.name}.`);
+      return JSON.parse(readFileSync(at, "utf8"));
     },
     /** Replace the saved secret (a refreshed token, a remembered workspace), atomically, owner-only. @param {unknown} value */
     saveSecret(value) {
-      save(path(owner()), value);
+      save(path(), value);
     },
     /**
      * The account's own state next to its secret (a cache, a cursor):

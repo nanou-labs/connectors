@@ -1,0 +1,13 @@
+{
+  "blurb": "Correo, calendario y OneDrive.",
+  "can": [
+    "Ponte al día con tu bandeja de entrada y encuentra ese correo",
+    "Mira tu semana y organízate",
+    "Envía, responde o cambia eventos solo después de tu toque"
+  ],
+  "sharing": {
+    "yours": "tus cuentas de Outlook",
+    "next": "Las cuentas de Outlook que conectes después",
+    "first": "Cuando conectes tus cuentas de Outlook"
+  }
+}

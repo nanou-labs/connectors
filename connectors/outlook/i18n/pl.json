@@ -1,0 +1,13 @@
+{
+  "blurb": "Poczta, kalendarz i OneDrive.",
+  "can": [
+    "Nadrób zaległości w skrzynce i znajdź tego maila",
+    "Zobacz swój tydzień i zaplanuj go",
+    "Wysyła, odpowiada lub zmienia wydarzenia dopiero po twoim dotknięciu"
+  ],
+  "sharing": {
+    "yours": "twoje konta Outlook",
+    "next": "Konta Outlook, które połączysz później",
+    "first": "Gdy połączysz swoje konta Outlook"
+  }
+}

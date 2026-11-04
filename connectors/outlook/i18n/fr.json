@@ -1,0 +1,13 @@
+{
+  "blurb": "Mail, agenda et OneDrive.",
+  "can": [
+    "Rattrape ta boîte de réception et retrouve ce mail",
+    "Vois ta semaine et organise-toi",
+    "Envoie, répond ou modifie des événements seulement après ton toucher"
+  ],
+  "sharing": {
+    "yours": "tes comptes Outlook",
+    "next": "Les comptes Outlook que tu connecteras ensuite",
+    "first": "Quand tu connectes tes comptes Outlook"
+  }
+}

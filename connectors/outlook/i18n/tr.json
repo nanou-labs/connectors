@@ -1,0 +1,13 @@
+{
+  "blurb": "E-posta, takvim ve OneDrive.",
+  "can": [
+    "Gelen kutunu yakala ve o e-postayı bul",
+    "Haftanı gör ve ona göre planla",
+    "Yalnızca sen dokunduktan sonra gönderir, yanıtlar veya etkinlikleri değiştirir"
+  ],
+  "sharing": {
+    "yours": "Outlook hesaplarınla",
+    "next": "Bundan sonra bağlayacağın Outlook hesapları",
+    "first": "Outlook hesaplarını bağladığında"
+  }
+}

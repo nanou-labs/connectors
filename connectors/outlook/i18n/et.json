@@ -1,0 +1,13 @@
+{
+  "blurb": "E-post, kalender ja OneDrive.",
+  "can": [
+    "Vaata postkast üle ja leia see üks kiri",
+    "Vaata oma nädalat ja planeeri selle järgi",
+    "Saadab, vastab või muudab sündmusi alles pärast sinu puudutust"
+  ],
+  "sharing": {
+    "yours": "sinu Outlooki kontod",
+    "next": "Outlooki kontod, mille järgmisena ühendad",
+    "first": "Kui ühendad oma Outlooki kontod"
+  }
+}

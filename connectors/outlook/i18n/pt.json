@@ -1,0 +1,13 @@
+{
+  "blurb": "Email, calendário e OneDrive.",
+  "can": [
+    "Põe a caixa de entrada em dia e encontra aquele email",
+    "Vê a tua semana e organiza-te",
+    "Envia, responde ou muda eventos só depois do teu toque"
+  ],
+  "sharing": {
+    "yours": "as tuas contas Outlook",
+    "next": "Contas Outlook que ligares a seguir",
+    "first": "Quando ligares as tuas contas Outlook"
+  }
+}
