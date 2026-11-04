@@ -35,10 +35,12 @@ runs inside a **runtime** that nanou owns, and there are two shapes:
 | **Verified** | in your own repository; we review one exact commit, pin it and sign it | every family |
 | **Private** | anywhere; the family's owner adds it from a GitHub link | that family only, read-only by default, with a warning |
 
-Official connectors are what you see in this repository today. Every
-connector already runs in nanou's sandbox (docs/sandbox.md): its own
-process, only its own folder, only its declared hosts. Verified submissions
-open next, on top of it.
+Official connectors are what you see in this repository; Verified ones are
+listed in [registry/verified.json](../registry/verified.json). Every
+connector runs in nanou's sandbox ([sandbox.md](sandbox.md)): its own
+process, only its own folder, only its declared hosts. Submissions for
+Official and Verified are open: [review.md](review.md) says how they're
+reviewed.
 
 ### A Private connector
 
@@ -105,14 +107,19 @@ the skill it reads is generated from your manifest, and your output is data.
    The checker also makes sure your code implements exactly the commands
    your manifest declares, that every change has a card, and that the logo
    is safe to show.
-7. **Open a pull request** adding your folder (signed-off commits, see
-   [CONTRIBUTING.md](../CONTRIBUTING.md)), or keep it in your own repository
-   for the Verified track when it opens.
+7. **Submit it** on [nanou.ai/connectors](https://nanou.ai/connectors):
+   the link to a pull request adding your folder here (Official,
+   signed-off commits, see [CONTRIBUTING.md](../CONTRIBUTING.md)), or the
+   link to your own repository (Verified). `node scripts/review.mjs <folder>
+   --level verified` runs the automatic checks first.
 
 ## How we review
 
-Automatic, on every pull request: the manifest schema, the tests, and the
-DCO sign-off. Coming with the Verified track: a network test (only declared
-hosts are reached), dependency and secret scans. Then a person on the nanou
-team reads the code, checks that the `data` sentence is true, and tests it
-with a sandbox account. Each update is reviewed again as a diff.
+Automatic checks on the exact commit you submitted (the manifest and logo,
+the contract, every host the code names, imports, key-shaped strings, the
+tests offline, and for Verified a probe inside nanou's sandbox), then a
+person on the nanou team reads the code and checks that the `data` sentence
+is true, then tests it live with a test account. Each step is a state you
+can follow; a decline always comes with a reason. Accepted Verified commits
+are pinned and signed. Each update is reviewed again as a diff. The details
+are in [review.md](review.md).

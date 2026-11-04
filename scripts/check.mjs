@@ -68,9 +68,9 @@ export function logoProblems(svg) {
 /**
  * Throws with every problem in one manifest (and its texts), or returns it.
  * @param {any} m @param {string} dir @param {Record<string, any>} text  locale → catalog text
- * @param {string[]} locales
+ * @param {string[]} locales @param {string} base  the folder holding <dir> (connectors/ here; elsewhere for a review)
  */
-function validate(m, dir, text, locales) {
+export function validate(m, dir, text, locales, base = SRC) {
   /** @type {string[]} */
   const bad = [];
   const need = (/** @type {boolean} */ ok, /** @type {string} */ msg) => ok || bad.push(msg);
@@ -84,12 +84,12 @@ function validate(m, dir, text, locales) {
   need(typeof m.data === "string" && m.data.length > 0, "data (what it reads and where it is kept) is required");
   need(Array.isArray(m.network) && m.network.every((h) => HOST.test(h) && !/^[0-9.]+$/.test(h)), "network must be a list of host names (not addresses)");
   need(
-    typeof m.entry === "string" && /^src\/[A-Za-z0-9._/-]+\.mjs$/.test(m.entry) && !m.entry.includes("..") && existsSync(join(SRC, dir, m.entry)),
+    typeof m.entry === "string" && /^src\/[A-Za-z0-9._/-]+\.mjs$/.test(m.entry) && !m.entry.includes("..") && existsSync(join(base, dir, m.entry)),
     "entry is the connector's module inside its folder (src/source.mjs)",
   );
 
-  need(m.logo === "logo.svg" && existsSync(join(SRC, dir, "logo.svg")), "logo is logo.svg, in the connector's folder");
-  if (m.logo === "logo.svg" && existsSync(join(SRC, dir, "logo.svg"))) bad.push(...logoProblems(readFileSync(join(SRC, dir, "logo.svg"), "utf8")));
+  need(m.logo === "logo.svg" && existsSync(join(base, dir, "logo.svg")), "logo is logo.svg, in the connector's folder");
+  if (m.logo === "logo.svg" && existsSync(join(base, dir, "logo.svg"))) bad.push(...logoProblems(readFileSync(join(base, dir, "logo.svg"), "utf8")));
 
   const t = m.tool ?? {};
   need(BIN.test(t.bin ?? ""), "tool.bin must be a command name");
@@ -99,7 +99,7 @@ function validate(m, dir, text, locales) {
     // Its own program, too wide to list command by command (gh): a policy module classifies every call.
     need(!(t.bin in RUNTIME_OWN), "tool.bin of a connector that runs its entry can't be a shared runtime's");
     need(
-      typeof t.policy === "string" && /^src\/[A-Za-z0-9._/-]+\.mjs$/.test(t.policy) && !t.policy.includes("..") && existsSync(join(SRC, dir, t.policy)),
+      typeof t.policy === "string" && /^src\/[A-Za-z0-9._/-]+\.mjs$/.test(t.policy) && !t.policy.includes("..") && existsSync(join(base, dir, t.policy)),
       "tool.policy is the module that classifies its commands (src/policy.mjs)",
     );
     need(t.commands === undefined && m.cards === undefined, "a connector with a policy has no tool.commands or cards: its policy says both");
@@ -206,35 +206,19 @@ function validate(m, dir, text, locales) {
   return m;
 }
 
-const locales = LOCALES;
-
-const manifests = readdirSync(SRC, { withFileTypes: true })
-  .filter((d) => d.isDirectory())
-  .map((d) => {
-    const dir = join(SRC, d.name);
-    const m = JSON.parse(readFileSync(join(dir, "connector.json"), "utf8"));
-    /** @type {Record<string, any>} */
-    const text = {};
-    for (const l of locales) {
-      const f = join(dir, "i18n", `${l}.json`);
-      if (existsSync(f)) text[l] = JSON.parse(readFileSync(f, "utf8"));
-    }
-    return { m: validate(m, d.name, text, locales), text };
-  })
-  .sort((x, y) => x.m.order - y.m.order || x.m.id.localeCompare(y.m.id));
-
-// The code does what the manifest declares, no more: the runtime's contract (runtime/<bin>/README.md).
-for (const { m } of manifests) {
+/**
+ * The code does what the manifest declares, no more: the runtime's contract
+ * (runtime/<bin>/README.md). Imports the connector's module (never a whole
+ * program, which would run it). @param {any} m @param {string} base @returns {Promise<string[]>}
+ */
+export async function contractProblems(m, base = SRC) {
   if (m.tool.runs === "entry") {
     // The entry is a whole program (importing it would run it): check the policy instead.
-    const policy = (await import(pathToFileURL(join(SRC, m.id, m.tool.policy)).href)).default ?? {};
-    if (typeof policy.kind !== "function" || typeof policy.card !== "function") {
-      throw new Error(`connectors/${m.id}: ${m.tool.policy} must default-export { kind(args), card(args) }`);
-    }
-    continue;
+    const policy = (await import(pathToFileURL(join(base, m.id, m.tool.policy)).href)).default ?? {};
+    return typeof policy.kind !== "function" || typeof policy.card !== "function" ? [`${m.tool.policy} must default-export { kind(args), card(args) }`] : [];
   }
   const own = RUNTIME_OWN[m.tool.bin];
-  const mod = (await import(pathToFileURL(join(SRC, m.id, m.entry)).href)).default ?? {};
+  const mod = (await import(pathToFileURL(join(base, m.id, m.entry)).href)).default ?? {};
   const declared = Object.keys(m.tool.commands);
   const bad = [];
   if (!own) {
@@ -242,8 +226,7 @@ for (const { m } of manifests) {
     const implemented = Object.keys(mod.commands ?? {});
     for (const c of declared) if (typeof mod.commands?.[c] !== "function") bad.push(`declares "${c}" but ${m.entry} doesn't implement it`);
     for (const c of implemented) if (!declared.includes(c)) bad.push(`${m.entry} implements "${c}", which the manifest doesn't declare`);
-    if (bad.length) throw new Error(`connectors/${m.id}:\n  ${bad.join("\n  ")}`);
-    continue;
+    return bad;
   }
   for (const f of ["accounts", "balances"]) if (typeof mod[f] !== "function") bad.push(`${m.entry} must export ${f}()`);
   if (declared.includes("transactions") !== (typeof mod.transactions === "function")) bad.push("transactions() is implemented exactly when the manifest declares transactions");
@@ -251,81 +234,114 @@ for (const { m } of manifests) {
   const implemented = Object.keys(mod.commands ?? {});
   for (const c of extra) if (typeof mod.commands?.[c] !== "function") bad.push(`declares "${c}" but ${m.entry} doesn't implement it`);
   for (const c of implemented) if (!extra.includes(c)) bad.push(`${m.entry} implements "${c}", which the manifest doesn't declare`);
-  if (bad.length) throw new Error(`connectors/${m.id}:\n  ${bad.join("\n  ")}`);
+  return bad;
 }
 
-const ids = manifests.map((x) => x.m.id);
-if (new Set(ids).size !== ids.length) throw new Error("two connectors share an id");
-const sources = manifests.map((x) => `${x.m.tool.bin}:${x.m.tool.source}`);
-if (new Set(sources).size !== sources.length) throw new Error("two connectors share a tool --source");
-const ownBins = manifests.filter((x) => !(x.m.tool.bin in RUNTIME_OWN)).map((x) => x.m.tool.bin);
-if (new Set(ownBins).size !== ownBins.length) throw new Error("two connectors claim the same command");
-
-// What each tool's commands may do, across every connector that uses it: the strictest wins.
-/** @type {Record<string, { commands: Record<string, string>, sources: Record<string, string | null>, policy?: string }>} */
-const bins = {};
-for (const { m } of manifests) {
-  const b = (bins[m.tool.bin] ??= { commands: {}, sources: {} });
-  // Its policy module classifies every command (nanou's gateway builds it in at a pin bump).
-  if (m.tool.policy) b.policy = `${m.id}/${m.tool.policy}`;
-  for (const [c, e] of Object.entries(m.tool.commands ?? {})) {
-    if (!b.commands[c] || EFFECTS.indexOf(e) > EFFECTS.indexOf(b.commands[c])) b.commands[c] = e;
+/**
+ * One connector folder's manifest and catalog text, read from disk.
+ * @param {string} base @param {string} dir @returns {{ m: any, text: Record<string, any> }}
+ */
+export function readConnector(base, dir) {
+  const m = JSON.parse(readFileSync(join(base, dir, "connector.json"), "utf8"));
+  /** @type {Record<string, any>} */
+  const text = {};
+  for (const l of LOCALES) {
+    const f = join(base, dir, "i18n", `${l}.json`);
+    if (existsSync(f)) text[l] = JSON.parse(readFileSync(f, "utf8"));
   }
-  // A --source without accounts (public wallets) reads nothing private.
-  b.sources[m.tool.source] = m.accounts ? m.accounts.kind : null;
-}
-for (const b of Object.values(bins)) b.commands = Object.fromEntries(Object.entries(b.commands).sort(([x], [y]) => x.localeCompare(y)));
-
-const index = `${JSON.stringify({ generated: "by scripts/check.mjs from connectors/*/connector.json; do not edit", connectors: manifests.map((x) => x.m), bins }, null, 2)}\n`;
-
-// Each runtime's skill: its own part, with every connector's SKILL.md (in catalog order) where it says so.
-/** @type {Record<string, string>} generated file → content */
-const outputs = { [join(SRC, "index.json")]: index };
-const RUNTIMES = join(ROOT, "runtime");
-for (const bin of existsSync(RUNTIMES) ? readdirSync(RUNTIMES) : []) {
-  const template = join(RUNTIMES, bin, "SKILL.md");
-  if (!existsSync(template)) continue;
-  const text = readFileSync(template, "utf8");
-  const name = /^name: (.+)$/m.exec(text)?.[1]?.trim();
-  if (!name || !/^[a-z0-9-]+$/.test(name)) throw new Error(`runtime/${bin}/SKILL.md needs a name in its front matter`);
-  const mine = manifests.filter((x) => x.m.tool.bin === bin);
-  const sections = mine
-    .map((x) => join(SRC, x.m.id, "SKILL.md"))
-    .filter((f) => existsSync(f))
-    .map((f) => readFileSync(f, "utf8").trim())
-    .join("\n\n");
-  const skill = text
-    .replace("{{sources}}", mine.map((x) => x.m.tool.source).join("|"))
-    .replace(/^<!-- connectors:.*-->$/m, sections)
-    // After the front matter, which must stay first.
-    .replace(/^(---\n[\s\S]*?\n---\n)/, `$1\n<!-- Generated by scripts/check.mjs from runtime/${bin}/SKILL.md and connectors/*/SKILL.md; do not edit. -->\n`);
-  outputs[join(ROOT, "skills", name, "SKILL.md")] = skill;
+  return { m, text };
 }
 
-// A connector with its own command brings its whole skill (front matter included).
-for (const { m } of manifests.filter((x) => !(x.m.tool.bin in RUNTIME_OWN))) {
-  const file = join(SRC, m.id, "SKILL.md");
-  if (!existsSync(file)) throw new Error(`connectors/${m.id}: SKILL.md is required (how nanou uses its command)`);
-  const text = readFileSync(file, "utf8");
-  const name = /^---\nname: ([a-z0-9-]+)\n/.exec(text)?.[1];
-  if (!name) throw new Error(`connectors/${m.id}/SKILL.md must start with front matter naming the skill (name: family-${m.id})`);
-  outputs[join(ROOT, "skills", name, "SKILL.md")] = text.replace(
-    /^(---\n[\s\S]*?\n---\n)/,
-    `$1\n<!-- Generated by scripts/check.mjs from connectors/${m.id}/SKILL.md; do not edit. -->\n`,
-  );
-}
+// Run as a script (not when review.mjs imports the rules above).
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main();
 
-const stale = Object.entries(outputs).filter(([f, content]) => (existsSync(f) ? readFileSync(f, "utf8") : "") !== content);
-if (process.argv.includes("--check")) {
-  if (stale.length) {
-    console.error(`out of date: ${stale.map(([f]) => f.slice(ROOT.length + 1)).join(", ")}; run node scripts/check.mjs`);
-    process.exit(1);
+async function main() {
+  const manifests = readdirSync(SRC, { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .map((d) => {
+      const { m, text } = readConnector(SRC, d.name);
+      return { m: validate(m, d.name, text, LOCALES), text };
+    })
+    .sort((x, y) => x.m.order - y.m.order || x.m.id.localeCompare(y.m.id));
+
+  for (const { m } of manifests) {
+    const bad = await contractProblems(m);
+    if (bad.length) throw new Error(`connectors/${m.id}:\n  ${bad.join("\n  ")}`);
   }
-  console.log(`${manifests.length} connectors ok`);
-} else {
-  for (const [f, content] of stale) {
-    mkdirSync(dirname(f), { recursive: true });
-    writeFileSync(f, content);
+
+  const ids = manifests.map((x) => x.m.id);
+  if (new Set(ids).size !== ids.length) throw new Error("two connectors share an id");
+  const sources = manifests.map((x) => `${x.m.tool.bin}:${x.m.tool.source}`);
+  if (new Set(sources).size !== sources.length) throw new Error("two connectors share a tool --source");
+  const ownBins = manifests.filter((x) => !(x.m.tool.bin in RUNTIME_OWN)).map((x) => x.m.tool.bin);
+  if (new Set(ownBins).size !== ownBins.length) throw new Error("two connectors claim the same command");
+
+  // What each tool's commands may do, across every connector that uses it: the strictest wins.
+  /** @type {Record<string, { commands: Record<string, string>, sources: Record<string, string | null>, policy?: string }>} */
+  const bins = {};
+  for (const { m } of manifests) {
+    const b = (bins[m.tool.bin] ??= { commands: {}, sources: {} });
+    // Its policy module classifies every command (nanou's gateway builds it in at a pin bump).
+    if (m.tool.policy) b.policy = `${m.id}/${m.tool.policy}`;
+    for (const [c, e] of Object.entries(m.tool.commands ?? {})) {
+      if (!b.commands[c] || EFFECTS.indexOf(e) > EFFECTS.indexOf(b.commands[c])) b.commands[c] = e;
+    }
+    // A --source without accounts (public wallets) reads nothing private.
+    b.sources[m.tool.source] = m.accounts ? m.accounts.kind : null;
   }
-  console.log(`${manifests.length} connectors ok${stale.length ? `, wrote ${stale.map(([f]) => f.slice(ROOT.length + 1)).join(", ")}` : ""}`);
+  for (const b of Object.values(bins)) b.commands = Object.fromEntries(Object.entries(b.commands).sort(([x], [y]) => x.localeCompare(y)));
+
+  const index = `${JSON.stringify({ generated: "by scripts/check.mjs from connectors/*/connector.json; do not edit", connectors: manifests.map((x) => x.m), bins }, null, 2)}\n`;
+
+  // Each runtime's skill: its own part, with every connector's SKILL.md (in catalog order) where it says so.
+  /** @type {Record<string, string>} generated file → content */
+  const outputs = { [join(SRC, "index.json")]: index };
+  const RUNTIMES = join(ROOT, "runtime");
+  for (const bin of existsSync(RUNTIMES) ? readdirSync(RUNTIMES) : []) {
+    const template = join(RUNTIMES, bin, "SKILL.md");
+    if (!existsSync(template)) continue;
+    const text = readFileSync(template, "utf8");
+    const name = /^name: (.+)$/m.exec(text)?.[1]?.trim();
+    if (!name || !/^[a-z0-9-]+$/.test(name)) throw new Error(`runtime/${bin}/SKILL.md needs a name in its front matter`);
+    const mine = manifests.filter((x) => x.m.tool.bin === bin);
+    const sections = mine
+      .map((x) => join(SRC, x.m.id, "SKILL.md"))
+      .filter((f) => existsSync(f))
+      .map((f) => readFileSync(f, "utf8").trim())
+      .join("\n\n");
+    const skill = text
+      .replace("{{sources}}", mine.map((x) => x.m.tool.source).join("|"))
+      .replace(/^<!-- connectors:.*-->$/m, sections)
+      // After the front matter, which must stay first.
+      .replace(/^(---\n[\s\S]*?\n---\n)/, `$1\n<!-- Generated by scripts/check.mjs from runtime/${bin}/SKILL.md and connectors/*/SKILL.md; do not edit. -->\n`);
+    outputs[join(ROOT, "skills", name, "SKILL.md")] = skill;
+  }
+
+  // A connector with its own command brings its whole skill (front matter included).
+  for (const { m } of manifests.filter((x) => !(x.m.tool.bin in RUNTIME_OWN))) {
+    const file = join(SRC, m.id, "SKILL.md");
+    if (!existsSync(file)) throw new Error(`connectors/${m.id}: SKILL.md is required (how nanou uses its command)`);
+    const text = readFileSync(file, "utf8");
+    const name = /^---\nname: ([a-z0-9-]+)\n/.exec(text)?.[1];
+    if (!name) throw new Error(`connectors/${m.id}/SKILL.md must start with front matter naming the skill (name: family-${m.id})`);
+    outputs[join(ROOT, "skills", name, "SKILL.md")] = text.replace(
+      /^(---\n[\s\S]*?\n---\n)/,
+      `$1\n<!-- Generated by scripts/check.mjs from connectors/${m.id}/SKILL.md; do not edit. -->\n`,
+    );
+  }
+
+  const stale = Object.entries(outputs).filter(([f, content]) => (existsSync(f) ? readFileSync(f, "utf8") : "") !== content);
+  if (process.argv.includes("--check")) {
+    if (stale.length) {
+      console.error(`out of date: ${stale.map(([f]) => f.slice(ROOT.length + 1)).join(", ")}; run node scripts/check.mjs`);
+      process.exit(1);
+    }
+    console.log(`${manifests.length} connectors ok`);
+  } else {
+    for (const [f, content] of stale) {
+      mkdirSync(dirname(f), { recursive: true });
+      writeFileSync(f, content);
+    }
+    console.log(`${manifests.length} connectors ok${stale.length ? `, wrote ${stale.map(([f]) => f.slice(ROOT.length + 1)).join(", ")}` : ""}`);
+  }
 }

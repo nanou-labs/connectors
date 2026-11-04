@@ -11,3 +11,10 @@
 - [ ] Catalog text in all 25 languages (`i18n/`)
 - [ ] `node scripts/check.mjs --check` and `node --test "tests/*.test.mjs" "connectors/*/test/*.test.mjs"` pass
 - [ ] Commits signed off (`git commit -s`)
+
+## Review (filled in by nanou, docs/review.md)
+
+- [ ] Automatic checks passed (CI `review` job)
+- [ ] Code audit: every file read, the `data` sentence is true (note: )
+- [ ] Live test with a test account in the sandbox: each read, each card (note: )
+- [ ] Accepted: merged, listed at the next pin bump

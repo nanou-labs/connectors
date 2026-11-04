@@ -6,7 +6,8 @@
   "type": "module",
   "engines": { "node": ">=22" },
   "scripts": {
-    "check": "node scripts/check.mjs --check",
+    "check": "node scripts/check.mjs --check && node scripts/registry.mjs --check",
+    "review": "node scripts/review.mjs",
     "test": "node --test \"tests/*.test.mjs\" \"connectors/*/test/*.test.mjs\""
   }
 }

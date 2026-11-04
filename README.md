@@ -33,7 +33,9 @@ connectors/<id>/   one connector (connector.json, src/, SKILL.md, test/, i18n/, 
 runtime/crypto/    the crypto runtime and its source contract
 runtime/cli/       the runner for connectors with their own command, and its contract
 scripts/check.mjs  validates everything, builds connectors/index.json and skills/
-docs/              the guide and the manifest spec
+scripts/review.mjs the automatic review of one connector folder (docs/review.md)
+registry/          verified.json: the Verified connectors, each pinned and signed
+docs/              the guide, the manifest spec, the sandbox and the review
 ```
 
 ## Build one
@@ -41,6 +43,8 @@ docs/              the guide and the manifest spec
 - [Build a nanou connector](docs/build-a-connector.md): the three levels
   (Official, Verified, Private), the rules, step by step.
 - [The manifest](docs/manifest.md): every field, effect and setup kind.
+- [How a connector is reviewed](docs/review.md): submitting, the states,
+  the automatic checks and a signed Verified entry.
 - [Contributing](CONTRIBUTING.md) and [security](SECURITY.md).
 
 ```sh

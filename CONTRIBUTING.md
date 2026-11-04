@@ -17,6 +17,13 @@ specified in [docs/manifest.md](docs/manifest.md).
   catalog text in all of them (`i18n/<locale>.json`). A machine draft is fine;
   say so in the pull request and we'll review it.
 
+## Submitting
+
+Paste the link on [nanou.ai/connectors](https://nanou.ai/connectors): a pull
+request here for an Official connector, or your own repository for a
+Verified one. Each submission reviews one commit, through explicit states
+you can follow ([docs/review.md](docs/review.md)).
+
 ## Sign your commits (DCO)
 
 We use the [Developer Certificate of Origin](https://developercertificate.org/)
@@ -34,6 +41,7 @@ CI refuses commits without a `Signed-off-by` line.
 ```sh
 node scripts/check.mjs   # validates every manifest and rebuilds connectors/index.json
 node --test "tests/*.test.mjs" "connectors/*/test/*.test.mjs"       # no network, no credentials
+node scripts/review.mjs connectors/<id>   # the automatic review CI runs on your folder
 ```
 
 Node 22 or newer, no dependencies.

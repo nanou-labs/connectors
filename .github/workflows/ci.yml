@@ -19,6 +19,32 @@ jobs:
         run: node scripts/check.mjs --check
       - name: Tests (recorded responses only, no network, no credentials)
         run: node --test "tests/*.test.mjs" "connectors/*/test/*.test.mjs"
+      - name: Verified registry is well formed
+        run: node scripts/registry.mjs --check
+  review:
+    # The automatic review (docs/review.md) of every connector a pull request adds or changes.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Review each changed connector (files, manifest, logo, contract, hosts, code, secrets, offline tests)
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          status=0
+          for id in $(git diff --name-only "$BASE...$HEAD" -- connectors/ | awk -F/ 'NF > 2 {print $2}' | sort -u); do
+            [ -f "connectors/$id/connector.json" ] || continue
+            echo "== $id"
+            node scripts/review.mjs "connectors/$id" || status=1
+          done
+          exit $status
   dco:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
