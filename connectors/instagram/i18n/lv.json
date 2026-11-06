@@ -1,0 +1,13 @@
+{
+  "blurb": "Ziņas, reels un komentāri.",
+  "can": [
+    "Publicē foto, karuseli vai reel ar tevis apstiprinātu aprakstu",
+    "Izlasi jaunos komentārus un atbildi uz tiem",
+    "Publicē, atbild vai paslēpj komentārus tikai pēc tava pieskāriena"
+  ],
+  "sharing": {
+    "yours": "tavi Instagram konti",
+    "next": "Instagram konti, ko pievienosi vēlāk",
+    "first": "Kad pievieno savus Instagram kontus"
+  }
+}

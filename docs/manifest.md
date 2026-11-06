@@ -119,10 +119,11 @@ pull request.
 | `key_file` | a file picker (`accept`); the file must be JSON with `jsonKeys` | the same checks, saves the file as is, runs the check |
 | `file_import` | a file picker (`accept`) | checks the first line holds every `header` word, runs `install.import` with `{file}` |
 | `device` | a code to type on the service's own site (OAuth device sign-in) | nanou's host runs the flow with the app's client id (`codeUrl`, `tokenUrl`, `verifyUrl`, `userUrl`, each on a `network` host, and `scope` when the service wants the permissions named) and writes one token file per account, `<account>.json` carrying its `owner`, in the connector's folder; GitHub and Outlook for now, as the host needs each service's app |
+| `oauth2` | "Connect" opens the service's own sign-in page (OAuth authorization code) | nanou's host holds the app's id and secret, redeems the one-time code nanou.ai relays (`authUrl`, `tokenUrl`, `userUrl` on `network` hosts; `scope` is all it asks for and all it accepts) and writes one token file per account, `<account>.json` carrying its `owner`, in the connector's folder; the connector renews it there. Instagram for now, as the host needs each service's app and its token rules |
 
 Everything the person pastes or uploads is sealed in their browser to their
-family's server, so nanou.ai only ever relays ciphertext. `oauth2` is not
-generic yet: Coinbase's sign-in (`auth.signIn: true`) is still built into nanou.
+family's server, so nanou.ai only ever relays ciphertext. Coinbase's older
+sign-in (`auth.signIn: true` on a key file) is still built into nanou.
 
 ### Accounts
 
@@ -149,7 +150,7 @@ wallets) reads nothing private, so it isn't limited.
 
 Each locale file is the connector's catalog text on nanou.ai: `blurb`, `can`, `name`
 (only for non-brand names), `upload.label` and `upload.help` (or `howTo` for
-`none`; nothing for `device`), `fields.<id>` labels for an API key, and
+`none`; nothing for `device` or `oauth2`), `fields.<id>` labels for an API key, and
 `sharing.yours` / `sharing.next` / `sharing.first` when its accounts have
 their own sharing kind ("your Asana accounts", "Asana accounts you connect
 next", "When you connect your Asana accounts"). Write informally in every
@@ -171,5 +172,4 @@ or a `network` entry that is an address rather than a host name.
 
 ## Coming next
 
-- A generic `oauth2` sign-in,
-  a `qr` pairing kind, and `runtime: mcp` to wrap existing MCP servers.
+- A `qr` pairing kind, and `runtime: mcp` to wrap existing MCP servers.

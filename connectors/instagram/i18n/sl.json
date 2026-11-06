@@ -1,0 +1,13 @@
+{
+  "blurb": "Objave, reelsi in komentarji.",
+  "can": [
+    "Objavi fotografijo, vrtiljak ali reel z opisom, ki ga odobriš",
+    "Preberi nove komentarje in jim odgovori",
+    "Objavi, odgovori ali skrije komentarje šele po tvojem dotiku"
+  ],
+  "sharing": {
+    "yours": "tvoji računi Instagram",
+    "next": "Računi Instagram, ki jih povežeš naslednje",
+    "first": "Ko povežeš svoje račune Instagram"
+  }
+}

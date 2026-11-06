@@ -1,0 +1,13 @@
+{
+  "blurb": "Posts, reels and comments.",
+  "can": [
+    "Post a photo, carousel or reel with the caption you agree on",
+    "Catch up on new comments and answer them",
+    "Posts, replies or hides comments only after your tap"
+  ],
+  "sharing": {
+    "yours": "your Instagram accounts",
+    "next": "Instagram accounts you connect next",
+    "first": "When you connect your Instagram accounts"
+  }
+}

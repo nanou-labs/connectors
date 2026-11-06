@@ -1,0 +1,13 @@
+{
+  "blurb": "Posty, rolki i komentarze.",
+  "can": [
+    "Opublikuj zdjęcie, karuzelę albo rolkę z opisem, który zatwierdzisz",
+    "Nadrób nowe komentarze i odpowiedz na nie",
+    "Publikuje, odpowiada lub ukrywa komentarze dopiero po twoim dotknięciu"
+  ],
+  "sharing": {
+    "yours": "twoje konta Instagram",
+    "next": "Konta Instagram, które połączysz później",
+    "first": "Gdy połączysz swoje konta Instagram"
+  }
+}

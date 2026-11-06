@@ -1,0 +1,13 @@
+{
+  "blurb": "Postări, reels și comentarii.",
+  "can": [
+    "Postează o fotografie, un carusel sau un reel cu descrierea pe care o aprobi",
+    "Recuperează comentariile noi și răspunde-le",
+    "Postează, răspunde sau ascunde comentarii doar după atingerea ta"
+  ],
+  "sharing": {
+    "yours": "conturile tale Instagram",
+    "next": "Conturile Instagram pe care le conectezi de acum",
+    "first": "Când îți conectezi conturile Instagram"
+  }
+}

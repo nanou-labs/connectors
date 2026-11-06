@@ -1,0 +1,13 @@
+{
+  "blurb": "Príspevky, reels a komentáre.",
+  "can": [
+    "Zverejni fotku, karusel alebo reel s popisom, ktorý schváliš",
+    "Dobehni nové komentáre a odpovedz na ne",
+    "Zverejní, odpovie alebo skryje komentáre až po tvojom ťuknutí"
+  ],
+  "sharing": {
+    "yours": "tvoje účty Instagram",
+    "next": "Účty Instagram, ktoré pripojíš nabudúce",
+    "first": "Keď pripojíš svoje účty Instagram"
+  }
+}

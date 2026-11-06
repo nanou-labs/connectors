@@ -1,0 +1,13 @@
+{
+  "blurb": "Gönderiler, reels ve yorumlar.",
+  "can": [
+    "Onayladığın açıklamayla fotoğraf, kaydırmalı gönderi veya reels paylaş",
+    "Yeni yorumları yakala ve onlara yanıt ver",
+    "Yalnızca sen dokunduktan sonra paylaşır, yanıtlar veya yorumları gizler"
+  ],
+  "sharing": {
+    "yours": "Instagram hesaplarınla",
+    "next": "Bundan sonra bağlayacağın Instagram hesapları",
+    "first": "Instagram hesaplarını bağladığında"
+  }
+}

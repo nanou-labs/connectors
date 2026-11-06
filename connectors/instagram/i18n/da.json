@@ -1,0 +1,13 @@
+{
+  "blurb": "Opslag, reels og kommentarer.",
+  "can": [
+    "Del et foto, en karrusel eller en reel med den tekst, du godkender",
+    "Indhent nye kommentarer og svar på dem",
+    "Deler, svarer eller skjuler kommentarer først efter dit tryk"
+  ],
+  "sharing": {
+    "yours": "dine Instagram-konti",
+    "next": "Instagram-konti, du forbinder næste gang",
+    "first": "Når du forbinder dine Instagram-konti"
+  }
+}

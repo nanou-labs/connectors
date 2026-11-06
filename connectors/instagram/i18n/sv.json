@@ -1,0 +1,13 @@
+{
+  "blurb": "Inlägg, reels och kommentarer.",
+  "can": [
+    "Lägg upp ett foto, en karusell eller en reel med texten du godkänner",
+    "Kom ikapp med nya kommentarer och svara på dem",
+    "Lägger upp, svarar eller döljer kommentarer först efter ditt tryck"
+  ],
+  "sharing": {
+    "yours": "dina Instagram-konton",
+    "next": "Instagram-konton du kopplar härnäst",
+    "first": "När du kopplar dina Instagram-konton"
+  }
+}

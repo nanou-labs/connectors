@@ -1,0 +1,156 @@
+{
+  "id": "instagram",
+  "name": "Instagram",
+  "category": "work",
+  "order": 47,
+  "plan": "solo",
+  "color": "#E1306C",
+  "mark": "Ig",
+  "logo": "logo.svg",
+  "tool": {
+    "bin": "instagram",
+    "source": "instagram",
+    "commands": {
+      "me": "read",
+      "media": "read",
+      "comments": "read",
+      "quota": "read",
+      "post photo": "send",
+      "post carousel": "send",
+      "post reel": "send",
+      "reply": "send",
+      "comment hide": "write",
+      "comment unhide": "write",
+      "comment delete": "write"
+    }
+  },
+  "entry": "src/instagram.mjs",
+  "cards": {
+    "post photo": {
+      "title": "📸 Instagram: new post",
+      "verb": "Post",
+      "fields": [
+        [
+          "Photo",
+          "--url"
+        ]
+      ],
+      "body": [
+        "--caption"
+      ]
+    },
+    "post carousel": {
+      "title": "📸 Instagram: new carousel",
+      "verb": "Post",
+      "fields": [
+        [
+          "Photos",
+          "--urls"
+        ]
+      ],
+      "body": [
+        "--caption"
+      ]
+    },
+    "post reel": {
+      "title": "🎬 Instagram: new reel",
+      "verb": "Post",
+      "fields": [
+        [
+          "Video",
+          "--url"
+        ],
+        [
+          "Cover",
+          "--cover"
+        ],
+        [
+          "In the grid too",
+          "--feed"
+        ]
+      ],
+      "body": [
+        "--caption"
+      ]
+    },
+    "reply": {
+      "title": "💬 Instagram: reply to a comment",
+      "verb": "Post",
+      "fields": [
+        [
+          "To",
+          "--to"
+        ],
+        [
+          "Their comment",
+          "--quote"
+        ]
+      ],
+      "body": [
+        "--text"
+      ]
+    },
+    "comment hide": {
+      "title": "🙈 Instagram: hide a comment",
+      "fields": [
+        [
+          "Comment by",
+          "--from"
+        ],
+        [
+          "Comment",
+          "--quote"
+        ]
+      ]
+    },
+    "comment unhide": {
+      "title": "👀 Instagram: show a hidden comment",
+      "fields": [
+        [
+          "Comment by",
+          "--from"
+        ],
+        [
+          "Comment",
+          "--quote"
+        ]
+      ]
+    },
+    "comment delete": {
+      "title": "🗑️ Instagram: delete a comment",
+      "fields": [
+        [
+          "Comment by",
+          "--from"
+        ],
+        [
+          "Comment",
+          "--quote"
+        ]
+      ]
+    }
+  },
+  "auth": {
+    "kind": "oauth2",
+    "authUrl": "https://www.instagram.com/oauth/authorize",
+    "tokenUrl": "https://api.instagram.com/oauth/access_token",
+    "userUrl": "https://graph.instagram.com/me",
+    "scope": "instagram_business_basic,instagram_business_content_publish,instagram_business_manage_comments"
+  },
+  "accounts": {
+    "kind": "instagram",
+    "dir": ".config/connectors/instagram",
+    "files": [
+      "*.json#owner"
+    ],
+    "account": "username",
+    "label": "Instagram"
+  },
+  "network": [
+    "graph.instagram.com",
+    "api.instagram.com",
+    "www.instagram.com",
+    "relay.nanou.ai"
+  ],
+  "data": "The connected Instagram professional account's profile, posts, reels and their comments, read on request; every post, reply or comment change waits for an approval card. Photos and videos to post reach Instagram through a nanou link that lasts an hour. Kept in the family's enclave; Instagram sees what nanou asks for, as with any Instagram app."
+}

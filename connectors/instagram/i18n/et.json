@@ -1,0 +1,13 @@
+{
+  "blurb": "Postitused, reelsid ja kommentaarid.",
+  "can": [
+    "Postita foto, karussell või reel sinu kinnitatud tekstiga",
+    "Vaata uued kommentaarid üle ja vasta neile",
+    "Postitab, vastab või peidab kommentaare alles pärast sinu puudutust"
+  ],
+  "sharing": {
+    "yours": "sinu Instagrami kontod",
+    "next": "Instagrami kontod, mille järgmisena ühendad",
+    "first": "Kui ühendad oma Instagrami kontod"
+  }
+}

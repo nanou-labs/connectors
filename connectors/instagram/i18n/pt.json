@@ -1,0 +1,13 @@
+{
+  "blurb": "Publicações, reels e comentários.",
+  "can": [
+    "Publica uma foto, um carrossel ou um reel com a legenda que aprovares",
+    "Põe em dia os comentários novos e responde-lhes",
+    "Publica, responde ou oculta comentários só depois do teu toque"
+  ],
+  "sharing": {
+    "yours": "as tuas contas Instagram",
+    "next": "Contas Instagram que ligares a seguir",
+    "first": "Quando ligares as tuas contas Instagram"
+  }
+}

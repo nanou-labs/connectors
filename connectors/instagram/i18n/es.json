@@ -1,0 +1,13 @@
+{
+  "blurb": "Publicaciones, reels y comentarios.",
+  "can": [
+    "Publica una foto, un carrusel o un reel con el texto que apruebes",
+    "Ponte al día con los comentarios nuevos y respóndelos",
+    "Publica, responde u oculta comentarios solo después de tu toque"
+  ],
+  "sharing": {
+    "yours": "tus cuentas de Instagram",
+    "next": "Las cuentas de Instagram que conectes después",
+    "first": "Cuando conectes tus cuentas de Instagram"
+  }
+}

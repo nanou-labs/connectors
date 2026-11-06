@@ -20,7 +20,7 @@ export const LOCALES = ["bg", "cs", "da", "de", "el", "en", "es", "et", "fi", "f
 export const EFFECTS = ["public", "read", "local", "write", "send"];
 const CATEGORIES = { crypto: "Money", work: "Work" };
 const PLANS = ["solo", "family", "plus"];
-const AUTH = ["none", "api_key", "key_file", "file_import", "device"];
+const AUTH = ["none", "api_key", "key_file", "file_import", "device", "oauth2"];
 /** Sharing kinds several connectors share (one line per person: "Crypto: Coinbase, Kraken"); any other kind is the connector's id. */
 const SHARED_KINDS = { crypto: "crypto" };
 const ID = /^[a-z][a-z0-9-]{1,23}$/;
@@ -165,7 +165,8 @@ export function validate(m, dir, text, locales, base = SRC) {
     need(placeholders(i.check, ["owner"]) && i.check[0] === t.bin, "install.check runs the tool to test what was saved");
   }
   if (a.kind === "file_import") need(placeholders(i.import, ["owner", "file"]) && i.import[0] === t.bin, "install.import runs the tool on {file}");
-  if (a.kind !== "none" && a.kind !== "device") need(typeof i.refused === "string", "install.refused is what the person reads when the check fails");
+  const signIn = a.kind === "device" || a.kind === "oauth2";
+  if (a.kind !== "none" && !signIn) need(typeof i.refused === "string", "install.refused is what the person reads when the check fails");
   if (a.kind === "device") {
     // OAuth device sign-in (RFC 8628), run by nanou's host: the person types a code on the service's own site.
     for (const k of ["codeUrl", "tokenUrl", "verifyUrl", "userUrl"]) {
@@ -174,6 +175,15 @@ export function validate(m, dir, text, locales, base = SRC) {
     }
     // The permissions the sign-in asks for, when the service wants them named (Microsoft does, GitHub's app has its own).
     need(a.scope === undefined || (typeof a.scope === "string" && /^[A-Za-z0-9._:/-]+( [A-Za-z0-9._:/-]+)*$/.test(a.scope)), "auth.scope: the scopes the sign-in asks for, separated by spaces");
+  }
+  if (a.kind === "oauth2") {
+    // OAuth sign-in on the service's own page (authorization code), redeemed by nanou's host with nanou's app.
+    for (const k of ["authUrl", "tokenUrl", "userUrl"]) {
+      const host = /^https:\/\/([^/\s]+)\//.exec(a[k] ?? "")?.[1];
+      need(host !== undefined && (m.network ?? []).includes(host), `auth.${k}: an https URL on one of the network hosts`);
+    }
+    // Services separate scopes with spaces or commas (Instagram): the list is what the host asks for, and all it accepts.
+    need(typeof a.scope === "string" && /^[A-Za-z0-9._:/-]+([ ,][A-Za-z0-9._:/-]+)*$/.test(a.scope), "auth.scope: the scopes the sign-in asks for, separated by spaces or commas");
   }
 
   if (m.accounts !== undefined) {
@@ -198,7 +208,7 @@ export function validate(m, dir, text, locales, base = SRC) {
     }
     need(typeof x.blurb === "string" && Array.isArray(x.can) && x.can.length > 0, `i18n/${l}: blurb and can are required`);
     if (a.kind === "none") need(typeof x.howTo === "string", `i18n/${l}: howTo is required when there is nothing to set up`);
-    else if (a.kind !== "device") need(typeof x.upload?.label === "string" && Array.isArray(x.upload?.help), `i18n/${l}: upload.label and upload.help are required`);
+    else if (!signIn) need(typeof x.upload?.label === "string" && Array.isArray(x.upload?.help), `i18n/${l}: upload.label and upload.help are required`);
     if (m.accounts?.kind === m.id) {
       need(["yours", "next", "first"].every((k) => typeof x.sharing?.[k] === "string"), `i18n/${l}: sharing.yours, sharing.next and sharing.first word its sharing setting`);
     }

@@ -1,0 +1,13 @@
+{
+  "blurb": "Publications, reels et commentaires.",
+  "can": [
+    "Publie une photo, un carrousel ou un reel avec la légende que tu valides",
+    "Rattrape les nouveaux commentaires et réponds-y",
+    "Publie, répond ou masque des commentaires seulement après ton toucher"
+  ],
+  "sharing": {
+    "yours": "tes comptes Instagram",
+    "next": "Les comptes Instagram que tu connecteras ensuite",
+    "first": "Quand tu connectes tes comptes Instagram"
+  }
+}
