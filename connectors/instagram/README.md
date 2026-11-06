@@ -23,7 +23,7 @@ the person connects again.
 `instagram_business_manage_comments`. Nothing for messages or insights.
 
 **Posting:** Instagram fetches the media itself from a public HTTPS address.
-A post therefore takes a nanou media link (`https://relay.nanou.ai/v1/media/…`,
+A post therefore takes a nanou media link (`https://relay.nanou.ai/v1/public/…`,
 made by `media-link <file>` in the family's container): an unguessable
 address that serves that one file for an hour, then is deleted (or at once
 with `media-link done`). The command refuses any other address. Photos are

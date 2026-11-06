@@ -23,7 +23,7 @@
 const API = process.env.FAMILY_INSTAGRAM_API ?? "https://graph.instagram.com/v23.0";
 const REFRESH_URL = process.env.FAMILY_INSTAGRAM_REFRESH_URL ?? "https://graph.instagram.com/refresh_access_token";
 /** The only addresses a post may take its media from: nanou's temporary media links. */
-const MEDIA_PREFIX = process.env.FAMILY_INSTAGRAM_MEDIA_PREFIX ?? "https://relay.nanou.ai/v1/media/";
+const MEDIA_PREFIX = process.env.FAMILY_INSTAGRAM_MEDIA_PREFIX ?? "https://relay.nanou.ai/v1/public/";
 const RECONNECT = "Reconnect it on nanou.ai → Connectors → Instagram.";
 const DAY = 86_400;
 /** Renew the token when it has less than this left (and is at least a day old). */

@@ -17,7 +17,7 @@ const CLI = new URL("../../../runtime/cli/cli.mjs", import.meta.url).pathname;
 const UID = "17841400000000001";
 const POST = "18000000000000001";
 const COMMENT = "17900000000000001";
-const LINK = "https://relay.nanou.ai/v1/media/abcdefghijklmnopqrstuv.jpg";
+const LINK = "https://relay.nanou.ai/v1/public/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.jpg";
 const DAY = 86_400;
 
 /** @type {Array<{ verb: string, path: string, query: URLSearchParams, form: URLSearchParams }>} */
