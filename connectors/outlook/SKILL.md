@@ -1,6 +1,6 @@
 ---
 name: family-outlook
-description: "A family member's own Microsoft Outlook (Outlook.com, Hotmail, Microsoft 365): mail, calendars and OneDrive file links. Read freely; every email, reply, forward, event change or invitation answer gets an approval card."
+description: "A family member's own Microsoft Outlook (Outlook.com, Hotmail, Microsoft 365): mail, calendars and OneDrive files. Read freely; every email, reply, forward, event change, invitation answer or file saved to OneDrive gets an approval card."
 metadata: { "openclaw": { "emoji": "✉️", "requires": { "bins": ["outlook"] } } }
 ---
 
@@ -18,6 +18,7 @@ It works like Google mail and calendar (see family-connectors): reads run freely
 - `outlook folders`, `outlook calendars`
 - `outlook events --from 2026-11-04 --days 7 --tz Europe/Madrid` (always pass the family's time zone), `outlook event <id> --tz Europe/Madrid`
 - `outlook files --search 'passport'`, `outlook files --path /Documents/School`: OneDrive names and links (nanou can't open the files themselves)
+- `outlook drive` (add `--path /Documents --depth 3` to look deeper): their OneDrive's folders as a tree, with how many items each holds
 
 ## Sending and changing (one card each)
 
@@ -28,6 +29,14 @@ It works like Google mail and calendar (see family-connectors): reads run freely
 - `outlook event update <id> --event "<its title now>" [--subject "…"] [--start … --end … --tz …] [--location "…"]`
 - `outlook event delete <id> --event "<its title>"` (on their own event with guests, Outlook sends the cancellation)
 - `outlook event respond <id> --event "<its title>" --answer accept|maybe|decline [--comment "…"]` for an invitation they received
+
+## Saving a file to their OneDrive (one card)
+
+When this person uses Outlook and not Google, what you make for them (a document as a PDF, a picture, a table) goes in their OneDrive, so they find it there later; with both connected, Google Drive stays the place unless they say otherwise. Make the file in `~/.nanou/workspace/out/` first, with a clear name ("Trip to Lyon - packing list.pdf"), then:
+
+1. Look at how they keep things: `outlook drive`, and deeper with `--path` where it matters. If they already have a folder for that kind of thing ("School", "Taxes/2025", "Recipes"), use it, even when it's named a little differently or sits deeper.
+2. Only when nothing fits, pick a new folder next to the ones they have, named the way theirs are (same language, same style), and never a "nanou" folder. Several files of one task go together in one folder.
+3. `outlook upload --file "Trip to Lyon - packing list.pdf" --folder "/Documents/Travel"` (the folder is made if missing; `--file` is the file's name in `out/`, never a path). Say in one line where it'll go, give the link once it's saved, and never a path on this side.
 
 `--subject` and `--event` show on the card, and the command checks them against the real message or event: copy them exactly from what you read. Write in the person's voice, short and plain, with the whole text in `--body`. `outlook send --help` and the other `help` calls are free.
 

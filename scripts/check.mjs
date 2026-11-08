@@ -83,6 +83,8 @@ export function validate(m, dir, text, locales, base = SRC) {
   need(typeof m.mark === "string" && m.mark.length > 0 && m.mark.length <= 3, "mark must be 1-3 characters");
   need(typeof m.data === "string" && m.data.length > 0, "data (what it reads and where it is kept) is required");
   need(Array.isArray(m.network) && m.network.every((h) => HOST.test(h) && !/^[0-9.]+$/.test(h)), "network must be a list of host names (not addresses)");
+  // The family's folders a connector may read: only nanou's results, read-only (docs/sandbox.md).
+  need(m.reads === undefined || (Array.isArray(m.reads) && m.reads.length > 0 && m.reads.every((r) => r === "results")), 'reads is ["results"] or left out');
   need(
     typeof m.entry === "string" && /^src\/[A-Za-z0-9._/-]+\.mjs$/.test(m.entry) && !m.entry.includes("..") && existsSync(join(base, dir, m.entry)),
     "entry is the connector's module inside its folder (src/source.mjs)",

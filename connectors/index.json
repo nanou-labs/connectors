@@ -245,7 +245,9 @@
           "event add": "write",
           "event update": "write",
           "event delete": "write",
-          "event respond": "send"
+          "event respond": "send",
+          "drive": "read",
+          "upload": "write"
         }
       },
       "entry": "src/outlook.mjs",
@@ -404,6 +406,20 @@
           "body": [
             "--comment"
           ]
+        },
+        "upload": {
+          "title": "📁 OneDrive: save a file",
+          "verb": "Save",
+          "fields": [
+            [
+              "File",
+              "--file"
+            ],
+            [
+              "Folder",
+              "--folder"
+            ]
+          ]
         }
       },
       "auth": {
@@ -412,7 +428,7 @@
         "tokenUrl": "https://login.microsoftonline.com/common/oauth2/v2.0/token",
         "verifyUrl": "https://login.microsoftonline.com/common/oauth2/deviceauth",
         "userUrl": "https://graph.microsoft.com/v1.0/me",
-        "scope": "offline_access User.Read Mail.Read Mail.Send Calendars.ReadWrite Files.Read"
+        "scope": "offline_access User.Read Mail.Read Mail.Send Calendars.ReadWrite Files.ReadWrite"
       },
       "accounts": {
         "kind": "outlook",
@@ -423,11 +439,14 @@
         "account": "address",
         "label": "Outlook"
       },
+      "reads": [
+        "results"
+      ],
       "network": [
         "graph.microsoft.com",
         "login.microsoftonline.com"
       ],
-      "data": "Mail, calendars and OneDrive file names the person's Microsoft account can see, read on request; every email, reply, event change or invitation answer waits for an approval card. Kept in the family's enclave; Microsoft sees what nanou asks for, as with any Outlook app."
+      "data": "Mail, calendars and OneDrive files the person's Microsoft account can see, read on request; every email, reply, event change, invitation answer or file saved to OneDrive waits for an approval card. Kept in the family's enclave; Microsoft sees what nanou asks for, as with any Outlook app."
     },
     {
       "id": "instagram",
@@ -889,6 +908,7 @@
     "outlook": {
       "commands": {
         "calendars": "read",
+        "drive": "read",
         "event": "read",
         "event add": "write",
         "event delete": "write",
@@ -902,7 +922,8 @@
         "me": "read",
         "message": "read",
         "reply": "send",
-        "send": "send"
+        "send": "send",
+        "upload": "write"
       },
       "sources": {
         "outlook": "outlook"

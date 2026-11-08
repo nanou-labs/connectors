@@ -7,6 +7,7 @@ allowed, and nanou enforces every line of it.
 | A connector can | A connector can't |
 |---|---|
 | read and write its own folder, `~/.config/connectors/<id>/` (its keys, its state) | open anything else: the family's files, other connectors' keys, the assistant's settings, other processes |
+| with `"reads": ["results"]` (Official connectors only), read the files nanou made for the family (`~/.nanou/workspace/out/`), to save one to the family's own storage once its card is approved | change them, or read any other file of the family's: their uploads, notes and memory stay out of reach |
 | reach the hosts in its manifest's `network`, over HTTPS (port 443) | reach any other host, any address by number, or anything private (the enclave's host, other services) |
 | run the commands its manifest declares, with the effect it declares | run a command it doesn't declare, change anything without the family's ✓ on its card, or move money (never declarable) |
 | use `fetch()` as usual | open sockets itself (`net`, `dgram`, raw sockets), resolve names, or use other network modules |

@@ -1,4 +1,4 @@
-// Outlook: a person's Microsoft mail, calendars and OneDrive file list through
+// Outlook: a person's Microsoft mail, calendars and OneDrive files through
 // Microsoft Graph, with the access they gave nanou on Microsoft's own sign-in
 // page (device code, no password and no client secret anywhere). Run by
 // nanou's cli runtime (runtime/cli/README.md) as the `outlook` command: the
@@ -15,11 +15,21 @@
 // on a card, so the command also takes what the card shows (--to, --subject,
 // --event) and checks it against the real message or event before acting:
 // what the family approved is what happens, or nothing does.
+//
+// An upload sends one of nanou's own results (~/.nanou/workspace/out/, the
+// only folder of the family's the jail lets it read, with `reads: results`)
+// into the folder its card names, and never replaces a file already there.
 
 const API = process.env.FAMILY_OUTLOOK_API ?? "https://graph.microsoft.com/v1.0";
 const TOKEN_URL = process.env.FAMILY_OUTLOOK_TOKEN_URL ?? "https://login.microsoftonline.com/common/oauth2/v2.0/token";
 /** What nanou's sign-in asks for (the manifest's auth.scope): the token file's own list wins. */
-const SCOPE = "offline_access User.Read Mail.Read Mail.Send Calendars.ReadWrite Files.Read";
+const SCOPE = "offline_access User.Read Mail.Read Mail.Send Calendars.ReadWrite Files.ReadWrite";
+/** Where nanou keeps what it made for the family: the only files an upload may send. */
+const RESULTS = `${process.env.FAMILY_HOME ?? process.env.HOME ?? "/home/family"}/.nanou/workspace/out`;
+/** Largest upload: Graph takes up to 250 MB in one request, nanou's results are far smaller. */
+const UPLOAD_MAX = 25 * 1024 * 1024;
+/** A OneDrive folder as a card shows it: "/Documents/School", no "..", none of OneDrive's forbidden characters. */
+const DRIVE_PATH = /^\/?(?:[^/:*?"<>|\\]+\/?)*$/;
 const REFRESH_MARGIN_S = 300;
 const RECONNECT = "Reconnect it on nanou.ai → Connectors → Outlook.";
 const EMAIL = /^[^\s@,;<>"]+@[^\s@,;<>"]+\.[^\s@,;<>"]+$/;
@@ -76,7 +86,8 @@ async function token(ctx, force = false) {
  * Call Microsoft Graph. Retries when throttled (429/503, Retry-After) and
  * renews the access once when Graph says it is no longer valid.
  * @param {Ctx} ctx @param {string} method @param {string} path "/me/messages", or a full nextLink on the API
- * @param {{ query?: Record<string, string | number | undefined>, body?: unknown, headers?: Record<string, string> }} [opts]
+ * @param {{ query?: Record<string, string | number | undefined>, body?: unknown, raw?: Uint8Array, headers?: Record<string, string> }} [opts]
+ *   `raw`: bytes sent as they are (an upload), with their own content-type in `headers`
  * @returns {Promise<any>}
  */
 async function graph(ctx, method, path, opts = {}) {
@@ -92,7 +103,7 @@ async function graph(ctx, method, path, opts = {}) {
         ...(opts.body !== undefined ? { "content-type": "application/json" } : {}),
         ...opts.headers,
       },
-      body: opts.body !== undefined ? JSON.stringify(opts.body) : undefined,
+      body: opts.raw ?? (opts.body !== undefined ? JSON.stringify(opts.body) : undefined),
     });
     if (res.status === 429 || res.status === 503) {
       await sleep(Math.min(Number(res.headers.get("retry-after") ?? 2), 30) * 1000);
@@ -317,6 +328,16 @@ async function namedMessage(ctx) {
   return { id, message: m };
 }
 
+/** "Documents/School" for "/Documents/School/", checked; "" for the top. @param {Ctx} ctx @param {string | undefined} text @param {string} flag */
+function drivePath(ctx, text, flag) {
+  const t = String(text ?? "").trim();
+  if (t.includes("..") || !DRIVE_PATH.test(t)) ctx.fail(`${flag} is a OneDrive folder like /Documents/School`);
+  return t.replace(/^\/+|\/+$/g, "");
+}
+
+/** Graph's address of a folder by its path ("" is the top). @param {string} path */
+const folderAt = (path) => (path ? `/me/drive/root:/${path.split("/").map(encodeURIComponent).join("/")}:` : "/me/drive/root");
+
 const same = (/** @type {string[]} */ a, /** @type {string[]} */ b) => a.length === b.length && a.every((x) => b.includes(x));
 
 export default {
@@ -330,7 +351,11 @@ export default {
     "  outlook events [--from YYYY-MM-DD] [--days 7 | --to YYYY-MM-DD] [--calendar <name>] [--search text] [--tz Europe/Madrid]",
     "  outlook event <id> [--tz Europe/Madrid]        one event in full",
     "  outlook files [--search text | --path /Documents] [--limit 30]   OneDrive files and their links",
+    "  outlook drive [--path /Documents] [--depth 2]  OneDrive's folders, as a tree: where a new file fits",
     "Send or change (each one waits for an approval card):",
+    '  outlook upload --file "Week plan.pdf" --folder "/Documents/School"',
+    "      one of nanou's results (by its name in ~/.nanou/workspace/out) as a new file in that folder,",
+    "      made if missing; never over a file already there. Prints its link",
     '  outlook send --to a@x.com[,b@y.com] [--cc …] [--bcc …] --subject "…" --body "…"',
     '  outlook reply <message id> --to <who the reply goes to> [--subject "<its subject>"] --body "…"',
     "      --to is checked: the sender alone replies to them, the sender and everyone else replies to all",
@@ -465,6 +490,74 @@ export default {
         ...(f.parentReference?.path ? { in: String(f.parentReference.path).replace(/^\/drive\/root:?/, "") || "/" } : {}),
         link: f.webUrl,
       }));
+    },
+
+    /**
+     * The folders of their OneDrive, as a tree a few levels deep, with how many
+     * items each holds: what nanou looks at before saving a file, so it goes
+     * where the person keeps that kind of thing.
+     * @param {Ctx} ctx
+     */
+    async drive(ctx) {
+      const top = drivePath(ctx, ctx.flag("path"), "--path");
+      const depth = Math.max(1, Math.min(Number(ctx.flag("depth") ?? 2) || 2, 3));
+      let budget = 200;
+      /** @param {string} path @param {number} level @returns {Promise<any[]>} */
+      const walk = async (path, level) => {
+        if (budget <= 0) return [];
+        const items = await list(ctx, `${folderAt(path)}/children`, { $top: 200, $select: "name,folder,webUrl" }, 200);
+        const folders = items.filter((f) => f.folder).slice(0, budget);
+        budget -= folders.length;
+        const out = [];
+        for (const f of folders) {
+          const at = path ? `${path}/${f.name}` : f.name;
+          const inside = level < depth && f.folder.childCount > 0 ? await walk(at, level + 1) : [];
+          out.push({ path: `/${at}`, items: f.folder.childCount, ...(inside.length ? { folders: inside } : {}) });
+        }
+        return out;
+      };
+      return { path: `/${top}`, folders: await walk(top, 1), ...(budget <= 0 ? { more: "only the first 200 folders: look deeper with --path" } : {}) };
+    },
+
+    /**
+     * One of nanou's results into a OneDrive folder: `--file` names it inside
+     * the results folder ("Week plan.pdf", "school/Trip.pdf"), as its card
+     * shows it. Never over a file already there: Graph picks a new name.
+     * @param {Ctx} ctx
+     */
+    async upload(ctx) {
+      const { readFileSync, realpathSync, statSync } = await import("node:fs");
+      const { basename, join } = await import("node:path");
+      // Connected before OneDrive saving existed: Microsoft has to be asked once more.
+      const scope = String(ctx.secret()?.scope ?? SCOPE);
+      if (!/\bFiles\.ReadWrite\b/.test(scope)) {
+        ctx.fail(`saving to OneDrive needs one more permission from ${ctx.owner()}: reconnect it once on nanou.ai → Connectors → Outlook (Microsoft asks to allow saving files), then try again.`);
+      }
+      const given = String(ctx.flag("file") ?? "").trim();
+      if (!given || given.startsWith("/") || given.split("/").some((p) => p === "" || p === "." || p === "..")) {
+        ctx.fail('--file is one of nanou\'s results by its name, like "Week plan.pdf"');
+      }
+      let results = RESULTS;
+      let real = "";
+      try {
+        results = realpathSync(RESULTS);
+        real = realpathSync(join(results, given));
+      } catch {
+        ctx.fail(`there is no ${given} in nanou's results`);
+      }
+      if (!real.startsWith(`${results}/`)) ctx.fail("only files nanou made can be uploaded");
+      const st = statSync(real);
+      if (!st.isFile()) ctx.fail(`${given} isn't a file`);
+      if (st.size > UPLOAD_MAX) ctx.fail(`${given} is over ${UPLOAD_MAX / 1024 / 1024} MB`);
+      const folder = drivePath(ctx, ctx.flag("folder"), "--folder");
+      const name = basename(real);
+      const target = folder ? `${folder}/${name}` : name;
+      const f = await graph(ctx, "PUT", `/me/drive/root:/${target.split("/").map(encodeURIComponent).join("/")}:/content`, {
+        query: { "@microsoft.graph.conflictBehavior": "rename" },
+        raw: readFileSync(real),
+        headers: { "content-type": "application/octet-stream" },
+      });
+      return { saved: true, name: f.name, folder: `/${folder}`, link: f.webUrl, ...(f.name !== name ? { renamed: `a file named ${name} was already there` } : {}) };
     },
 
     /** @param {Ctx} ctx */

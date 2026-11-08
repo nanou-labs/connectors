@@ -79,6 +79,13 @@ const server = createServer((req, res) => {
     if (at === `/me/events/${EVT}` && req.method === "PATCH") return send(200, { id: EVT, subject: body.subject ?? "Dentist", webLink: "https://outlook.live.com/calendar/1" });
     if (at === `/me/events/${EVT}/accept`) return send(202, undefined);
     if (at === "/me/events") return send(201, { id: "new-1", subject: body.subject, webLink: "https://outlook.live.com/calendar/new-1" });
+    if (at === "/me/drive/root/children") return send(200, { value: [{ name: "Documents", folder: { childCount: 2 }, webUrl: "w" }, { name: "cv.pdf", file: {}, webUrl: "w" }] });
+    if (at === "/me/drive/root:/Documents:/children") return send(200, { value: [{ name: "School", folder: { childCount: 0 }, webUrl: "w" }, { name: "Taxes", folder: { childCount: 4 }, webUrl: "w" }] });
+    if (at === "/me/drive/root:/Documents/Taxes:/children") return send(200, { value: [{ name: "2025", folder: { childCount: 1 }, webUrl: "w" }] });
+    if (at.startsWith("/me/drive/root:/") && at.endsWith(":/content") && req.method === "PUT") {
+      const name = at.slice(0, -":/content".length).split("/").pop();
+      return send(201, { name: name === "taken.pdf" ? "taken 1.pdf" : name, webUrl: `https://onedrive.live.com/${name}` });
+    }
     if (at === "/me/drive/root/search(q='passport')") return send(200, { value: [{ id: "d1", name: "passport.pdf", size: 10, file: { mimeType: "application/pdf" }, webUrl: "https://onedrive.live.com/d1", parentReference: { path: "/drive/root:/Documents" } }] });
     send(404, { error: { code: "ErrorItemNotFound", message: `no ${req.method} ${at}` } });
   });
@@ -91,7 +98,7 @@ const dir = () => join(home, ".config", "connectors", "outlook");
 const account = (address, extra = {}) =>
   writeFileSync(
     join(dir(), `${address}.json`),
-    JSON.stringify({ address, owner: "ana", client_id: "client-123", scope: "offline_access User.Read Mail.Read Mail.Send Calendars.ReadWrite Files.Read", access_token: "at-ana", expires_at: Math.floor(Date.now() / 1000) + 3600, refresh_token: "rt-ana", ...extra }),
+    JSON.stringify({ address, owner: "ana", client_id: "client-123", scope: "offline_access User.Read Mail.Read Mail.Send Calendars.ReadWrite Files.ReadWrite", access_token: "at-ana", expires_at: Math.floor(Date.now() / 1000) + 3600, refresh_token: "rt-ana", ...extra }),
   );
 
 before(async () => {
@@ -166,7 +173,7 @@ test("an expired access is renewed with the refresh token and saved", async () =
   const { code } = await outlook(["me"]);
   assert.equal(code, 0);
   const t = calls.find((c) => c.path === "/token");
-  assert.deepEqual(t?.body, { client_id: "client-123", grant_type: "refresh_token", refresh_token: "rt-ana", scope: "offline_access User.Read Mail.Read Mail.Send Calendars.ReadWrite Files.Read" });
+  assert.deepEqual(t?.body, { client_id: "client-123", grant_type: "refresh_token", refresh_token: "rt-ana", scope: "offline_access User.Read Mail.Read Mail.Send Calendars.ReadWrite Files.ReadWrite" });
   assert.equal(graphCalls()[0].token, "at-ana-2");
   const saved = JSON.parse(readFileSync(join(dir(), "ana@outlook.com.json"), "utf8"));
   assert.equal(saved.access_token, "at-ana-2");
@@ -309,4 +316,54 @@ test("several accounts: --owner picks the person, --account one of theirs", asyn
   assert.equal(one.code, 0, JSON.stringify(one.json));
   assert.match((await outlook(["me", "--owner", "cy"])).json.error, /cy hasn't connected Outlook/);
   assert.match((await outlook(["me", "--owner", "ana", "--account", "zed@x.com"])).json.error, /no Outlook account "zed@x\.com"/);
+});
+
+test("drive shows the OneDrive's folders as a tree, files left out", async () => {
+  const { code, json } = await outlook(["drive", "--depth", "3"]);
+  assert.equal(code, 0, JSON.stringify(json));
+  assert.deepEqual(json, {
+    path: "/",
+    folders: [
+      { path: "/Documents", items: 2, folders: [{ path: "/Documents/School", items: 0 }, { path: "/Documents/Taxes", items: 4, folders: [{ path: "/Documents/Taxes/2025", items: 1 }] }] },
+    ],
+  });
+  assert.equal((await outlook(["drive", "--path", "/Documents/../x"])).code, 1);
+});
+
+test("upload sends one of nanou's results into the folder on its card, only once approved", async () => {
+  const out = join(home, ".nanou", "workspace", "out");
+  mkdirSync(join(out, "school"), { recursive: true });
+  writeFileSync(join(out, "school", "Trip plan.pdf"), "%PDF-1.4 trip");
+  writeFileSync(join(out, "taken.pdf"), "%PDF-1.4");
+  writeFileSync(join(home, ".nanou", "workspace", "MEMORY.md"), "private");
+  const args = ["upload", "--file", "school/Trip plan.pdf", "--folder", "/Documents/School/"];
+  // Not approved: nothing is sent.
+  const held = await outlook(args);
+  assert.equal(held.code, 1);
+  assert.equal(graphCalls().length, 0);
+  const { code, json } = await outlook(args, write);
+  assert.equal(code, 0, JSON.stringify(json));
+  assert.deepEqual(json, { saved: true, name: "Trip plan.pdf", folder: "/Documents/School", link: "https://onedrive.live.com/Trip plan.pdf" });
+  const put = graphCalls().at(-1);
+  assert.equal(put?.verb, "PUT");
+  assert.equal(put?.path, "/v1.0/me/drive/root:/Documents/School/Trip plan.pdf:/content");
+  assert.equal(put?.query.get("@microsoft.graph.conflictBehavior"), "rename");
+  assert.equal(String(put?.body && Object.keys(put.body)[0]).startsWith("%PDF"), true);
+  // A name already there: OneDrive keeps both, and nanou says so.
+  const again = await outlook(["upload", "--file", "taken.pdf", "--folder", "/"], write);
+  assert.equal(again.json.name, "taken 1.pdf");
+  assert.match(again.json.renamed, /already there/);
+  // Only nanou's results: not other workspace files, paths or missing ones.
+  for (const file of ["../MEMORY.md", "/etc/passwd", "nope.pdf", "school"]) {
+    const r = await outlook(["upload", "--file", file, "--folder", "/Documents"], write);
+    assert.equal(r.code, 1, file);
+  }
+  assert.equal((await outlook(["upload", "--file", "taken.pdf", "--folder", "/a/../b"], write)).code, 1);
+  // Connected before saving existed (Files.Read): asked to reconnect once, nothing sent.
+  account("ana@outlook.com", { scope: "offline_access User.Read Mail.Read Mail.Send Calendars.ReadWrite Files.Read" });
+  const before = graphCalls().length;
+  const old = await outlook(["upload", "--file", "taken.pdf", "--folder", "/"], write);
+  assert.equal(old.code, 1);
+  assert.match(JSON.stringify(old.json), /reconnect it once/);
+  assert.equal(graphCalls().length, before);
 });

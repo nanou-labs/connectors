@@ -1,10 +1,10 @@
 # Outlook
 
-A person's own Microsoft mail, calendars and OneDrive file list through
+A person's own Microsoft mail, calendars and OneDrive files through
 Microsoft Graph: Outlook.com, Hotmail and Live accounts, and work or school
 Microsoft 365 accounts. A connector with a command of its own (`outlook`), run
 by `runtime/cli`, like [Slack](../slack). Every email, reply, forward, event
-change or invitation answer waits for an approval card.
+change, invitation answer or file saved to OneDrive waits for an approval card.
 
 A reply, forward or event change names its target by an id, which means
 nothing on a card. So those commands also take what the card shows (`--to`,
@@ -19,8 +19,12 @@ but the one-time code passes through nanou.ai. Access tokens last about an
 hour and the command renews them itself with the refresh token.
 
 **Scopes** (delegated, the narrowest that work): `offline_access User.Read
-Mail.Read Mail.Send Calendars.ReadWrite Files.Read`. No `Mail.ReadWrite`: nanou
+Mail.Read Mail.Send Calendars.ReadWrite Files.ReadWrite`. No `Mail.ReadWrite`: nanou
 can't delete, move or draft mail, only send what a card approved.
+`Files.ReadWrite` is for saving what nanou made into the person's OneDrive
+(`outlook upload`, one card each, never over an existing file); nothing
+deletes, moves or changes their files. Accounts connected with `Files.Read`
+keep working, and are asked to reconnect only when an upload needs it.
 
 **Files:** `~/.config/connectors/outlook/<address>.json`
 (`{ address, owner, client_id, scope, access_token, expires_at, refresh_token, connected_at }`).
@@ -28,7 +32,13 @@ One person may connect several accounts (`--account <address>`).
 
 **Network:** `graph.microsoft.com` and `login.microsoftonline.com` only. So
 OneDrive files are listed with their links, but not downloaded (Microsoft
-serves file contents from other hosts).
+serves file contents from other hosts); an upload goes to Graph itself, in
+one request (up to 25 MB here).
+
+**Reads** `results`: the jail lets it read the files nanou made for the
+family (`~/.nanou/workspace/out/`), read-only, so `upload` can send one. It
+takes the file by its name there (`--file "Week plan.pdf"`), which is what the
+card shows, and refuses anything outside that folder.
 
 **Tests:** `node --test "connectors/outlook/test/*.test.mjs"`, against a local
 stand-in for Graph and Microsoft's token endpoint.
@@ -47,7 +57,7 @@ device code sign-in:
    certificate: don't create one.
 3. API permissions → Add a permission → Microsoft Graph → **Delegated**:
    `offline_access`, `User.Read`, `Mail.Read`, `Mail.Send`,
-   `Calendars.ReadWrite`, `Files.Read`. None of them needs admin consent;
+   `Calendars.ReadWrite`, `Files.ReadWrite`. None of them needs admin consent;
    a work tenant may still require its admin to approve the app.
 4. Branding & properties: the publisher domain (nanou.ai), home page,
    terms and privacy links. Verifying the publisher (Microsoft Partner

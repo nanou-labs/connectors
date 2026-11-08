@@ -49,6 +49,7 @@ skills/<name>/SKILL.md              generated: each runtime's skill with its con
   "accounts": { "kind": "crypto", "dir": ".config/connectors/kraken", "files": ["kraken-{owner}.json"], "label": "Kraken" },
   "binaries": [ ],             // programs it needs, each { name, url, sha256, path }: fetched into bin/<name>, checksum checked
   "network": ["api.kraken.com", "api.coinbase.com"],      // every host it reaches, over HTTPS: enforced (docs/sandbox.md)
+  // "reads": ["results"],     // read nanou's results (files it made for the family) to send one somewhere: Official only (docs/sandbox.md)
   "data": "What it reads and where it is kept."
 }
 ```
@@ -168,7 +169,8 @@ doesn't declare (or declares one it doesn't implement), a `tool.bin` that is
 neither a shared runtime nor the connector's id, a `write`/`send` command
 without a card (or a card on any other command), or a logo that isn't a
 small square SVG of plain shapes, files outside `.config/connectors/<id>/`,
-or a `network` entry that is an address rather than a host name.
+or a `network` entry that is an address rather than a host name, or a
+`reads` other than `["results"]`.
 
 ## Coming next
 
