@@ -17,6 +17,7 @@ approval, and nothing may move money.
 | [Slack](connectors/slack) | channels, DMs, threads, search; posts and reactions after an approval card | user token from a Slack app |
 | [GitHub](connectors/github) | issues, pull requests, code, CI; every write after an approval card | a code typed on github.com (device sign-in) |
 | [Instagram](connectors/instagram) | a professional account's posts, reels and comments; posts, reels, replies and comment changes after an approval card | sign in on Instagram's own page (Creator or Business account) |
+| [Telegram](linked/telegram) | chats, groups and channels from a local copy; messages and files after an approval card | link nanou as a device: scan a QR code in Telegram, or type the code it sends |
 
 ## How it's laid out
 
@@ -32,10 +33,17 @@ with a command of their own (`asana`, `slack`, `outlook`, `instagram`), holding 
 family's approval card. GitHub runs its own program (`gh`) and brings a
 policy module that classifies each call instead.
 
+Telegram is a **linked device** (nanou is one more device of the person's
+account) with a sync sidecar, which no manifest can describe yet, so it lives
+in `linked/telegram/`: its whole runtime (`tgcli`, Go), the commands and the
+gateway's rules for them, until the `qr` sign-in kind lets it move to
+`connectors/` ([why](linked/telegram/README.md#why-not-a-manifest-yet)).
+
 ```
 connectors/<id>/   one connector (connector.json, src/, SKILL.md, test/, i18n/, README.md)
 runtime/crypto/    the crypto runtime and its source contract
 runtime/cli/       the runner for connectors with their own command, and its contract
+linked/<id>/       a linked-device connector nanou's gateway runs with built-in rules (Telegram's tgcli)
 scripts/check.mjs  validates everything, builds connectors/index.json and skills/
 scripts/review.mjs the automatic review of one connector folder (docs/review.md)
 registry/          verified.json: the Verified connectors, each pinned and signed
@@ -56,7 +64,8 @@ node scripts/check.mjs   # validate the manifests, rebuild connectors/index.json
 node --test "tests/*.test.mjs" "connectors/*/test/*.test.mjs"       # recorded responses only: no network, no credentials
 ```
 
-Node 22 or newer, no dependencies.
+Node 22 or newer, no dependencies. Telegram's `tgcli` is Go:
+`cd linked/telegram/tgcli && go test ./...` (Go 1.25+).
 
 ## License
 

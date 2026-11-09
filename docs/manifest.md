@@ -174,4 +174,6 @@ or a `network` entry that is an address rather than a host name, or a
 
 ## Coming next
 
-- A `qr` pairing kind, and `runtime: mcp` to wrap existing MCP servers.
+- A `qr` pairing kind for linked devices (WhatsApp, and Telegram, whose
+  runtime waits in [linked/telegram](../linked/telegram)), and `runtime: mcp`
+  to wrap existing MCP servers.
